@@ -1,6 +1,181 @@
 {% extends "base.html" %}
 
+{% block page_title %}Dashboard{% endblock %}
+
 {% block content %}
-<h1>Dashboard</h1>
-<p>Welcome to the CareHome Handover System.</p>
+<!-- Welcome Section -->
+<div class="card gradient-card text-white mb-4 shadow-sm border-0">
+    <div class="card-body p-4">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h3 class="mb-2">Welcome back, {{ user.first_name|default:user.username }}! 👋</h3>
+                <p class="mb-0 opacity-90">You're logged in as <strong>{{ user.role }}</strong></p>
+            </div>
+            <div class="text-end">
+                {% if user.is_approved %}
+                <span class="badge bg-success p-2"><i class="fas fa-check-circle me-2"></i>Approved</span>
+                {% else %}
+                <span class="badge bg-warning p-2"><i class="fas fa-clock me-2"></i>Pending Approval</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-primary">
+                <i class="fas fa-users"></i>
+            </div>
+            <div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Total Residents</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-info">
+                <i class="fas fa-file-medical"></i>
+            </div>
+            <div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Care Plans</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Open Incidents</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-success">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Pending Handovers</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Features -->
+<div class="row">
+    <!-- Residents Card -->
+    <div class="col-lg-6 mb-4">
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon bg-primary">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h5 class="mb-0">Residents</h5>
+            </div>
+            <p class="text-muted mt-3 mb-4">Manage resident information, medical history, and personal profiles.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check text-info"></i> View resident profiles</li>
+                <li><i class="fas fa-check text-info"></i> Edit resident information</li>
+                <li><i class="fas fa-check text-info"></i> Track medical records</li>
+                <li><i class="fas fa-check text-info"></i> View contact information</li>
+            </ul>
+            <a href="#" class="btn btn-primary btn-sm mt-4">
+                <i class="fas fa-arrow-right me-2"></i>View Residents
+            </a>
+        </div>
+    </div>
+
+    <!-- Care Plans Card -->
+    <div class="col-lg-6 mb-4">
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon bg-info">
+                    <i class="fas fa-file-medical"></i>
+                </div>
+                <h5 class="mb-0">Care Plans</h5>
+            </div>
+            <p class="text-muted mt-3 mb-4">Create, manage, and monitor care plans for each resident.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check text-info"></i> Create new care plans</li>
+                <li><i class="fas fa-check text-info"></i> Track care objectives</li>
+                <li><i class="fas fa-check text-info"></i> Monitor progress</li>
+                <li><i class="fas fa-check text-info"></i> Generate reports</li>
+            </ul>
+            <a href="#" class="btn btn-info btn-sm mt-4">
+                <i class="fas fa-arrow-right me-2"></i>View Care Plans
+            </a>
+        </div>
+    </div>
+
+    <!-- Incidents Card -->
+    <div class="col-lg-6 mb-4">
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon bg-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h5 class="mb-0">Incidents</h5>
+            </div>
+            <p class="text-muted mt-3 mb-4">Report and track incidents in a secure, organized manner.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check text-info"></i> Report new incidents</li>
+                <li><i class="fas fa-check text-info"></i> Track incident status</li>
+                <li><i class="fas fa-check text-info"></i> Add follow-up notes</li>
+                <li><i class="fas fa-check text-info"></i> Generate incident reports</li>
+            </ul>
+            <a href="#" class="btn btn-warning btn-sm mt-4">
+                <i class="fas fa-arrow-right me-2"></i>View Incidents
+            </a>
+        </div>
+    </div>
+
+    <!-- Handovers Card -->
+    <div class="col-lg-6 mb-4">
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon bg-success">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h5 class="mb-0">Handovers</h5>
+            </div>
+            <p class="text-muted mt-3 mb-4">Communicate shift updates and important information between teams.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check text-info"></i> Create shift handovers</li>
+                <li><i class="fas fa-check text-info"></i> View handover history</li>
+                <li><i class="fas fa-check text-info"></i> Share important updates</li>
+                <li><i class="fas fa-check text-info"></i> Track handover completions</li>
+            </ul>
+            <a href="#" class="btn btn-success btn-sm mt-4">
+                <i class="fas fa-arrow-right me-2"></i>View Handovers
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Audit Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon bg-secondary">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h5 class="mb-0">Audit Log</h5>
+            </div>
+            <p class="text-muted mt-3 mb-4">View system activity and audit trail for compliance and security.</p>
+            <a href="#" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-right me-2"></i>View Audit Log
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
