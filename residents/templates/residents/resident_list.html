@@ -3,6 +3,16 @@
 {% block page_title %}Residents{% endblock %}
 
 {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Residents</h4>
+
+    {% if user.role == "MANAGER" %}
+    <a href="{% url 'residents:create' %}" class="btn btn-primary btn-sm">
+        <i class="fas fa-user-plus me-2"></i>Add Resident
+    </a>
+    {% endif %}
+</div>
+
 <div class="feature-card">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
