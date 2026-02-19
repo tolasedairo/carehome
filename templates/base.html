@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white rounded-2 mb-2" href="#">
+                    <a class="nav-link text-white rounded-2 mb-2" href="{% url 'incidents:list' %}">
                         <i class="fas fa-exclamation-triangle me-2"></i>Incidents
                     </a>
                 </li>
@@ -95,6 +95,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-warning rounded-2 mb-2" href="/admin/">
                         <i class="fas fa-cog me-2"></i>Admin Panel
+                    </a>
+                </li>
+                {% endif %}
+                {% if user.role == "MANAGER" %}
+                <li class="nav-item">
+                    <a class="nav-link text-info rounded-2 mb-2" href="{% url 'accounts:pending-users' %}">
+                        <i class="fas fa-user-clock me-2"></i>Pending Approvals
                     </a>
                 </li>
                 {% endif %}

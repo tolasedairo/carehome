@@ -1,13 +1,15 @@
-from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 from accounts.decorators import approval_required
 from .models import Incident
 from .forms import IncidentForm
 
 # Create your views here.
+
+
 @method_decorator([login_required, approval_required], name='dispatch')
 class IncidentListView(ListView):
     model = Incident
@@ -53,7 +55,19 @@ class IncidentListView(ListView):
         context['selected_type'] = self.request.GET.get('incident_type', '')
         context['selected_status'] = self.request.GET.get('status', '')
         context['incident_types'] = Incident.INCIDENT_TYPE_CHOICES
+        
+        # Add quick stats
+        all_incidents = Incident.objects.all()
+        context['total_incidents'] = all_incidents.count()
+        context['open_incidents'] = all_incidents.filter(
+            is_resolved=False
+        ).count()
+        context['resolved_incidents'] = all_incidents.filter(
+            is_resolved=True
+        ).count()
+        
         return context
+
 
 @method_decorator([login_required, approval_required], name='dispatch')
 class IncidentCreateView(CreateView):
@@ -72,7 +86,12 @@ class IncidentCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
+        messages.success(
+            self.request,
+            'Incident report has been created successfully.'
+        )
         return super().form_valid(form)
+
 
 @method_decorator([login_required, approval_required], name='dispatch')
 class IncidentDetailView(DetailView):
@@ -85,3 +104,10 @@ class IncidentUpdateView(UpdateView):
     form_class = IncidentForm
     template_name = 'incidents/incident_form.html'
     success_url = reverse_lazy('incidents:list')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            'Incident report has been updated successfully.'
+        )
+        return super().form_valid(form)

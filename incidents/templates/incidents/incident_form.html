@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">{% if object %}Edit Incident{% else %}New Incident{% endif %}</h4>
+<div class="mb-3">
     <a href="{% url 'incidents:list' %}" class="btn btn-secondary btn-sm">
         <i class="fas fa-arrow-left me-2"></i>Back to Incidents
     </a>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">{% if object %}Edit Incident{% else %}New Incident{% endif %}</h4>
 </div>
 
 <div class="feature-card">
@@ -57,8 +60,11 @@
 
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary">
-                    {% if object %}Update{% else %}Create{% endif %} Incident
+                    <i class="fas fa-save me-2"></i>{% if object %}Update{% else %}Create{% endif %} Incident
                 </button>
+                <a href="{% url 'incidents:list' %}" class="btn btn-secondary ms-2">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
             </div>
         </div>
     </form>
