@@ -170,6 +170,9 @@ ACCOUNT_FORMS = {
 ACCOUNT_LOGIN_REDIRECT_URL = 'dashboard:home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
+# Custom logout configuration
+ACCOUNT_LOG_LOGOUT_AUTOMATICALLY = True
+
 # Cloudinary Configuration
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),

@@ -99,7 +99,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link text-danger rounded-2" href="/accounts/logout/">
+                    <a class="nav-link text-danger rounded-2" href="{% url 'account_logout' %}">
                         <i class="fas fa-sign-out-alt me-2"></i>Logout
                     </a>
                 </li>
@@ -107,12 +107,12 @@
             {% else %}
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link text-info rounded-2 mb-2" href="/accounts/login/">
+                    <a class="nav-link text-info rounded-2 mb-2" href="{% url 'account_login' %}">
                         <i class="fas fa-sign-in-alt me-2"></i>Login
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-success rounded-2" href="/accounts/signup/">
+                    <a class="nav-link text-success rounded-2" href="{% url 'account_signup' %}">
                         <i class="fas fa-user-plus me-2"></i>Sign Up
                     </a>
                 </li>
