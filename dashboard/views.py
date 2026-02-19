@@ -4,6 +4,7 @@ from django.utils import timezone
 from datetime import timedelta
 from residents.models import Resident
 from incidents.models import Incident
+from handovers.models import Handover
 from accounts.models import CustomUser
 from accounts.decorators import approval_required
 
@@ -12,7 +13,7 @@ from accounts.decorators import approval_required
 @approval_required
 def home(request):
     """
-    Dashboard with resident and incident statistics.
+    Dashboard with resident, incident, and handover statistics.
     """
     # Calculate resident statistics
     total_residents = Resident.objects.count()
@@ -40,6 +41,19 @@ def home(request):
         'resident', 'created_by'
     ).order_by('-created_at')[:5]
 
+    # Calculate handover statistics
+    total_handovers = Handover.objects.count()
+    pending_handovers = Handover.objects.filter(is_completed=False).count()
+    completed_handovers = Handover.objects.filter(is_completed=True).count()
+    recent_handovers_count = Handover.objects.filter(
+        created_at__gte=last_week
+    ).count()
+
+    # Get list of 5 most recent handovers
+    recent_handovers_list = Handover.objects.select_related(
+        'resident', 'created_by'
+    ).order_by('-created_at')[:5]
+
     # Manager-only: Get pending user approvals
     pending_users_count = 0
     pending_users_list = []
@@ -63,6 +77,11 @@ def home(request):
         'resolved_incidents': resolved_incidents,
         'recent_incidents_count': recent_incidents_count,
         'recent_incidents_list': recent_incidents_list,
+        'total_handovers': total_handovers,
+        'pending_handovers': pending_handovers,
+        'completed_handovers': completed_handovers,
+        'recent_handovers_count': recent_handovers_count,
+        'recent_handovers_list': recent_handovers_list,
         'pending_users_count': pending_users_count,
         'pending_users_list': pending_users_list,
     }

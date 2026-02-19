@@ -118,6 +118,54 @@
         </div>
     </div>
 </div>
+
+<!-- Handover Stats Row -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #2d7a7a;">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ total_handovers }}</div>
+                <div class="stat-label">Total Handovers</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card {% if pending_handovers > 0 %}border-warning{% else %}border-secondary{% endif %}">
+            <div class="stat-icon {% if pending_handovers > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
+                <i class="fas fa-hourglass-end"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ pending_handovers }}</div>
+                <div class="stat-label">Pending Handovers</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-success">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ completed_handovers }}</div>
+                <div class="stat-label">Completed Handovers</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-info">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ recent_handovers_count }}</div>
+                <div class="stat-label">New Handovers (7d)</div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 
 <!-- Recent Residents Table -->
@@ -257,6 +305,99 @@
                 <p>No incidents reported yet.</p>
                 <a href="{% url 'incidents:create' %}" class="btn btn-warning btn-sm">
                     <i class="fas fa-plus me-2"></i>Report First Incident
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Recent Handovers Table -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="feature-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0"><i class="fas fa-clipboard-check me-2" style="color: #2d7a7a;"></i>Recent Handovers</h5>
+                <a href="{% url 'handovers:list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            
+            {% if recent_handovers_list %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Title</th>
+                            <th>Resident</th>
+                            <th>Shift</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for handover in recent_handovers_list %}
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">
+                                    {{ handover.title }}
+                                </div>
+                            </td>
+                            <td>
+                                {% if handover.resident %}
+                                <a href="{% url 'residents:detail' handover.resident.pk %}" class="text-decoration-none">
+                                    {{ handover.resident }}
+                                </a>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary px-2 py-1">
+                                    {{ handover.get_shift_display }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if handover.priority == 'URGENT' %}
+                                <span class="badge bg-danger px-3 py-2">{{ handover.get_priority_display }}</span>
+                                {% elif handover.priority == 'HIGH' %}
+                                <span class="badge bg-warning px-3 py-2">{{ handover.get_priority_display }}</span>
+                                {% elif handover.priority == 'NORMAL' %}
+                                <span class="badge bg-info px-3 py-2">{{ handover.get_priority_display }}</span>
+                                {% else %}
+                                <span class="badge bg-secondary px-3 py-2">{{ handover.get_priority_display }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if handover.is_completed %}
+                                <span class="badge bg-success px-3 py-2">Completed</span>
+                                {% else %}
+                                <span class="badge bg-warning px-3 py-2">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ handover.created_by }}</td>
+                            <td>
+                                <small class="text-muted">
+                                    {{ handover.created_at|date:"M d, Y H:i" }}
+                                </small>
+                            </td>
+                            <td class="text-end">
+                                <a href="{% url 'handovers:detail' handover.pk %}" class="btn btn-sm btn-outline-primary" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-4 text-muted">
+                <i class="fas fa-clipboard fa-3x mb-3 opacity-50"></i>
+                <p>No handovers created yet.</p>
+                <a href="{% url 'handovers:create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus me-2"></i>Create First Handover
                 </a>
             </div>
             {% endif %}
