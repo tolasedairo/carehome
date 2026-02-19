@@ -46,6 +46,30 @@
             </div>
         </div>
     </div>
+    {% if user.role == "MANAGER" %}
+    <div class="col-md-3 mb-3">
+        <div class="stat-card {% if pending_users_count > 0 %}border-warning{% else %}border-secondary{% endif %}">
+            <div class="stat-icon {% if pending_users_count > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
+                <i class="fas fa-hourglass-half"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ pending_users_count }}</div>
+                <div class="stat-label">Pending Approvals</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-info">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ recent_residents }}</div>
+                <div class="stat-label">New (Last 7 Days)</div>
+            </div>
+        </div>
+    </div>
+    {% else %}
     <div class="col-md-3 mb-3">
         <div class="stat-card">
             <div class="stat-icon bg-secondary">
@@ -68,6 +92,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 
 <!-- Recent Residents Table -->
@@ -142,6 +167,75 @@
         </div>
     </div>
 </div>
+
+<!-- Pending User Approvals (Managers Only) -->
+{% if user.role == "MANAGER" and pending_users_count > 0 %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="feature-card border-warning">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div style="width: 40px; height: 40px; background: #ffc107; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-hourglass-half text-white" style="font-size: 18px;"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Pending User Approvals</h5>
+                        <small class="text-muted">{{ pending_users_count }} user{{ pending_users_count|pluralize }} awaiting approval</small>
+                    </div>
+                </div>
+                <a href="{% url 'accounts:pending-users' %}" class="btn btn-sm btn-warning">
+                    <i class="fas fa-arrow-right me-2"></i>View All
+                </a>
+            </div>
+
+            {% if pending_users_list %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Signup Date</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_pending in pending_users_list %}
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">
+                                    {{ user_pending.get_full_name|default:user_pending.username }}
+                                </div>
+                            </td>
+                            <td>
+                                <small>{{ user_pending.email }}</small>
+                            </td>
+                            <td>
+                                <span class="badge bg-info px-2 py-1">
+                                    {{ user_pending.get_role_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    {{ user_pending.date_joined|date:"M d, Y" }}
+                                </small>
+                            </td>
+                            <td class="text-end">
+                                <a href="{% url 'accounts:approve-user' user_pending.id %}" class="btn btn-sm btn-success btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <!-- Main Features -->
 <div class="row">
