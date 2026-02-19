@@ -30,42 +30,115 @@
                 <i class="fas fa-users"></i>
             </div>
             <div>
-                <div class="stat-number">0</div>
+                <div class="stat-number">{{ total_residents }}</div>
                 <div class="stat-label">Total Residents</div>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
         <div class="stat-card">
-            <div class="stat-icon bg-info">
-                <i class="fas fa-file-medical"></i>
-            </div>
-            <div>
-                <div class="stat-number">0</div>
-                <div class="stat-label">Care Plans</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-warning">
-                <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <div>
-                <div class="stat-number">0</div>
-                <div class="stat-label">Open Incidents</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
             <div class="stat-icon bg-success">
-                <i class="fas fa-clipboard-list"></i>
+                <i class="fas fa-user-check"></i>
             </div>
             <div>
-                <div class="stat-number">0</div>
-                <div class="stat-label">Pending Handovers</div>
+                <div class="stat-number">{{ active_residents }}</div>
+                <div class="stat-label">Active Residents</div>
             </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-secondary">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ archived_residents }}</div>
+                <div class="stat-label">Archived Residents</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-info">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ recent_residents }}</div>
+                <div class="stat-label">New (Last 7 Days)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Residents Table -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="feature-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0"><i class="fas fa-clock me-2 text-primary"></i>Recent Residents</h5>
+                <a href="{% url 'residents:list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            
+            {% if recent_list %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Room</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Added On</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resident in recent_list %}
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">
+                                    {{ resident.first_name }} {{ resident.last_name }}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary px-3 py-2">
+                                    {{ resident.room_number }}
+                                </span>
+                            </td>
+                            <td>{{ resident.get_gender_display }}</td>
+                            <td>{{ resident.date_of_birth|date:"M d, Y" }}</td>
+                            <td>
+                                <small class="text-muted">
+                                    {{ resident.created_at|date:"M d, Y" }}
+                                </small>
+                            </td>
+                            <td>
+                                {% if resident.is_active %}
+                                <span class="badge bg-success px-3 py-2">Active</span>
+                                {% else %}
+                                <span class="badge bg-danger px-3 py-2">Archived</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end">
+                                <a href="{% url 'residents:detail' resident.pk %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-4 text-muted">
+                <i class="fas fa-user-plus fa-3x mb-3 opacity-50"></i>
+                <p>No residents added yet.</p>
+                <a href="{% url 'residents:create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus me-2"></i>Add First Resident
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
