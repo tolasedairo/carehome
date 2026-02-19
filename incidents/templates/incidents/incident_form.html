@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+{% if object %}Edit Incident{% else %}New Incident{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">{% if object %}Edit Incident{% else %}New Incident{% endif %}</h4>
+    <a href="{% url 'incidents:list' %}" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left me-2"></i>Back to Incidents
+    </a>
+</div>
+
+<div class="feature-card">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="id_resident" class="form-label">Resident</label>
+                {{ form.resident }}
+                {% if form.resident.errors %}
+                <div class="text-danger small">{{ form.resident.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <label for="id_handover" class="form-label">Handover</label>
+                {{ form.handover }}
+                {% if form.handover.errors %}
+                <div class="text-danger small">{{ form.handover.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <label for="id_incident_type" class="form-label">Incident Type <span class="text-danger">*</span></label>
+                {{ form.incident_type }}
+                {% if form.incident_type.errors %}
+                <div class="text-danger small">{{ form.incident_type.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-12">
+                <label for="id_description" class="form-label">Description <span class="text-danger">*</span></label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                <div class="text-danger small">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                    {{ form.is_resolved }}
+                    <label class="form-check-label" for="id_is_resolved">Mark as Resolved</label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">
+                    {% if object %}Update{% else %}Create{% endif %} Incident
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
