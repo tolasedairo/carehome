@@ -1,11 +1,14 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from .models import Resident
 from .forms import ResidentForm
+from django.core.paginator import Paginator
 
+# Create your views here.
+# This code defines views for managing residents in the care home application.
 
 @method_decorator(login_required, name='dispatch')
 class ResidentListView(ListView):
@@ -18,7 +21,7 @@ class ResidentListView(ListView):
     def get_queryset(self):
         return Resident.objects.filter(is_active=True)
 
-
+# Manager-only views for archived residents and resident management
 @method_decorator(login_required, name='dispatch')
 class ArchivedResidentListView(ListView):
     """Display all archived (inactive) residents - Manager only"""
@@ -49,7 +52,8 @@ class ResidentCreateView(CreateView):
             return redirect('residents:list')
         return super().dispatch(request, *args, **kwargs)
 
-
+# Detail and Update views are accessible to all logged-in users, 
+# but only managers can edit or archive residents.
 @method_decorator(login_required, name='dispatch')
 class ResidentDetailView(DetailView):
     """Display detailed information about a resident"""
@@ -57,7 +61,7 @@ class ResidentDetailView(DetailView):
     template_name = 'residents/resident_detail.html'
     context_object_name = 'resident'
 
-
+# Only managers can edit or archive residents, but anyone can view details
 @method_decorator(login_required, name='dispatch')
 class ResidentUpdateView(UpdateView):
     """Allow managers to edit resident information"""
@@ -71,7 +75,7 @@ class ResidentUpdateView(UpdateView):
             return redirect('residents:list')
         return super().dispatch(request, *args, **kwargs)
 
-
+# These functions handle archiving and unarchiving residents, which is only allowed for managers.
 @login_required
 def archive_resident(request, pk):
     """Archive a resident (mark as inactive)"""
@@ -83,7 +87,7 @@ def archive_resident(request, pk):
     resident.save()
     return redirect('residents:detail', pk=pk)
 
-
+# This function allows managers to restore an archived resident by marking them as active again.
 @login_required
 def unarchive_resident(request, pk):
     """Restore an archived resident (mark as active)"""
@@ -95,3 +99,13 @@ def unarchive_resident(request, pk):
     resident.save()
     return redirect('residents:detail', pk=pk)
 
+
+
+def resident_list(request):
+    residents = Resident.objects.filter(is_active=True).order_by('last_name')
+    
+    paginator = Paginator(residents, 10)  # 10 residents per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'residents/resident_list.html', {'residents': page_obj})
