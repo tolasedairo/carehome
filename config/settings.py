@@ -56,6 +56,9 @@ INSTALLED_APPS = [
     'incidents',
     'dashboard',
     'audit',
+    # Cloud storage
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 SITE_ID = 1
@@ -153,3 +156,11 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 ACCOUNT_LOGIN_METHODS = {'username'}
 ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
+# Cloudinary Configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

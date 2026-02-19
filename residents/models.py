@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -18,8 +19,10 @@ class Resident(models.Model):
     room_number = models.CharField(max_length=20)
     emergency_contact_name = models.CharField(max_length=150)
     emergency_contact_phone = models.CharField(max_length=20)
-
     medical_notes = models.TextField(blank=True)
+
+    # **New field for profile picture**
+    profile_picture = CloudinaryField('image', blank=True, null=True)
 
     # Professional fields
     created_by = models.ForeignKey(
@@ -31,7 +34,6 @@ class Resident(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

@@ -1,10 +1,10 @@
 from django.urls import path
 from . import views
 
-app_name = "residents"
+app_name = 'residents'
 
 urlpatterns = [
-    path("", views.resident_list, name="list"),
-    path("create/", views.resident_create, name="create"),
-
+    path('', views.ResidentListView.as_view(), name='list'),
+    path('create/', views.ResidentCreateView.as_view(), name='create'),
+    path('<int:pk>/', views.ResidentDetailView.as_view(), name='detail'),  # Detail page
 ]

@@ -11,11 +11,15 @@ class ResidentForm(forms.ModelForm):
     class Meta:
         model = Resident
         fields = [
-            "first_name",
-            "last_name",
-            "room_number",
-            "gender",
-            "date_of_birth",
+            'first_name', 
+            'last_name', 
+            'date_of_birth', 
+            'gender',
+            'room_number', 
+            'emergency_contact_name', 
+            'emergency_contact_phone',
+            'medical_notes', 
+            'profile_picture'
         ]
         widgets = {
             "date_of_birth": forms.DateInput(attrs={"type": "date"}),

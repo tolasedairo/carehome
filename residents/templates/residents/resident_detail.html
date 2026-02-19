@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block page_title %}Resident Detail{% endblock %}
+
+{% block content %}
+<div class="feature-card">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            {% if resident.profile_picture %}
+                <img src="{{ resident.profile_picture.url }}" class="rounded-circle mb-3" width="150" height="150" alt="Profile Picture">
+            {% else %}
+                <div class="avatar-placeholder rounded-circle mb-3 mx-auto">
+                    {{ resident.first_name|first }}{{ resident.last_name|first }}
+                </div>
+            {% endif %}
+            <h4 class="fw-bold">{{ resident.first_name }} {{ resident.last_name }}</h4>
+            <small class="text-muted">{{ resident.get_gender_display }}</small>
+        </div>
+
+        <div class="col-md-8">
+            <h5 class="mb-3">Resident Information</h5>
+            <table class="table table-borderless">
+                <tr>
+                    <th>Room:</th>
+                    <td>{{ resident.room_number }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth:</th>
+                    <td>{{ resident.date_of_birth|date:"M d, Y" }}</td>
+                </tr>
+                <tr>
+                    <th>Emergency Contact:</th>
+                    <td>{{ resident.emergency_contact_name }} ({{ resident.emergency_contact_phone }})</td>
+                </tr>
+                <tr>
+                    <th>Medical Notes:</th>
+                    <td>{{ resident.medical_notes|linebreaks }}</td>
+                </tr>
+                <tr>
+                    <th>Status:</th>
+                    <td><span class="badge bg-success">Active</span></td>
+                </tr>
+            </table>
+
+            <h5 class="mt-4 mb-3">Actions</h5>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-edit me-2"></i>Edit</a>
+                {% if user.role == "MANAGER" %}
+                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-ban me-2"></i>Archive</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
