@@ -1,19 +1,17 @@
 from django.shortcuts import render
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta
 from residents.models import Resident
+from accounts.decorators import approval_required
 
 
 @login_required
+@approval_required
 def home(request):
     """
     Dashboard with resident statistics.
     """
-    if not request.user.is_approved:
-        messages.warning(request, "Your account is pending approval.")
-    
     # Calculate resident statistics
     total_residents = Resident.objects.count()
     active_residents = Resident.objects.filter(is_active=True).count()

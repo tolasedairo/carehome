@@ -1,6 +1,5 @@
 from functools import wraps
 from django.shortcuts import redirect
-from django.urls import reverse
 
 
 def approval_required(view_func):
