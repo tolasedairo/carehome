@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
+from django.db.models import Q
 from .models import Resident
 from .forms import ResidentForm
 from django.core.paginator import Paginator
@@ -19,7 +20,22 @@ class ResidentListView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return Resident.objects.filter(is_active=True)
+        # Start with all residents, filter by status later
+        status = self.request.GET.get('status', '')
+        
+        if status == 'archived':
+            queryset = Resident.objects.filter(is_active=False)
+        else:
+            queryset = Resident.objects.filter(is_active=True)
+        
+        # Search by name
+        search_query = self.request.GET.get('q', '')
+        if search_query:
+            queryset = queryset.filter(
+                Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query)
+            )
+        
+        return queryset
 
 # Manager-only views for archived residents and resident management
 @method_decorator(login_required, name='dispatch')
