@@ -31,14 +31,9 @@
             {% endif %}
         </div>
         <div class="col-md-6">
-            <strong>Handover:</strong> {{ object.handover|default:"-" }}
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-6">
             <strong>Type:</strong> {{ object.get_incident_type_display }}
         </div>
+    </div>
         <div class="col-md-6">
             <strong>Created By:</strong> {{ object.created_by }}
         </div>

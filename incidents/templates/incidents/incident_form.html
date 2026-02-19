@@ -28,14 +28,6 @@
             </div>
 
             <div class="col-md-6">
-                <label for="id_handover" class="form-label">Handover</label>
-                {{ form.handover }}
-                {% if form.handover.errors %}
-                <div class="text-danger small">{{ form.handover.errors }}</div>
-                {% endif %}
-            </div>
-
-            <div class="col-md-6">
                 <label for="id_incident_type" class="form-label">Incident Type <span class="text-danger">*</span></label>
                 {{ form.incident_type }}
                 {% if form.incident_type.errors %}
