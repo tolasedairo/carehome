@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+{% if object %}Edit Handover{% else %}New Handover{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'handovers:list' %}" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left me-2"></i>Back to Handovers
+    </a>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">{% if object %}Edit Handover{% else %}New Handover{% endif %}</h4>
+</div>
+
+<div class="feature-card">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label for="id_title" class="form-label">Title <span class="text-danger">*</span></label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                <div class="text-danger small">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <label for="id_resident" class="form-label">Resident (Optional)</label>
+                {{ form.resident }}
+                {% if form.resident.errors %}
+                <div class="text-danger small">{{ form.resident.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                <label for="id_shift" class="form-label">Shift <span class="text-danger">*</span></label>
+                {{ form.shift }}
+                {% if form.shift.errors %}
+                <div class="text-danger small">{{ form.shift.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                <label for="id_priority" class="form-label">Priority</label>
+                {{ form.priority }}
+                {% if form.priority.errors %}
+                <div class="text-danger small">{{ form.priority.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label d-block">Status</label>
+                <div class="form-check">
+                    {{ form.is_completed }}
+                    <label class="form-check-label" for="id_is_completed">
+                        Mark as Completed
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="id_notes" class="form-label">Notes <span class="text-danger">*</span></label>
+                {{ form.notes }}
+                {% if form.notes.errors %}
+                <div class="text-danger small">{{ form.notes.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>{% if object %}Update{% else %}Create{% endif %} Handover
+                </button>
+                <a href="{% url 'handovers:list' %}" class="btn btn-secondary ms-2">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+{% endblock %}

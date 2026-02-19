@@ -2,13 +2,20 @@ from django.db import models
 from django.conf import settings
 from residents.models import Resident
 
-# Create your models here.
+
 class Handover(models.Model):
 
     SHIFT_CHOICES = (
         ('MORNING', 'Morning'),
         ('AFTERNOON', 'Afternoon'),
         ('NIGHT', 'Night'),
+    )
+
+    PRIORITY_CHOICES = (
+        ('LOW', 'Low'),
+        ('NORMAL', 'Normal'),
+        ('HIGH', 'High'),
+        ('URGENT', 'Urgent'),
     )
 
     title = models.CharField(max_length=200)
@@ -21,7 +28,13 @@ class Handover(models.Model):
     )
 
     shift = models.CharField(max_length=20, choices=SHIFT_CHOICES)
+    priority = models.CharField(
+        max_length=20,
+        choices=PRIORITY_CHOICES,
+        default='NORMAL'
+    )
     notes = models.TextField()
+    is_completed = models.BooleanField(default=False)
 
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -31,6 +44,7 @@ class Handover(models.Model):
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.title} - {self.shift}"
