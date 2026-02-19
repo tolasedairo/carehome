@@ -1,24 +1,17 @@
 {% extends "base.html" %}
 
-{% block page_title %}Residents{% endblock %}
+{% block page_title %}Archived Residents{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">Residents</h4>
-
-    <div class="d-flex gap-2">
-        {% if user.role == "MANAGER" %}
-        <a href="{% url 'residents:archived' %}" class="btn btn-outline-secondary btn-sm">
-            <i class="fas fa-archive me-2"></i>Archived
+    <div class="d-flex align-items-center gap-3">
+        <a href="{% url 'residents:list' %}" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left me-2"></i>Back to Active Residents
         </a>
-        <a href="{% url 'residents:create' %}" class="btn btn-primary btn-sm">
-            <i class="fas fa-user-plus me-2"></i>Add Resident
-        </a>
-        {% else %}
-        <a href="{% url 'residents:archived' %}" class="btn btn-outline-secondary btn-sm">
-            <i class="fas fa-archive me-2"></i>Archived
-        </a>
-        {% endif %}
+        <div>
+            <h4 class="mb-0">Archived Residents</h4>
+            <small class="text-muted">View and restore archived residents</small>
+        </div>
     </div>
 </div>
 
@@ -54,8 +47,8 @@
                         <span class="dob-short">{{ resident.date_of_birth|date:"m/d/Y" }}</span>
                     </td>
                     <td>
-                        <span class="badge bg-success px-3 py-2">
-                            Active
+                        <span class="badge bg-danger px-3 py-2">
+                            Archived
                         </span>
                     </td>
                     <td class="text-end">
@@ -65,12 +58,8 @@
                             </a>
 
                             {% if user.role == "MANAGER" %}
-                            <a href="#" class="btn btn-sm btn-outline-info">
-                                <i class="fas fa-edit"></i>
-                            </a>
-
-                            <a href="#" class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-ban"></i>
+                            <a href="{% url 'residents:unarchive' resident.pk %}" class="btn btn-sm btn-outline-success">
+                                <i class="fas fa-undo"></i>
                             </a>
                             {% endif %}
                         </div>
@@ -79,7 +68,7 @@
                 {% empty %}
                 <tr>
                     <td colspan="6" class="text-center py-4 text-muted">
-                        No residents found.
+                        No archived residents found.
                     </td>
                 </tr>
                 {% endfor %}
