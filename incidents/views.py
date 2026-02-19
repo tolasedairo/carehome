@@ -62,6 +62,14 @@ class IncidentCreateView(CreateView):
     template_name = 'incidents/incident_form.html'
     success_url = reverse_lazy('incidents:list')
 
+    def get_initial(self):
+        initial = super().get_initial()
+        # Pre-select resident if provided in query params
+        resident_id = self.request.GET.get('resident')
+        if resident_id:
+            initial['resident'] = resident_id
+        return initial
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         return super().form_valid(form)

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from .models import Resident
 from .forms import ResidentForm
@@ -37,6 +37,12 @@ class ResidentListView(ListView):
                 Q(first_name__icontains=search_query) |
                 Q(last_name__icontains=search_query)
             )
+
+        # Annotate with incident counts
+        queryset = queryset.annotate(
+            incident_count=Count('incidents'),
+            open_incident_count=Count('incidents', filter=Q(incidents__is_resolved=False))
+        )
 
         return queryset
 
@@ -81,6 +87,18 @@ class ResidentDetailView(DetailView):
     model = Resident
     template_name = 'residents/resident_detail.html'
     context_object_name = 'resident'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get incidents related to this resident
+        context['incidents'] = self.object.incidents.select_related(
+            'created_by'
+        ).order_by('-created_at')[:10]
+        context['incident_count'] = self.object.incidents.count()
+        context['open_incident_count'] = self.object.incidents.filter(
+            is_resolved=False
+        ).count()
+        return context
 
 
 # Only managers can edit or archive residents, but anyone can view details

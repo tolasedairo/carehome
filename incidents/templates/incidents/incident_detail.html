@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block page_title %}Incident Detail{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Incident Detail</h4>
+    <a href="{% url 'incidents:list' %}" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left me-2"></i>Back to Incidents
+    </a>
+</div>
+
+<div class="feature-card">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Resident:</strong> 
+            {% if object.resident %}
+                <a href="{% url 'residents:detail' object.resident.pk %}" class="text-decoration-none">
+                    {{ object.resident }}
+                </a>
+            {% else %}
+                -
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <strong>Handover:</strong> {{ object.handover|default:"-" }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Type:</strong> {{ object.get_incident_type_display }}
+        </div>
+        <div class="col-md-6">
+            <strong>Created By:</strong> {{ object.created_by }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Created At:</strong> {{ object.created_at|date:"M d, Y H:i" }}
+        </div>
+        <div class="col-md-6">
+            <strong>Status:</strong>
+            {% if object.is_resolved %}
+                <span class="badge bg-success">Resolved</span>
+            {% else %}
+                <span class="badge bg-warning">Open</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <strong>Description:</strong>
+            <p class="mt-2">{{ object.description }}</p>
+        </div>
+    </div>
+
+    {% if user.role == "MANAGER" %}
+    <div class="text-end">
+        <a href="{% url 'incidents:edit' object.pk %}" class="btn btn-info btn-sm">
+            <i class="fas fa-edit me-2"></i>Edit
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

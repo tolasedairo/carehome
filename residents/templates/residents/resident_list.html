@@ -46,6 +46,7 @@
                     <th>Room</th>
                     <th>Gender</th>
                     <th>Date of Birth</th>
+                    <th>Incidents</th>
                     <th>Status</th>
                     <th class="text-end">Actions</th>
                 </tr>
@@ -57,6 +58,12 @@
                     <td><span class="badge bg-secondary px-3 py-2">{{ resident.room_number }}</span></td>
                     <td>{{ resident.get_gender_display }}</td>
                     <td>{{ resident.date_of_birth|date:"M d, Y" }}</td>
+                    <td>
+                        <span class="badge bg-info px-2 py-1">{{ resident.incident_count }}</span>
+                        {% if resident.open_incident_count > 0 %}
+                        <span class="badge bg-warning px-2 py-1" title="Open incidents">{{ resident.open_incident_count }} open</span>
+                        {% endif %}
+                    </td>
                     <td><span class="badge bg-success px-3 py-2">Active</span></td>
                     <td class="text-end">
                         <div class="btn-group">
@@ -76,7 +83,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="text-center py-4 text-muted">No residents found.</td>
+                    <td colspan="7" class="text-center py-4 text-muted">No residents found.</td>
                 </tr>
                 {% endfor %}
             </tbody>

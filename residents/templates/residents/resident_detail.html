@@ -75,4 +75,85 @@
         </div>
     </div>
 </div>
+
+<!-- Incidents Section -->
+<div class="feature-card mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="mb-1"><i class="fas fa-exclamation-triangle me-2 text-warning"></i>Incident Reports</h5>
+            <small class="text-muted">
+                {{ incident_count }} total incident{{ incident_count|pluralize }}
+                {% if open_incident_count > 0 %}
+                <span class="badge bg-warning ms-2">{{ open_incident_count }} open</span>
+                {% endif %}
+            </small>
+        </div>
+        <a href="{% url 'incidents:create' %}?resident={{ resident.id }}" class="btn btn-warning btn-sm">
+            <i class="fas fa-plus me-2"></i>Report Incident
+        </a>
+    </div>
+
+    {% if incidents %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Created By</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for incident in incidents %}
+                <tr>
+                    <td>
+                        <span class="badge bg-secondary px-2 py-1">
+                            {{ incident.get_incident_type_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{ incident.description|truncatewords:15 }}
+                        </div>
+                    </td>
+                    <td>{{ incident.created_by }}</td>
+                    <td>
+                        <small class="text-muted">
+                            {{ incident.created_at|date:"M d, Y H:i" }}
+                        </small>
+                    </td>
+                    <td>
+                        {% if incident.is_resolved %}
+                        <span class="badge bg-success px-3 py-2">Resolved</span>
+                        {% else %}
+                        <span class="badge bg-warning px-3 py-2">Open</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <a href="{% url 'incidents:detail' incident.pk %}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if incident_count > 10 %}
+    <div class="text-center mt-3">
+        <a href="{% url 'incidents:list' %}?resident={{ resident.id }}" class="btn btn-sm btn-outline-primary">
+            View All {{ incident_count }} Incidents
+        </a>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="text-center py-4 text-muted">
+        <i class="fas fa-exclamation-triangle fa-3x mb-3 opacity-50"></i>
+        <p>No incidents reported for this resident yet.</p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
