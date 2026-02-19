@@ -153,9 +153,22 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-ACCOUNT_LOGIN_METHODS = {'username'}
-ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
+ACCOUNT_UNIQUE_EMAIL = True
+
+# Allauth Template Overrides
+ACCOUNT_FORMS = {
+    'login': 'accounts.forms.CustomLoginForm',
+    'signup': 'accounts.forms.CustomSignupForm',
+}
+
+# Redirect unapproved users to pending page
+ACCOUNT_LOGIN_REDIRECT_URL = 'dashboard:home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
 # Cloudinary Configuration
 CLOUDINARY_STORAGE = {

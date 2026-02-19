@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CareHome Management System</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Auth CSS -->
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body class="auth-body">
+    <div class="container-fluid h-100">
+        <div class="row h-100 g-0">
+            <!-- Left Side - Brand & Features (Hidden on Mobile) -->
+            <div class="col-lg-6 auth-left-side d-none d-lg-block">
+                <div class="auth-brand">
+                    <div class="brand-logo mb-4">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h1>CareHome Management</h1>
+                    <p class="brand-tagline">Compassionate care, smarter management</p>
+                </div>
+
+                <div class="auth-features mt-5">
+                    <h4 class="text-white mb-4">Why Choose Us?</h4>
+                    <ul class="features-list">
+                        <li>
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h6>Resident Management</h6>
+                                <p>Keep comprehensive profiles and medical records in one place</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <h6>Secure & Compliant</h6>
+                                <p>Enterprise-grade security for sensitive care information</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h6>Real-Time Updates</h6>
+                                <p>Instant handovers and communication between staff</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h6>Better Outcomes</h6>
+                                <p>Audit trails and care planning for improved resident care</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="col-lg-6 auth-right-side d-flex align-items-center justify-content-center p-4">
+                <div class="auth-form-container">
+                    <div class="auth-form-header mb-4">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your account to continue</p>
+                    </div>
+
+                    <!-- Error Messages -->
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>Login Failed</strong>
+                        {% for error in form.non_field_errors %}
+                        <div>{{ error }}</div>
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" class="auth-form">
+                        {% csrf_token %}
+
+                        <!-- Email/Username Field -->
+                        <div class="form-group mb-3">
+                            <label for="id_login" class="form-label">
+                                <i class="fas fa-envelope me-2"></i>Email or Username
+                            </label>
+                            {{ form.login }}
+                            {% if form.login.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.login.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group mb-3">
+                            <label for="id_password" class="form-label">
+                                <i class="fas fa-lock me-2"></i>Password
+                            </label>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.password.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-check mb-4">
+                            {{ form.remember }}
+                            <label class="form-check-label" for="id_remember">
+                                Keep me signed in
+                            </label>
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" class="btn btn-login w-100 mb-3">
+                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                        </button>
+
+                        <!-- Forgot Password Link -->
+                        <div class="text-center mb-4">
+                            <a href="{% url 'account_reset_password' %}" class="auth-link-secondary">
+                                <i class="fas fa-question-circle me-1"></i>Forgot your password?
+                            </a>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="auth-divider mb-4">
+                            <span>New User?</span>
+                        </div>
+
+                        <!-- Sign Up Link -->
+                        <a href="{% url 'account_signup' %}" class="btn btn-signup w-100">
+                            <i class="fas fa-user-plus me-2"></i>Create an Account
+                        </a>
+                    </form>
+
+                    <!-- Footer Info -->
+                    <div class="auth-footer mt-4">
+                        <p class="text-muted text-center">
+                            <i class="fas fa-lock me-1"></i>
+                            Your information is secure and encrypted
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
