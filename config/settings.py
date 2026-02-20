@@ -193,3 +193,6 @@ CSRF_COOKIE_SECURE = os.getenv('CSRF_COOKIE_SECURE', 'True').lower() == 'true'
 CSRF_TRUSTED_ORIGINS = [
     origin for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if origin
 ]
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
