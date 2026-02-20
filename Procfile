@@ -1,1 +1,1 @@
-web: gunicorn carehome.wsgi
+web: gunicorn config.wsgi:application
