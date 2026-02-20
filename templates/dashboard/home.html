@@ -6,10 +6,10 @@
 <!-- Welcome Section -->
 <div class="card gradient-card text-white mb-4 shadow-sm border-0">
     <div class="card-body p-4">
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div>
                 <h3 class="mb-2">Welcome back, {{ user.first_name|default:user.username }}! 👋</h3>
-                <p class="mb-0 opacity-90">You're logged in as <strong>{{ user.role }}</strong></p>
+                <p class="mb-0 opacity-90">You're logged in as <strong>{{ user.get_role_display }}</strong></p>
             </div>
             <div class="text-end">
                 {% if user.is_approved %}
@@ -22,23 +22,12 @@
     </div>
 </div>
 
-<!-- Stats Row -->
+<!-- Key Stats Row -->
 <div class="row mb-4">
-    <div class="col-md-3 mb-3">
+    <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-icon bg-primary">
                 <i class="fas fa-users"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ total_residents }}</div>
-                <div class="stat-label">Total Residents</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-success">
-                <i class="fas fa-user-check"></i>
             </div>
             <div>
                 <div class="stat-number">{{ active_residents }}</div>
@@ -46,9 +35,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-warning">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card {% if open_incidents > 0 %}border-warning{% endif %}">
+            <div class="stat-icon {% if open_incidents > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
             <div>
@@ -57,26 +46,22 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-info">
-                <i class="fas fa-clipboard-check"></i>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card {% if pending_handovers > 0 %}border-warning{% endif %}">
+            <div class="stat-icon {% if pending_handovers > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
+                <i class="fas fa-clipboard-list"></i>
             </div>
             <div>
-                <div class="stat-number">{{ total_incidents }}</div>
-                <div class="stat-label">Total Incidents</div>
+                <div class="stat-number">{{ pending_handovers }}</div>
+                <div class="stat-label">Pending Handovers</div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Secondary Stats Row (Manager Only) -->
-{% if user.role == "MANAGER" %}
-<div class="row mb-4">
-    <div class="col-md-3 mb-3">
-        <div class="stat-card {% if pending_users_count > 0 %}border-warning{% else %}border-secondary{% endif %}">
+    {% if user.role == "MANAGER" %}
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card {% if pending_users_count > 0 %}border-warning{% endif %}">
             <div class="stat-icon {% if pending_users_count > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
-                <i class="fas fa-hourglass-half"></i>
+                <i class="fas fa-user-clock"></i>
             </div>
             <div>
                 <div class="stat-number">{{ pending_users_count }}</div>
@@ -84,7 +69,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 mb-3">
+    {% else %}
+    <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-icon bg-success">
                 <i class="fas fa-check-circle"></i>
@@ -95,127 +81,80 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-primary">
-                <i class="fas fa-user-plus"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ recent_residents }}</div>
-                <div class="stat-label">New Residents (7d)</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-danger">
-                <i class="fas fa-bell"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ recent_incidents_count }}</div>
-                <div class="stat-label">New Incidents (7d)</div>
-            </div>
-        </div>
-    </div>
+    {% endif %}
 </div>
 
-<!-- Handover Stats Row -->
-<div class="row mb-4">
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon" style="background: #2d7a7a;">
-                <i class="fas fa-clipboard-list"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ total_handovers }}</div>
-                <div class="stat-label">Total Handovers</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card {% if pending_handovers > 0 %}border-warning{% else %}border-secondary{% endif %}">
-            <div class="stat-icon {% if pending_handovers > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
-                <i class="fas fa-hourglass-end"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ pending_handovers }}</div>
-                <div class="stat-label">Pending Handovers</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-success">
-                <i class="fas fa-check-double"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ completed_handovers }}</div>
-                <div class="stat-label">Completed Handovers</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="stat-card">
-            <div class="stat-icon bg-info">
-                <i class="fas fa-calendar-check"></i>
-            </div>
-            <div>
-                <div class="stat-number">{{ recent_handovers_count }}</div>
-                <div class="stat-label">New Handovers (7d)</div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-<!-- Recent Residents Table -->
+<!-- Quick Actions Row -->
 <div class="row mb-4">
     <div class="col-12">
         <div class="feature-card">
+            <h6 class="mb-3"><i class="fas fa-bolt me-2 text-warning"></i>Quick Actions</h6>
+            <div class="row g-2">
+                {% if user.role == "MANAGER" %}
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'residents:create' %}" class="btn btn-outline-primary w-100">
+                        <i class="fas fa-user-plus me-2"></i>Add Resident
+                    </a>
+                </div>
+                {% endif %}
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'incidents:create' %}" class="btn btn-outline-warning w-100">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Report Incident
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'handovers:create' %}" class="btn btn-outline-success w-100">
+                        <i class="fas fa-clipboard-check me-2"></i>Create Handover
+                    </a>
+                </div>
+                {% if user.role == "MANAGER" and pending_users_count > 0 %}
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'accounts:pending-users' %}" class="btn btn-warning w-100">
+                        <i class="fas fa-user-check me-2"></i>Approve Users ({{ pending_users_count }})
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <!-- Recent Residents -->
+    <div class="col-lg-6 mb-4">
+        <div class="feature-card">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0"><i class="fas fa-clock me-2 text-primary"></i>Recent Residents</h5>
+                <h6 class="mb-0"><i class="fas fa-users me-2 text-primary"></i>Recent Residents</h6>
                 <a href="{% url 'residents:list' %}" class="btn btn-sm btn-outline-primary">View All</a>
             </div>
             
             {% if recent_list %}
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover table-sm align-middle mb-0">
                     <thead class="table-light">
                         <tr>
                             <th>Name</th>
                             <th>Room</th>
-                            <th>Gender</th>
-                            <th>Date of Birth</th>
-                            <th>Added On</th>
                             <th>Status</th>
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for resident in recent_list %}
+                        {% for resident in recent_list|slice:":5" %}
                         <tr>
                             <td>
-                                <div class="fw-semibold">
-                                    {{ resident.first_name }} {{ resident.last_name }}
-                                </div>
+                                <div class="fw-semibold">{{ resident.first_name }} {{ resident.last_name }}</div>
+                                <small class="text-muted">{{ resident.created_at|date:"M d, Y" }}</small>
                             </td>
                             <td>
-                                <span class="badge bg-secondary px-3 py-2">
-                                    {{ resident.room_number }}
-                                </span>
-                            </td>
-                            <td>{{ resident.get_gender_display }}</td>
-                            <td>{{ resident.date_of_birth|date:"M d, Y" }}</td>
-                            <td>
-                                <small class="text-muted">
-                                    {{ resident.created_at|date:"M d, Y" }}
-                                </small>
+                                <span class="badge bg-secondary">{{ resident.room_number }}</span>
                             </td>
                             <td>
                                 {% if resident.is_active %}
-                                <span class="badge bg-success px-3 py-2">Active</span>
+                                <span class="badge bg-success">Active</span>
                                 {% else %}
-                                <span class="badge bg-danger px-3 py-2">Archived</span>
+                                <span class="badge bg-danger">Archived</span>
                                 {% endif %}
                             </td>
                             <td class="text-end">
@@ -230,63 +169,50 @@
             </div>
             {% else %}
             <div class="text-center py-4 text-muted">
-                <i class="fas fa-user-plus fa-3x mb-3 opacity-50"></i>
-                <p>No residents added yet.</p>
+                <i class="fas fa-user-plus fa-2x mb-3 opacity-50"></i>
+                <p class="mb-2">No residents added yet.</p>
+                {% if user.role == "MANAGER" %}
                 <a href="{% url 'residents:create' %}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus me-2"></i>Add First Resident
+                    <i class="fas fa-plus me-2"></i>Add Resident
                 </a>
+                {% endif %}
             </div>
             {% endif %}
         </div>
     </div>
-</div>
 
-<!-- Recent Incidents Table -->
-<div class="row mb-4">
-    <div class="col-12">
+    <!-- Recent Incidents -->
+    <div class="col-lg-6 mb-4">
         <div class="feature-card">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2 text-warning"></i>Recent Incidents</h5>
+                <h6 class="mb-0"><i class="fas fa-exclamation-triangle me-2 text-warning"></i>Recent Incidents</h6>
                 <a href="{% url 'incidents:list' %}" class="btn btn-sm btn-outline-warning">View All</a>
             </div>
             
             {% if recent_incidents_list %}
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover table-sm align-middle mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Resident</th>
                             <th>Type</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Resident</th>
                             <th>Status</th>
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for incident in recent_incidents_list %}
+                        {% for incident in recent_incidents_list|slice:":5" %}
                         <tr>
                             <td>
-                                <div class="fw-semibold">
-                                    {{ incident.resident|default:"-" }}
-                                </div>
+                                <span class="badge bg-secondary">{{ incident.get_incident_type_display }}</span>
+                                <small class="d-block text-muted mt-1">{{ incident.created_at|date:"M d, Y" }}</small>
                             </td>
-                            <td>
-                                <span class="badge bg-secondary px-2 py-1">
-                                    {{ incident.get_incident_type_display }}
-                                </span>
-                            </td>
-                            <td>{{ incident.created_by }}</td>
-                            <td>
-                                <small class="text-muted">
-                                    {{ incident.created_at|date:"M d, Y H:i" }}
-                                </small>
-                            </td>
+                            <td>{{ incident.resident|default:"-" }}</td>
                             <td>
                                 {% if incident.is_resolved %}
-                                <span class="badge bg-success px-3 py-2">Resolved</span>
+                                <span class="badge bg-success">Resolved</span>
                                 {% else %}
-                                <span class="badge bg-warning px-3 py-2">Open</span>
+                                <span class="badge bg-warning">Open</span>
                                 {% endif %}
                             </td>
                             <td class="text-end">
@@ -301,10 +227,10 @@
             </div>
             {% else %}
             <div class="text-center py-4 text-muted">
-                <i class="fas fa-exclamation-triangle fa-3x mb-3 opacity-50"></i>
-                <p>No incidents reported yet.</p>
+                <i class="fas fa-exclamation-triangle fa-2x mb-3 opacity-50"></i>
+                <p class="mb-2">No incidents reported yet.</p>
                 <a href="{% url 'incidents:create' %}" class="btn btn-warning btn-sm">
-                    <i class="fas fa-plus me-2"></i>Report First Incident
+                    <i class="fas fa-plus me-2"></i>Report Incident
                 </a>
             </div>
             {% endif %}
@@ -312,18 +238,18 @@
     </div>
 </div>
 
-<!-- Recent Handovers Table -->
+<!-- Recent Handovers -->
 <div class="row mb-4">
     <div class="col-12">
         <div class="feature-card">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0"><i class="fas fa-clipboard-check me-2" style="color: #2d7a7a;"></i>Recent Handovers</h5>
+                <h6 class="mb-0"><i class="fas fa-clipboard-check me-2" style="color: #2d7a7a;"></i>Recent Handovers</h6>
                 <a href="{% url 'handovers:list' %}" class="btn btn-sm btn-outline-primary">View All</a>
             </div>
             
             {% if recent_handovers_list %}
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover table-sm align-middle mb-0">
                     <thead class="table-light">
                         <tr>
                             <th>Title</th>
@@ -331,59 +257,40 @@
                             <th>Shift</th>
                             <th>Priority</th>
                             <th>Status</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for handover in recent_handovers_list %}
+                        {% for handover in recent_handovers_list|slice:":5" %}
                         <tr>
                             <td>
-                                <div class="fw-semibold">
-                                    {{ handover.title }}
-                                </div>
+                                <div class="fw-semibold">{{ handover.title }}</div>
+                                <small class="text-muted">{{ handover.created_at|date:"M d, Y" }}</small>
                             </td>
+                            <td>{{ handover.resident|default:"-" }}</td>
                             <td>
-                                {% if handover.resident %}
-                                <a href="{% url 'residents:detail' handover.resident.pk %}" class="text-decoration-none">
-                                    {{ handover.resident }}
-                                </a>
-                                {% else %}
-                                <span class="text-muted">-</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <span class="badge bg-secondary px-2 py-1">
-                                    {{ handover.get_shift_display }}
-                                </span>
+                                <span class="badge bg-secondary">{{ handover.get_shift_display }}</span>
                             </td>
                             <td>
                                 {% if handover.priority == 'URGENT' %}
-                                <span class="badge bg-danger px-3 py-2">{{ handover.get_priority_display }}</span>
+                                <span class="badge bg-danger">{{ handover.get_priority_display }}</span>
                                 {% elif handover.priority == 'HIGH' %}
-                                <span class="badge bg-warning px-3 py-2">{{ handover.get_priority_display }}</span>
+                                <span class="badge bg-warning">{{ handover.get_priority_display }}</span>
                                 {% elif handover.priority == 'NORMAL' %}
-                                <span class="badge bg-info px-3 py-2">{{ handover.get_priority_display }}</span>
+                                <span class="badge bg-info">{{ handover.get_priority_display }}</span>
                                 {% else %}
-                                <span class="badge bg-secondary px-3 py-2">{{ handover.get_priority_display }}</span>
+                                <span class="badge bg-secondary">{{ handover.get_priority_display }}</span>
                                 {% endif %}
                             </td>
                             <td>
                                 {% if handover.is_completed %}
-                                <span class="badge bg-success px-3 py-2">Completed</span>
+                                <span class="badge bg-success">Completed</span>
                                 {% else %}
-                                <span class="badge bg-warning px-3 py-2">Pending</span>
+                                <span class="badge bg-warning">Pending</span>
                                 {% endif %}
                             </td>
-                            <td>{{ handover.created_by }}</td>
-                            <td>
-                                <small class="text-muted">
-                                    {{ handover.created_at|date:"M d, Y H:i" }}
-                                </small>
-                            </td>
                             <td class="text-end">
-                                <a href="{% url 'handovers:detail' handover.pk %}" class="btn btn-sm btn-outline-primary" title="View">
+                                <a href="{% url 'handovers:detail' handover.pk %}" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </td>
@@ -394,10 +301,10 @@
             </div>
             {% else %}
             <div class="text-center py-4 text-muted">
-                <i class="fas fa-clipboard fa-3x mb-3 opacity-50"></i>
-                <p>No handovers created yet.</p>
+                <i class="fas fa-clipboard fa-2x mb-3 opacity-50"></i>
+                <p class="mb-2">No handovers created yet.</p>
                 <a href="{% url 'handovers:create' %}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus me-2"></i>Create First Handover
+                    <i class="fas fa-plus me-2"></i>Create Handover
                 </a>
             </div>
             {% endif %}
@@ -405,183 +312,4 @@
     </div>
 </div>
 
-<!-- Pending User Approvals (Managers Only) -->
-{% if user.role == "MANAGER" and pending_users_count > 0 %}
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="feature-card border-warning">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center gap-2">
-                    <div style="width: 40px; height: 40px; background: #ffc107; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-hourglass-half text-white" style="font-size: 18px;"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-0">Pending User Approvals</h5>
-                        <small class="text-muted">{{ pending_users_count }} user{{ pending_users_count|pluralize }} awaiting approval</small>
-                    </div>
-                </div>
-                <a href="{% url 'accounts:pending-users' %}" class="btn btn-sm btn-warning">
-                    <i class="fas fa-arrow-right me-2"></i>View All
-                </a>
-            </div>
-
-            {% if pending_users_list %}
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Signup Date</th>
-                            <th class="text-end">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user_pending in pending_users_list %}
-                        <tr>
-                            <td>
-                                <div class="fw-semibold">
-                                    {{ user_pending.get_full_name|default:user_pending.username }}
-                                </div>
-                            </td>
-                            <td>
-                                <small>{{ user_pending.email }}</small>
-                            </td>
-                            <td>
-                                <span class="badge bg-info px-2 py-1">
-                                    {{ user_pending.get_role_display }}
-                                </span>
-                            </td>
-                            <td>
-                                <small class="text-muted">
-                                    {{ user_pending.date_joined|date:"M d, Y" }}
-                                </small>
-                            </td>
-                            <td class="text-end">
-                                <a href="{% url 'accounts:approve-user' user_pending.id %}" class="btn btn-sm btn-success btn-sm">
-                                    <i class="fas fa-check"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
-{% endif %}
-
-<!-- Main Features -->
-<div class="row">
-    <!-- Residents Card -->
-    <div class="col-lg-6 mb-4">
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon bg-primary">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h5 class="mb-0">Residents</h5>
-            </div>
-            <p class="text-muted mt-3 mb-4">Manage resident information, medical history, and personal profiles.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check text-info"></i> View resident profiles</li>
-                <li><i class="fas fa-check text-info"></i> Edit resident information</li>
-                <li><i class="fas fa-check text-info"></i> Track medical records</li>
-                <li><i class="fas fa-check text-info"></i> View contact information</li>
-            </ul>
-            <a href="{% url 'residents:list' %}" class="btn btn-primary btn-sm mt-4">
-                <i class="fas fa-arrow-right me-2"></i>View Residents
-            </a>
-        </div>
-    </div>
-
-    <!-- Care Plans Card -->
-    <div class="col-lg-6 mb-4">
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon bg-info">
-                    <i class="fas fa-file-medical"></i>
-                </div>
-                <h5 class="mb-0">Care Plans</h5>
-            </div>
-            <p class="text-muted mt-3 mb-4">Create, manage, and monitor care plans for each resident.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check text-info"></i> Create new care plans</li>
-                <li><i class="fas fa-check text-info"></i> Track care objectives</li>
-                <li><i class="fas fa-check text-info"></i> Monitor progress</li>
-                <li><i class="fas fa-check text-info"></i> Generate reports</li>
-            </ul>
-            <a href="{% url 'careplans:list' %}" class="btn btn-info btn-sm mt-4">
-                <i class="fas fa-arrow-right me-2"></i>View Care Plans
-            </a>
-        </div>
-    </div>
-
-    <!-- Incidents Card -->
-    <div class="col-lg-6 mb-4">
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon bg-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <h5 class="mb-0">Incidents</h5>
-            </div>
-            <p class="text-muted mt-3 mb-4">Report and track incidents in a secure, organized manner.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check text-info"></i> Report new incidents</li>
-                <li><i class="fas fa-check text-info"></i> Track incident status</li>
-                <li><i class="fas fa-check text-info"></i> Add follow-up notes</li>
-                <li><i class="fas fa-check text-info"></i> Generate incident reports</li>
-            </ul>
-            <a href="{% url 'incidents:list' %}" class="btn btn-warning btn-sm mt-4">
-                <i class="fas fa-arrow-right me-2"></i>View Incidents
-            </a>
-        </div>
-    </div>
-
-    <!-- Handovers Card -->
-    <div class="col-lg-6 mb-4">
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon bg-success">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h5 class="mb-0">Handovers</h5>
-            </div>
-            <p class="text-muted mt-3 mb-4">Communicate shift updates and important information between teams.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check text-info"></i> Create shift handovers</li>
-                <li><i class="fas fa-check text-info"></i> View handover history</li>
-                <li><i class="fas fa-check text-info"></i> Share important updates</li>
-                <li><i class="fas fa-check text-info"></i> Track handover completions</li>
-            </ul>
-            <a href="{% url 'handovers:list' %}" class="btn btn-success btn-sm mt-4">
-                <i class="fas fa-arrow-right me-2"></i>View Handovers
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Audit Section (Manager Only) -->
-{% if user.role == "MANAGER" %}
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon bg-secondary">
-                    <i class="fas fa-clipboard-list"></i>
-                </div>
-                <h5 class="mb-0">Audit Log</h5>
-            </div>
-            <p class="text-muted mt-3 mb-4">View system activity and audit trail for compliance and security.</p>
-            <a href="{% url 'audit:list' %}" class="btn btn-secondary btn-sm">
-                <i class="fas fa-arrow-right me-2"></i>View Audit Log
-            </a>
-        </div>
-    </div>
-</div>
-{% endif %}
 {% endblock %}
