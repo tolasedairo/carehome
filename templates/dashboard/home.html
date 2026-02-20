@@ -565,7 +565,8 @@
     </div>
 </div>
 
-<!-- Audit Section -->
+<!-- Audit Section (Manager Only) -->
+{% if user.role == "MANAGER" %}
 <div class="row mt-4">
     <div class="col-12">
         <div class="feature-card">
@@ -576,10 +577,11 @@
                 <h5 class="mb-0">Audit Log</h5>
             </div>
             <p class="text-muted mt-3 mb-4">View system activity and audit trail for compliance and security.</p>
-            <a href="#" class="btn btn-secondary btn-sm">
+            <a href="{% url 'audit:list' %}" class="btn btn-secondary btn-sm">
                 <i class="fas fa-arrow-right me-2"></i>View Audit Log
             </a>
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
