@@ -17,7 +17,7 @@
 
 <!-- Quick Stats -->
 <div class="row mb-3">
-    <div class="col-md-4 mb-3">
+    <div class="col-lg-4 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-icon bg-info">
                 <i class="fas fa-clipboard-list"></i>
@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col-lg-4 col-md-6 mb-3">
         <div class="stat-card border-warning">
             <div class="stat-icon bg-warning">
                 <i class="fas fa-exclamation-circle"></i>
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col-lg-4 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-icon bg-success">
                 <i class="fas fa-check-circle"></i>
@@ -55,10 +55,10 @@
 <!-- Search and Filters -->
 <div class="feature-card mb-3">
     <form method="get" class="row g-3">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6">
             <input type="text" name="search" class="form-control" placeholder="Search by description or resident name..." value="{{ search_query }}">
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
             <select name="incident_type" class="form-select">
                 <option value="">All Incident Types</option>
                 {% for type_code, type_label in incident_types %}
@@ -66,14 +66,14 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-2 col-md-6">
             <select name="status" class="form-select">
                 <option value="">All Status</option>
                 <option value="open" {% if selected_status == 'open' %}selected{% endif %}>Open</option>
                 <option value="resolved" {% if selected_status == 'resolved' %}selected{% endif %}>Resolved</option>
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-lg-3 col-md-6">
             <button type="submit" class="btn btn-info w-100">
                 <i class="fas fa-search me-2"></i>Filter
             </button>

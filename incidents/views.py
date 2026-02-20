@@ -1,8 +1,9 @@
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, View
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from django.shortcuts import redirect, get_object_or_404
 from accounts.decorators import approval_required
 from .models import Incident
 from .forms import IncidentForm
@@ -111,3 +112,39 @@ class IncidentUpdateView(UpdateView):
             'Incident report has been updated successfully.'
         )
         return super().form_valid(form)
+
+
+@method_decorator([login_required, approval_required], name='dispatch')
+class IncidentResolveView(View):
+    """Mark incident as resolved (Manager only)"""
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role != 'MANAGER':
+            messages.error(request, 'Only managers can resolve incidents.')
+            return redirect('incidents:list')
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, pk):
+        incident = get_object_or_404(Incident, pk=pk)
+        incident.is_resolved = True
+        incident.save()
+        messages.success(request, f'Incident has been marked as resolved.')
+        return redirect('incidents:detail', pk=pk)
+
+
+@method_decorator([login_required, approval_required], name='dispatch')
+class IncidentUnresolveView(View):
+    """Reopen a resolved incident (Manager only)"""
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role != 'MANAGER':
+            messages.error(request, 'Only managers can reopen incidents.')
+            return redirect('incidents:list')
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, pk):
+        incident = get_object_or_404(Incident, pk=pk)
+        incident.is_resolved = False
+        incident.save()
+        messages.success(request, f'Incident has been reopened.')
+        return redirect('incidents:detail', pk=pk)

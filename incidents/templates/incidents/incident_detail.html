@@ -3,60 +3,135 @@
 {% block page_title %}Incident Detail{% endblock %}
 
 {% block content %}
-<div class="mb-3">
-    <a href="{% url 'incidents:list' %}" class="btn btn-secondary btn-sm">
-        <i class="fas fa-arrow-left me-2"></i>Back to Incidents
-    </a>
-</div>
-
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">Incident Detail</h4>
-    {% if user.role == "MANAGER" %}
-    <a href="{% url 'incidents:edit' object.pk %}" class="btn btn-info btn-sm">
-        <i class="fas fa-edit me-2"></i>Edit Incident
-    </a>
-    {% endif %}
-</div>
+<a href="{% url 'incidents:list' %}" class="btn btn-secondary btn-sm mb-3">
+    <i class="fas fa-arrow-left me-2"></i>Back to Incidents
+</a>
 
 <div class="feature-card">
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <strong>Resident:</strong> 
-            {% if object.resident %}
-                <a href="{% url 'residents:detail' object.resident.pk %}" class="text-decoration-none">
-                    {{ object.resident }}
-                </a>
-            {% else %}
-                -
-            {% endif %}
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <div>
+            <h4 class="mb-1">
+                <i class="fas fa-exclamation-triangle me-2 text-warning"></i>Incident Report
+            </h4>
+            <small class="text-muted">{{ object.get_incident_type_display }}</small>
         </div>
-        <div class="col-md-6">
-            <strong>Type:</strong> {{ object.get_incident_type_display }}
-        </div>
-    </div>
-        <div class="col-md-6">
-            <strong>Created By:</strong> {{ object.created_by }}
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <strong>Created At:</strong> {{ object.created_at|date:"M d, Y H:i" }}
-        </div>
-        <div class="col-md-6">
-            <strong>Status:</strong>
+        {% if user.role == "MANAGER" %}
+        <div>
+            <a href="{% url 'incidents:edit' object.pk %}" class="btn btn-info btn-sm me-2">
+                <i class="fas fa-edit me-2"></i>Edit
+            </a>
             {% if object.is_resolved %}
-                <span class="badge bg-success">Resolved</span>
+            <form method="post" action="{% url 'incidents:unresolve' object.pk %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-sm">
+                    <i class="fas fa-redo me-2"></i>Reopen
+                </button>
+            </form>
             {% else %}
-                <span class="badge bg-warning">Open</span>
+            <form method="post" action="{% url 'incidents:resolve' object.pk %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="fas fa-check me-2"></i>Resolve
+                </button>
+            </form>
             {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="row g-3">
+        <!-- Resident Info Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-user me-2"></i>Resident
+                </div>
+                <div class="info-value">
+                    {% if object.resident %}
+                        <a href="{% url 'residents:detail' object.resident.pk %}" class="text-decoration-none">
+                            {{ object.resident }}
+                        </a>
+                    {% else %}
+                        <span class="text-muted">General Incident</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Type Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-tag me-2"></i>Incident Type
+                </div>
+                <div class="info-value">
+                    <span class="badge bg-secondary px-3 py-2">{{ object.get_incident_type_display }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-info-circle me-2"></i>Status
+                </div>
+                <div class="info-value">
+                    {% if object.is_resolved %}
+                        <span class="badge bg-success px-3 py-2">Resolved</span>
+                    {% else %}
+                        <span class="badge bg-warning px-3 py-2">Open</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Created At Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-clock me-2"></i>Reported
+                </div>
+                <div class="info-value">
+                    {{ object.created_at|date:"M d, Y" }}
+                    <small class="d-block text-muted">{{ object.created_at|date:"H:i" }}</small>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-12">
-            <strong>Description:</strong>
-            <p class="mt-2">{{ object.description }}</p>
+    <!-- Description Section -->
+    <div class="mt-4">
+        <h6 class="mb-3">
+            <i class="fas fa-file-alt me-2 text-info"></i>Incident Description
+        </h6>
+        <div class="p-3 bg-light rounded">
+            <p class="mb-0" style="white-space: pre-wrap;">{{ object.description }}</p>
+        </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-user-edit me-2"></i>Reported By
+                </div>
+                <div class="info-value">
+                    {{ object.created_by.get_full_name|default:object.created_by.username }}
+                    <small class="d-block text-muted">{{ object.created_by.get_role_display }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-calendar me-2"></i>Last Updated
+                </div>
+                <div class="info-value">
+                    {{ object.updated_at|date:"M d, Y H:i" }}
+                </div>
+            </div>
         </div>
     </div>
 </div>
