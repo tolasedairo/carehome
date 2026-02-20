@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from .models import Resident
+from careplans.models import CarePlan
+from careplans.forms import CarePlanForm
 from .forms import ResidentForm
 from accounts.decorators import approval_required
 
@@ -78,6 +80,54 @@ class ResidentCreateView(CreateView):
             return redirect('residents:list')
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            careplan_form = CarePlanForm(self.request.POST)
+        else:
+            careplan_form = CarePlanForm()
+        careplan_form.fields['resident'].required = False
+        careplan_form.fields['review_date'].required = True
+        context['careplan_form'] = careplan_form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form = self.get_form()
+        careplan_form = CarePlanForm(request.POST)
+        careplan_form.fields['resident'].required = False
+        careplan_form.fields['review_date'].required = True
+
+        if form.is_valid() and careplan_form.is_valid():
+            return self.forms_valid(form, careplan_form)
+
+        return self.forms_invalid(form, careplan_form)
+
+    def forms_valid(self, form, careplan_form):
+        resident = form.save(commit=False)
+        resident.created_by = self.request.user
+        resident.save()
+
+        if self._has_careplan_data(careplan_form):
+            careplan = careplan_form.save(commit=False)
+            careplan.resident = resident
+            careplan.created_by = self.request.user
+            careplan.is_active = True
+            careplan.save()
+
+        return redirect(self.get_success_url())
+
+    def forms_invalid(self, form, careplan_form):
+        return self.render_to_response(
+            self.get_context_data(form=form, careplan_form=careplan_form)
+        )
+
+    def _has_careplan_data(self, careplan_form):
+        for value in careplan_form.cleaned_data.values():
+            if value not in (None, "", [], ()):
+                return True
+        return False
+
 
 # Detail and Update views are accessible to all logged-in users,
 # but only managers can edit or archive residents.
@@ -98,6 +148,9 @@ class ResidentDetailView(DetailView):
         context['open_incident_count'] = self.object.incidents.filter(
             is_resolved=False
         ).count()
+        context['careplans'] = self.object.care_plans.filter(
+            is_active=True
+        ).order_by('-updated_at')
         return context
 
 
@@ -114,6 +167,62 @@ class ResidentUpdateView(UpdateView):
         if request.user.role != "MANAGER":
             return redirect('residents:list')
         return super().dispatch(request, *args, **kwargs)
+
+    def get_careplan_instance(self):
+        return CarePlan.objects.filter(
+            resident=self.object,
+            is_active=True
+        ).order_by('-updated_at').first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        careplan_instance = self.get_careplan_instance()
+        if self.request.POST:
+            careplan_form = CarePlanForm(
+                self.request.POST,
+                instance=careplan_instance
+            )
+        else:
+            careplan_form = CarePlanForm(instance=careplan_instance)
+        careplan_form.fields['resident'].required = False
+        context['careplan_form'] = careplan_form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        careplan_instance = self.get_careplan_instance()
+        careplan_form = CarePlanForm(request.POST, instance=careplan_instance)
+        careplan_form.fields['resident'].required = False
+
+        if form.is_valid() and careplan_form.is_valid():
+            return self.forms_valid(form, careplan_form)
+
+        return self.forms_invalid(form, careplan_form)
+
+    def forms_valid(self, form, careplan_form):
+        resident = form.save()
+
+        if self._has_careplan_data(careplan_form):
+            careplan = careplan_form.save(commit=False)
+            careplan.resident = resident
+            if not careplan.created_by:
+                careplan.created_by = self.request.user
+            careplan.is_active = True
+            careplan.save()
+
+        return redirect(self.get_success_url())
+
+    def forms_invalid(self, form, careplan_form):
+        return self.render_to_response(
+            self.get_context_data(form=form, careplan_form=careplan_form)
+        )
+
+    def _has_careplan_data(self, careplan_form):
+        for value in careplan_form.cleaned_data.values():
+            if value not in (None, "", [], ()):
+                return True
+        return False
 
 
 # These functions handle archiving and unarchiving residents,

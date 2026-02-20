@@ -5,15 +5,26 @@
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">Active Care Plans</h4>
+    <div class="d-flex align-items-center gap-3">
+        <a href="{% url 'dashboard:home' %}" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+        <h4 class="mb-0">{% if is_archived %}Archived Care Plans{% else %}Care Plans{% endif %}</h4>
+    </div>
 
-    <div>
-        <a href="{% url 'careplans:archived' %}" class="btn btn-outline-secondary btn-sm me-2">
-            Archived
+    <div class="d-flex gap-2">
+        {% if user.role == "MANAGER" and not is_archived %}
+        <a href="{% url 'careplans:archived' %}" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-archive me-2"></i>Archived
         </a>
         <a href="{% url 'careplans:create' %}" class="btn btn-primary btn-sm">
             <i class="fas fa-plus me-2"></i>New Care Plan
         </a>
+        {% elif user.role == "MANAGER" and is_archived %}
+        <a href="{% url 'careplans:list' %}" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-list me-2"></i>Active
+        </a>
+        {% endif %}
     </div>
 </div>
 
@@ -25,7 +36,7 @@
                     <th>Resident</th>
                     <th>Title</th>
                     <th>Review Date</th>
-                    <th>Created By</th>
+                    <th>Status</th>
                     <th>Last Updated</th>
                     <th class="text-end">Actions</th>
                 </tr>
@@ -34,37 +45,48 @@
                 {% for careplan in careplans %}
                 <tr>
                     <td>{{ careplan.resident }}</td>
-                    <td>{{ careplan.title }}</td>
+                    <td>{{ careplan.title|default:"Care Plan" }}</td>
                     <td>
-                        {% if careplan.review_date < today %}
-                            <span class="badge bg-danger">Overdue</span>
+                        {% if careplan.review_date %}
+                            {{ careplan.review_date|date:"M d, Y" }}
                         {% else %}
-                            {{ careplan.review_date }}
+                            <span class="text-muted">-</span>
                         {% endif %}
                     </td>
-                    <td>{{ careplan.created_by }}</td>
+                    <td>
+                        {% if careplan.review_date and careplan.review_date < today %}
+                            <span class="badge bg-danger px-3 py-2">Overdue</span>
+                        {% elif careplan.review_date %}
+                            <span class="badge bg-success px-3 py-2">On Track</span>
+                        {% else %}
+                            <span class="badge bg-secondary px-3 py-2">Unscheduled</span>
+                        {% endif %}
+                    </td>
                     <td>{{ careplan.updated_at|date:"M d, Y" }}</td>
                     <td class="text-end">
-
                         <a href="{% url 'careplans:detail' careplan.pk %}"
-                           class="btn btn-sm btn-outline-secondary">
+                           class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-eye"></i>
                         </a>
 
-                        {% if user.role == "MANAGER" or careplan.created_by == user %}
+                        {% if user.role == "MANAGER" or user.role == "SENIOR" %}
                         <a href="{% url 'careplans:edit' careplan.pk %}"
-                           class="btn btn-sm btn-outline-primary">
+                           class="btn btn-sm btn-outline-info">
                             <i class="fas fa-edit"></i>
                         </a>
                         {% endif %}
 
-                        {% if user.role == "MANAGER" %}
+                        {% if user.role == "MANAGER" and not is_archived %}
                         <a href="{% url 'careplans:archive' careplan.pk %}"
                            class="btn btn-sm btn-outline-danger">
                             <i class="fas fa-archive"></i>
                         </a>
+                        {% elif user.role == "MANAGER" and is_archived %}
+                        <a href="{% url 'careplans:unarchive' careplan.pk %}"
+                           class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-undo"></i>
+                        </a>
                         {% endif %}
-
                     </td>
                 </tr>
                 {% empty %}

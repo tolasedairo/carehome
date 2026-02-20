@@ -11,10 +11,19 @@ class CarePlan(models.Model):
         related_name='care_plans'
     )
 
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+    title = models.CharField(max_length=200, blank=True, default="Care Plan")
+    assessment_summary = models.TextField(blank=True)
+    personal_care = models.TextField(blank=True)
+    mobility = models.TextField(blank=True)
+    nutrition = models.TextField(blank=True)
+    medication = models.TextField(blank=True)
+    communication = models.TextField(blank=True)
+    wellbeing = models.TextField(blank=True)
+    skin_integrity = models.TextField(blank=True)
+    daily_routine = models.TextField(blank=True)
+    safeguarding_risks = models.TextField(blank=True)
 
-    review_date = models.DateField()
+    review_date = models.DateField(blank=True, null=True)
 
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

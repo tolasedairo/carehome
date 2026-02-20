@@ -1,23 +1,79 @@
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+from accounts.decorators import approval_required
 from .models import CarePlan
+from .forms import CarePlanForm
 
 
 
 # Create your views here.
-class CarePlanListView(LoginRequiredMixin, ListView):
+@method_decorator([login_required, approval_required], name='dispatch')
+class CarePlanListView(ListView):
     model = CarePlan
     template_name = 'careplans/careplan_list.html'
     context_object_name = 'careplans'
 
     def get_queryset(self):
-        return CarePlan.objects.filter(is_active=True)
+        return CarePlan.objects.filter(is_active=True).select_related(
+            'resident', 'created_by'
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = timezone.now().date()
+        context['is_archived'] = False
+        return context
+
+
+@method_decorator([login_required, approval_required], name='dispatch')
+class ArchivedCarePlanListView(ListView):
+    model = CarePlan
+    template_name = 'careplans/careplan_list.html'
+    context_object_name = 'careplans'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role != "MANAGER":
+            return redirect('careplans:list')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return CarePlan.objects.filter(is_active=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = timezone.now().date()
+        context['is_archived'] = True
+        return context
+
+
+@method_decorator([login_required, approval_required], name='dispatch')
+class CarePlanCreateView(CreateView):
+    model = CarePlan
+    form_class = CarePlanForm
+    template_name = 'careplans/careplan_form.html'
+    success_url = reverse_lazy('careplans:list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role != "MANAGER":
+            return redirect('careplans:list')
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
+@method_decorator([login_required, approval_required], name='dispatch')
+class CarePlanDetailView(DetailView):
+    model = CarePlan
+    template_name = 'careplans/careplan_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,49 +81,28 @@ class CarePlanListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ArchivedCarePlanListView(LoginRequiredMixin, ListView):
+@method_decorator([login_required, approval_required], name='dispatch')
+class CarePlanUpdateView(UpdateView):
     model = CarePlan
-    template_name = 'careplans/careplan_list.html'
-    context_object_name = 'careplans'
-
-    def get_queryset(self):
-        return CarePlan.objects.filter(is_active=False)
-
-
-class CarePlanCreateView(LoginRequiredMixin, CreateView):
-    model = CarePlan
-    fields = ['resident', 'title', 'description', 'review_date']
+    form_class = CarePlanForm
     template_name = 'careplans/careplan_form.html'
     success_url = reverse_lazy('careplans:list')
 
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super().form_valid(form)
-
-
-class CarePlanDetailView(LoginRequiredMixin, DetailView):
-    model = CarePlan
-    template_name = 'careplans/careplan_detail.html'
-
-
-class CarePlanUpdateView(LoginRequiredMixin, UpdateView):
-    model = CarePlan
-    fields = ['resident', 'title', 'description', 'review_date']
-    template_name = 'careplans/careplan_form.html'
-    success_url = reverse_lazy('careplans:list')
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        if self.request.user.role == "SENIOR":
+            form.fields['resident'].disabled = True
+        return form
 
     def dispatch(self, request, *args, **kwargs):
-        careplan = self.get_object()
-
-        if request.user.role == "MANAGER":
-            return super().dispatch(request, *args, **kwargs)
-
-        if careplan.created_by == request.user:
+        if request.user.role in ["MANAGER", "SENIOR"]:
             return super().dispatch(request, *args, **kwargs)
 
         return HttpResponseForbidden("You do not have permission to edit this care plan.")
     
     
+@login_required
+@approval_required
 def archive_careplan(request, pk):
     careplan = get_object_or_404(CarePlan, pk=pk)
 
@@ -79,6 +114,8 @@ def archive_careplan(request, pk):
     return redirect('careplans:list')
 
 
+@login_required
+@approval_required
 def unarchive_careplan(request, pk):
     careplan = get_object_or_404(CarePlan, pk=pk)
 
