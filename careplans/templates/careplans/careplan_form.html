@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+{% if object %}Edit Care Plan{% else %}New Care Plan{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">
+        {% if object %}Edit Care Plan{% else %}New Care Plan{% endif %}
+    </h4>
+
+    <a href="{% url 'careplans:list' %}" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left me-2"></i>Back
+    </a>
+</div>
+
+<div class="feature-card">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Resident</label>
+                {{ form.resident }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Review Date</label>
+                {{ form.review_date }}
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Title</label>
+                {{ form.title }}
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                {{ form.description }}
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">
+                    {% if object %}Update{% else %}Create{% endif %}
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+{% endblock %}

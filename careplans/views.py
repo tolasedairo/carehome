@@ -4,13 +4,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
 
 from .models import CarePlan
 
 
+
 # Create your views here.
-
-
 class CarePlanListView(LoginRequiredMixin, ListView):
     model = CarePlan
     template_name = 'careplans/careplan_list.html'
@@ -18,6 +18,11 @@ class CarePlanListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return CarePlan.objects.filter(is_active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = timezone.now().date()
+        return context
 
 
 class ArchivedCarePlanListView(LoginRequiredMixin, ListView):
