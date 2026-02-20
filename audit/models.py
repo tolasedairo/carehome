@@ -7,12 +7,18 @@ class AuditLog(models.Model):
         ('CREATE_RESIDENT', 'Created Resident'),
         ('UPDATE_RESIDENT', 'Updated Resident'),
         ('ARCHIVE_RESIDENT', 'Archived Resident'),
+        ('UNARCHIVE_RESIDENT', 'Unarchived Resident'),
         ('DELETE_RESIDENT', 'Deleted Resident'),
         ('CREATE_CAREPLAN', 'Created Care Plan'),
         ('UPDATE_CAREPLAN', 'Updated Care Plan'),
+        ('ARCHIVE_CAREPLAN', 'Archived Care Plan'),
+        ('UNARCHIVE_CAREPLAN', 'Unarchived Care Plan'),
         ('CREATE_HANDOVER', 'Created Handover'),
         ('UPDATE_HANDOVER', 'Updated Handover'),
+        ('COMPLETE_HANDOVER', 'Completed Handover'),
         ('CREATE_INCIDENT', 'Created Incident'),
+        ('UPDATE_INCIDENT', 'Updated Incident'),
+        ('RESOLVE_INCIDENT', 'Resolved Incident'),
         ('USER_APPROVAL', 'User Approved'),
     ]
 
