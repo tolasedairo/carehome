@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-local-key")
 
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".herokuapp.com", "carehome-c3a4ac54b776.herokuapp.com"]
 
 # ======================
 # APPLICATIONS
