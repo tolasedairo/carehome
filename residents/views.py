@@ -42,9 +42,13 @@ class ResidentListView(ListView):
 
         # Annotate with incident counts
         queryset = queryset.annotate(
-            incident_count=Count('incidents'),
-            open_incident_count=Count('incidents', filter=Q(incidents__is_resolved=False))
-        )
+            incident_count=Count('incidents', distinct=True),
+            open_incident_count=Count(
+                'incidents',
+                filter=Q(incidents__is_resolved=False),
+                distinct=True
+            )
+        ).distinct()
 
         return queryset
 
@@ -107,6 +111,7 @@ class ResidentCreateView(CreateView):
         resident = form.save(commit=False)
         resident.created_by = self.request.user
         resident.save()
+        self.object = resident
 
         if self._has_careplan_data(careplan_form):
             careplan = careplan_form.save(commit=False)
