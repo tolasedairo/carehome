@@ -257,6 +257,82 @@ body {
     border-radius: 20px;
 }
 
+/* ===== Layout Utilities ===== */
+.app-shell {
+    min-height: 100vh;
+}
+
+.main-shell {
+    min-height: 100vh;
+}
+
+.sidebar-fixed {
+    width: 260px;
+}
+
+/* ===== Text Utilities ===== */
+.icon-teal {
+    color: #2d7a7a;
+}
+
+.pre-wrap {
+    white-space: pre-wrap;
+}
+
+.truncate-ellipsis-300 {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.truncate-ellipsis-400 {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ===== Panels ===== */
+.soft-panel {
+    background-color: #f8f9fa;
+}
+
+/* ===== Empty States ===== */
+.pending-empty-icon {
+    font-size: 48px;
+    color: #48bb78;
+    margin-bottom: 15px;
+}
+
+/* ===== Pagination ===== */
+.pagination-gap {
+    gap: 8px;
+}
+
+.pagination-link {
+    color: var(--primary-color);
+    border-color: #dee2e6;
+    background-color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.pagination-disabled {
+    color: #9ca3af;
+    background-color: #f3f4f6;
+    border-color: #e5e7eb;
+}
+
+.pagination-active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
 /* ===== Avatar Placeholder ===== */
 .avatar-placeholder {
     width: 150px;

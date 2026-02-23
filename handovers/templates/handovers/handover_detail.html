@@ -21,7 +21,7 @@
 <div class="feature-card">
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="p-3 rounded" style="background-color: #f8f9fa;">
+            <div class="p-3 rounded soft-panel">
                 <small class="text-muted d-block mb-2">Shift</small>
                 <span class="badge bg-primary px-3 py-2">
                     {{ object.get_shift_display }}
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="p-3 rounded" style="background-color: #f8f9fa;">
+            <div class="p-3 rounded soft-panel">
                 <small class="text-muted d-block mb-2">Priority</small>
                 {% if object.priority == 'URGENT' %}
                 <span class="badge bg-danger px-3 py-2">{{ object.get_priority_display }}</span>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="p-3 rounded" style="background-color: #f8f9fa;">
+            <div class="p-3 rounded soft-panel">
                 <small class="text-muted d-block mb-2">Status</small>
                 {% if object.is_completed %}
                 <span class="badge bg-success px-3 py-2">Completed</span>
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="p-3 rounded" style="background-color: #f8f9fa;">
+            <div class="p-3 rounded soft-panel">
                 <small class="text-muted d-block mb-2">Resident</small>
                 {% if object.resident %}
                     <a href="{% url 'residents:detail' object.resident.pk %}" class="text-decoration-none">
@@ -87,7 +87,7 @@
 
     <div class="mb-3">
         <strong>Notes:</strong>
-        <p class="mt-2" style="white-space: pre-wrap;">{{ object.notes }}</p>
+        <p class="mt-2 pre-wrap">{{ object.notes }}</p>
     </div>
 </div>
 {% endblock %}
