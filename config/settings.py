@@ -99,17 +99,29 @@ TEMPLATES = [
 # DATABASE
 # ======================
 
+# Default database (Heroku Postgres)
 if os.getenv("DATABASE_URL"):
     DATABASES = {
-        'default': dj_database_url.parse(os.getenv("DATABASE_URL"))
+        "default": dj_database_url.parse(
+            os.environ.get("DATABASE_URL"),
+            conn_max_age=600,   # keep DB connections alive
+            ssl_require=True    # enforce SSL for Heroku Postgres
+        )
     }
 else:
-    # Local SQLite fallback
+    # Local development (SQLite)
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
+    }
+
+# Use SQLite for running tests
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "test_db.sqlite3",
     }
 
 # ======================
