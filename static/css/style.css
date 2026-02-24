@@ -29,6 +29,8 @@ body {
     overflow-y: auto;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar-header {
@@ -53,6 +55,19 @@ body {
 
 .sidebar-nav {
     padding-top: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.sidebar-nav-top {
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.sidebar-nav-bottom {
+    margin-top: auto;
 }
 
 .sidebar-nav .nav-link {

@@ -16,12 +16,14 @@ class AuditLogListView(ListView):
     paginate_by = 20
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.role != "MANAGER":
+        if request.user.role != "MANAGER" and not (
+            request.user.is_staff or request.user.is_superuser
+        ):
             return redirect('dashboard:home')
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = AuditLog.objects.select_related('user').all()
+        queryset = AuditLog.objects.select_related('user')
 
         # Search by user or description
         search_query = self.request.GET.get('search', '')
@@ -46,7 +48,7 @@ class AuditLogListView(ListView):
         if date_to:
             queryset = queryset.filter(timestamp__lte=date_to)
 
-        return queryset
+        return queryset.order_by('-timestamp')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

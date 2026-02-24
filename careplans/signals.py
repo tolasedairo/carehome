@@ -5,6 +5,10 @@ from audit.middleware import get_current_user
 from .models import CarePlan
 
 
+def _is_manager(user):
+    return bool(user and getattr(user, "role", None) == "MANAGER")
+
+
 @receiver(pre_save, sender=CarePlan)
 def detect_careplan_archive_status(sender, instance, **kwargs):
     """
@@ -26,6 +30,8 @@ def log_careplan_activity(sender, instance, created, **kwargs):
     Automatically log care plan creation, updates, archive and unarchive to the audit log.
     """
     user = get_current_user() or instance.created_by
+    if not _is_manager(user):
+        return
     
     if created:
         # Log creation

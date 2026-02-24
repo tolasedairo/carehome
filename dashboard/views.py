@@ -7,6 +7,7 @@ from incidents.models import Incident
 from handovers.models import Handover
 from accounts.models import CustomUser
 from accounts.decorators import approval_required
+from audit.models import AuditLog
 
 
 @login_required
@@ -65,6 +66,11 @@ def home(request):
         pending_users_list = CustomUser.objects.filter(
             is_approved=False
         ).order_by('-date_joined')[:5]
+        recent_audit_logs = AuditLog.objects.select_related(
+            'user'
+        ).order_by('-timestamp')[:3]
+    else:
+        recent_audit_logs = []
 
     context = {
         'total_residents': total_residents,
@@ -84,6 +90,7 @@ def home(request):
         'recent_handovers_list': recent_handovers_list,
         'pending_users_count': pending_users_count,
         'pending_users_list': pending_users_list,
+        'recent_audit_logs': recent_audit_logs,
     }
 
     return render(request, 'dashboard/home.html', context)

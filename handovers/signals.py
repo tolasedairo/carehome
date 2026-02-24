@@ -5,6 +5,10 @@ from audit.middleware import get_current_user
 from .models import Handover
 
 
+def _is_manager(user):
+    return bool(user and getattr(user, "role", None) == "MANAGER")
+
+
 @receiver(pre_save, sender=Handover)
 def detect_handover_completion(sender, instance, **kwargs):
     """
@@ -26,6 +30,8 @@ def log_handover_activity(sender, instance, created, **kwargs):
     Automatically log handover creation, updates, and completion to the audit log.
     """
     user = get_current_user() or instance.created_by
+    if not _is_manager(user):
+        return
     resident_str = f" for {instance.resident}" if instance.resident else ""
     
     if created:

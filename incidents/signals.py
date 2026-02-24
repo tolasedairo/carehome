@@ -5,6 +5,10 @@ from audit.middleware import get_current_user
 from .models import Incident
 
 
+def _is_manager(user):
+    return bool(user and getattr(user, "role", None) == "MANAGER")
+
+
 @receiver(pre_save, sender=Incident)
 def detect_incident_resolution(sender, instance, **kwargs):
     """
@@ -26,6 +30,8 @@ def log_incident_activity(sender, instance, created, **kwargs):
     Automatically log incident creation, updates, and resolution to the audit log.
     """
     user = get_current_user() or instance.created_by
+    if not _is_manager(user):
+        return
     resident_str = f" for {instance.resident}" if instance.resident else " (General)"
     
     if created:

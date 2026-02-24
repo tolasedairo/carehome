@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import CustomUser
+from audit.models import AuditLog
 
 
 @login_required
@@ -50,6 +51,15 @@ def approve_user(request, user_id):
     if not user.is_approved:
         user.is_approved = True
         user.save()
+        AuditLog.objects.create(
+            user=request.user,
+            action='USER_APPROVAL',
+            target_model='CustomUser',
+            target_id=user.id,
+            description=(
+                f"Approved user: {user.get_full_name() or user.username}"
+            )
+        )
         messages.success(
             request,
             f"User {user.get_full_name() or user.username} "

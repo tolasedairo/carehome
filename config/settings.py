@@ -42,12 +42,12 @@ INSTALLED_APPS = [
 
     # Local
     'accounts',
-    'residents',
-    'careplans',
-    'handovers',
-    'incidents',
+    'residents.apps.ResidentsConfig',
+    'careplans.apps.CareplansConfig',
+    'handovers.apps.HandoversConfig',
+    'incidents.apps.IncidentsConfig',
     'dashboard',
-    'audit',
+    'audit.apps.AuditConfig',
 ]
 
 SITE_ID = 1

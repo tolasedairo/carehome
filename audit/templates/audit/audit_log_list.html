@@ -18,9 +18,10 @@
     </div>
 </div>
 
-<!-- Search and Filter Section -->
-<div class="feature-card mb-3">
-    <form method="get" class="row g-3">
+<!-- Search and Filter Section + Audit Logs Table -->
+<div class="feature-card">
+    <!-- Search Form -->
+    <form method="get" class="row g-3 mb-4">
         <div class="col-md-4">
             <input type="text" name="search" class="form-control" placeholder="Search by user or description..." value="{{ request.GET.search }}">
         </div>
@@ -44,10 +45,8 @@
             </button>
         </div>
     </form>
-</div>
 
-<!-- Audit Logs Table -->
-<div class="feature-card">
+    <!-- Audit Logs Table -->
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
