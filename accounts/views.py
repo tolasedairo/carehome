@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from allauth.account.views import PasswordResetDoneView
 from .models import CustomUser
 from audit.models import AuditLog
 
@@ -11,6 +12,10 @@ def pending_approval(request):
     View displayed to users awaiting admin approval.
     """
     return render(request, 'accounts/pending_approval.html')
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'account/password_reset_done.html'
 
 
 @login_required

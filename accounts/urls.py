@@ -4,6 +4,11 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
+    path(
+        'password/reset/done/',
+        views.CustomPasswordResetDoneView.as_view(),
+        name='account_reset_password_done'
+    ),
     path('pending/', views.pending_approval, name='pending'),
     path('pending-users/', views.pending_users_list, name='pending-users'),
     path(
