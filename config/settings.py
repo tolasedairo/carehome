@@ -186,6 +186,16 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.CustomSignupForm',
 }
 
+ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/pending/'
+
+# ======================
+# EMAIL (LOCAL DEV)
+# ======================
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # ======================
 # PRODUCTION SECURITY (HEROKU ONLY)
 # ======================

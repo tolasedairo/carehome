@@ -121,8 +121,23 @@
                             </div>
                         </div>
 
-                        <!-- Two Column Layout for Email and Role -->
+                        <!-- Two Column Layout for Username and Email -->
                         <div class="row">
+                            <!-- Username Field -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="id_username" class="form-label">
+                                        <i class="fas fa-id-badge me-2"></i>Username
+                                    </label>
+                                    {{ form.username }}
+                                    {% if form.username.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.username.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
                             <!-- Email Field -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
@@ -138,20 +153,19 @@
                                 </div>
                             </div>
 
-                            <!-- Role Selection -->
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="id_role" class="form-label">
-                                        <i class="fas fa-briefcase me-2"></i>Your Role
-                                    </label>
-                                    {{ form.role }}
-                                    {% if form.role.errors %}
-                                    <div class="invalid-feedback d-block">
-                                        {% for error in form.role.errors %}{{ error }}{% endfor %}
-                                    </div>
-                                    {% endif %}
-                                </div>
+                        </div>
+
+                        <!-- Role Selection -->
+                        <div class="form-group mb-3">
+                            <label for="id_role" class="form-label">
+                                <i class="fas fa-briefcase me-2"></i>Your Role
+                            </label>
+                            {{ form.role }}
+                            {% if form.role.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.role.errors %}{{ error }}{% endfor %}
                             </div>
+                            {% endif %}
                         </div>
 
                         <!-- Two Column Layout for Passwords -->

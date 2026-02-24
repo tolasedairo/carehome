@@ -684,3 +684,198 @@ html, body {
         font-size: 22px;
     }
 }
+
+/* ============================================
+   Pending Approval Page
+   ============================================ */
+
+.pending-shell {
+    width: 100%;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pending-card {
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 25px 60px rgba(45, 122, 122, 0.2);
+    border: 1px solid rgba(59, 143, 141, 0.1);
+}
+
+.pending-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pending-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: rgba(56, 182, 160, 0.15);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 16px;
+}
+
+.pending-kicker {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7a8f8f;
+    margin-bottom: 8px;
+}
+
+.pending-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.pending-subtitle {
+    color: #5b6f6f;
+    font-size: 15px;
+    margin: 0;
+}
+
+.pending-status {
+    background: #f4fbfa;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid rgba(56, 182, 160, 0.2);
+    margin-bottom: 24px;
+}
+
+.pending-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.pending-status-label {
+    font-weight: 600;
+    color: #2f4f4f;
+}
+
+.pending-status-pill {
+    background: rgba(237, 137, 54, 0.15);
+    color: #b85c11;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+.pending-status-note {
+    margin: 0;
+    color: #6a7f7f;
+    font-size: 13px;
+}
+
+.pending-steps {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.pending-step {
+    display: flex;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(59, 143, 141, 0.12);
+    background: #f9fbfb;
+}
+
+.pending-step.active {
+    background: rgba(45, 122, 122, 0.08);
+    border-color: rgba(45, 122, 122, 0.25);
+}
+
+.pending-step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(45, 122, 122, 0.15);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.pending-step h6 {
+    margin: 0 0 4px;
+    font-weight: 600;
+    color: #2f4f4f;
+}
+
+.pending-step p {
+    margin: 0;
+    font-size: 13px;
+    color: #6a7f7f;
+}
+
+.pending-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.pending-actions .btn-pending-primary {
+    min-width: 200px;
+}
+
+.btn-pending-primary {
+    background: linear-gradient(135deg, #2d7a7a 0%, #3b8f8d 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-pending-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 122, 122, 0.3);
+    color: #fff;
+}
+
+.pending-link {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.pending-link:hover {
+    color: #1f5858;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .pending-card {
+        padding: 28px 22px;
+    }
+
+    .pending-status-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
