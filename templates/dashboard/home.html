@@ -25,7 +25,7 @@
 <!-- Key Stats Row -->
 <div class="row mb-4">
     <div class="col-lg-3 col-md-6 mb-3">
-        <div class="stat-card">
+        <div class="stat-card h-100">
             <div class="stat-icon bg-primary">
                 <i class="fas fa-users"></i>
             </div>
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-6 mb-3">
-        <div class="stat-card {% if open_incidents > 0 %}border-warning{% endif %}">
+        <div class="stat-card h-100 {% if open_incidents > 0 %}border-warning{% endif %}">
             <div class="stat-icon {% if open_incidents > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-6 mb-3">
-        <div class="stat-card {% if pending_handovers > 0 %}border-warning{% endif %}">
+        <div class="stat-card h-100 {% if pending_handovers > 0 %}border-warning{% endif %}">
             <div class="stat-icon {% if pending_handovers > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
                 <i class="fas fa-clipboard-list"></i>
             </div>
@@ -59,7 +59,7 @@
     </div>
     {% if user.role == "MANAGER" %}
     <div class="col-lg-3 col-md-6 mb-3">
-        <div class="stat-card {% if pending_users_count > 0 %}border-warning{% endif %}">
+        <div class="stat-card h-100 {% if pending_users_count > 0 %}border-warning{% endif %}">
             <div class="stat-icon {% if pending_users_count > 0 %}bg-warning{% else %}bg-secondary{% endif %}">
                 <i class="fas fa-user-clock"></i>
             </div>
@@ -71,7 +71,7 @@
     </div>
     {% else %}
     <div class="col-lg-3 col-md-6 mb-3">
-        <div class="stat-card">
+        <div class="stat-card h-100">
             <div class="stat-icon bg-success">
                 <i class="fas fa-check-circle"></i>
             </div>
