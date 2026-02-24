@@ -61,15 +61,6 @@ body {
     min-height: 0;
 }
 
-.sidebar-nav-top {
-    overflow-y: auto;
-    padding-right: 4px;
-}
-
-.sidebar-nav-bottom {
-    margin-top: auto;
-}
-
 .sidebar-nav .nav-link {
     padding: 10px 15px;
     font-weight: 500;
@@ -331,7 +322,7 @@ body {
     background-color: #fff;
     padding: 8px 14px;
     border-radius: 6px;
-    transition: var(--transition);
+    transition: all 0.3s ease !important;
 }
 
 .pagination-disabled {
@@ -436,11 +427,6 @@ body {
 .btn-danger:hover {
     background-color: #c82333;
     color: white;
-}
-
-/* ===== Pagination Styles ===== */
-.pagination-link {
-    transition: all 0.3s ease !important;
 }
 
 .pagination-link:hover {
