@@ -54,7 +54,7 @@
 
         <!-- Navigation -->
         <nav class="sidebar-nav p-3">
-            <ul class="nav flex-column sidebar-nav-top">
+            <ul class="nav flex-column">
                 <li class="nav-item">
                     <a class="nav-link text-white rounded-2 mb-2" href="{% url 'dashboard:home' %}">
                         <i class="fas fa-chart-line me-2"></i>Dashboard
@@ -80,46 +80,39 @@
                         <i class="fas fa-exclamation-triangle me-2"></i>Incidents
                     </a>
                 </li>
-            </ul>
-
-            <hr class="my-4 border-secondary">
-
-            {% if user.is_authenticated %}
-            <ul class="nav flex-column sidebar-nav-bottom">
-                {% if user.is_staff %}
-                <li class="nav-item">
-                    <a class="nav-link text-warning rounded-2 mb-2" href="/admin/">
-                        <i class="fas fa-cog me-2"></i>Admin Panel
-                    </a>
-                </li>
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning rounded-2 mb-2" href="/admin/">
+                            <i class="fas fa-cog me-2"></i>Admin Panel
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if user.role == "MANAGER" %}
+                    <li class="nav-item">
+                        <a class="nav-link text-info rounded-2 mb-2" href="{% url 'accounts:pending-users' %}">
+                            <i class="fas fa-user-clock me-2"></i>Pending Approvals
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-danger rounded-2" href="{% url 'account_logout' %}">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-info rounded-2 mb-2" href="{% url 'account_login' %}">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success rounded-2" href="{% url 'account_signup' %}">
+                            <i class="fas fa-user-plus me-2"></i>Sign Up
+                        </a>
+                    </li>
                 {% endif %}
-                {% if user.role == "MANAGER" %}
-                <li class="nav-item">
-                    <a class="nav-link text-info rounded-2 mb-2" href="{% url 'accounts:pending-users' %}">
-                        <i class="fas fa-user-clock me-2"></i>Pending Approvals
-                    </a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link text-danger rounded-2" href="{% url 'account_logout' %}">
-                        <i class="fas fa-sign-out-alt me-2"></i>Logout
-                    </a>
-                </li>
             </ul>
-            {% else %}
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link text-info rounded-2 mb-2" href="{% url 'account_login' %}">
-                        <i class="fas fa-sign-in-alt me-2"></i>Login
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-success rounded-2" href="{% url 'account_signup' %}">
-                        <i class="fas fa-user-plus me-2"></i>Sign Up
-                    </a>
-                </li>
-            </ul>
-            {% endif %}
         </nav>
     </div>
 
