@@ -3,12 +3,40 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('CareHome Management System Loaded');
 
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggle = document.querySelector('.sidebar-toggle');
+    const sidebarBackdrop = document.querySelector('.sidebar-backdrop');
+
+    if (sidebar && sidebarToggle && sidebarBackdrop) {
+        const closeSidebar = () => {
+            sidebar.classList.remove('active');
+            sidebarBackdrop.classList.remove('active');
+        };
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            sidebarBackdrop.classList.toggle('active');
+        });
+
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeSidebar();
+            }
+        });
+    }
+
     // Add smooth scroll behavior
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetSelector = this.getAttribute('href');
+            if (!targetSelector || targetSelector === '#') {
+                return;
+            }
+            const target = document.querySelector(targetSelector);
             if (target) {
+                e.preventDefault();
                 target.scrollIntoView({
                     behavior: 'smooth'
                 });

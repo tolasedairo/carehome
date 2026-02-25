@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white rounded-2 mb-2" href="#">
+                    <a class="nav-link text-white rounded-2 mb-2" href="{% url 'careplans:list' %}">
                         <i class="fas fa-file-medical me-2"></i>Care Plans
                     </a>
                 </li>
@@ -116,18 +116,28 @@
         </nav>
     </div>
 
+    <div class="sidebar-backdrop"></div>
+
     <!-- Main Content Area -->
     <div class="flex-fill d-flex flex-column main-shell">
         <!-- Top Bar -->
         <div class="topbar bg-white border-bottom shadow-sm p-3 p-md-4">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <div>
-                    <h5 class="mb-0 text-dark">{% block page_title %}Dashboard{% endblock %}</h5>
-                    <small class="text-muted d-none d-md-inline">{{ user.get_full_name|default:"Care Home Management System" }}</small>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm btn-outline-secondary sidebar-toggle d-md-none" type="button" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h5 class="mb-0 text-dark">{% block page_title %}Dashboard{% endblock %}</h5>
+                        <small class="text-muted d-none d-md-inline">{{ user.get_full_name|default:"Care Home Management System" }}</small>
+                    </div>
                 </div>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2">
                     {% if user.is_authenticated %}
-                    <div class="badge bg-info">{{ user.get_role_display }}</div>
+                    <div class="badge bg-info d-none d-md-inline">{{ user.get_role_display }}</div>
+                    <a href="{% url 'account_logout' %}" class="btn btn-sm btn-outline-danger d-md-none" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
                     {% endif %}
                 </div>
             </div>

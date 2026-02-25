@@ -198,6 +198,42 @@ html, body {
     text-align: center;
 }
 
+.auth-brand-mobile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(45, 122, 122, 0.08);
+    margin-bottom: 18px;
+    color: var(--color-primary);
+}
+
+.auth-brand-mobile-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(45, 122, 122, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.auth-brand-mobile h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.auth-brand-mobile p {
+    margin: 0;
+    font-size: 12px;
+    color: #4f6464;
+}
+
 .auth-form-header h2 {
     font-size: 28px;
     font-weight: 700;
@@ -676,6 +712,22 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        overflow: auto;
+    }
+
+    .auth-body {
+        align-items: stretch;
+    }
+
+    .auth-right-side {
+        padding: 30px 16px;
+    }
+
+    .auth-form-container {
+        padding: 28px 22px;
+    }
+
     .logout-container {
         padding: 25px;
     }
