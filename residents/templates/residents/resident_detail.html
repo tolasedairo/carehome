@@ -12,9 +12,9 @@
         <!-- Profile Picture -->
         <div class="col-md-3 col-lg-2 text-center">
             {% if resident.profile_picture %}
-                <img src="{{ resident.profile_picture.url }}" alt="{{ resident.first_name }}" class="img-fluid rounded-circle mb-3">
+                <img src="{{ resident.profile_picture.url }}" alt="{{ resident.first_name }}" class="profile-avatar rounded-circle mb-3">
             {% else %}
-                <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+                <div class="profile-avatar avatar-placeholder rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
                     {{ resident.first_name|first }}{{ resident.last_name|first }}
                 </div>
             {% endif %}
