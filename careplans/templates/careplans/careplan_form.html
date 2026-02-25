@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block page_title %}
 {% if object %}Edit Care Plan{% else %}New Care Plan{% endif %}
@@ -21,78 +22,13 @@
     <form method="post">
         {% csrf_token %}
 
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label class="form-label">Resident</label>
-                {{ form.resident }}
-            </div>
+        {{ form|crispy }}
 
-            <div class="col-md-4">
-                <label class="form-label">Review Date</label>
-                {{ form.review_date }}
-            </div>
-
-            <div class="col-md-4">
-                <label class="form-label">Title</label>
-                {{ form.title }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Assessment Summary</label>
-                {{ form.assessment_summary }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Personal Care</label>
-                {{ form.personal_care }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Mobility and Transfers</label>
-                {{ form.mobility }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Nutrition and Hydration</label>
-                {{ form.nutrition }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Medication Support</label>
-                {{ form.medication }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Communication and Cognition</label>
-                {{ form.communication }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Wellbeing and Behaviour</label>
-                {{ form.wellbeing }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Skin Integrity</label>
-                {{ form.skin_integrity }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Daily Routine and Preferences</label>
-                {{ form.daily_routine }}
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Safeguarding and Risks</label>
-                {{ form.safeguarding_risks }}
-            </div>
-
-            <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-primary">
-                    {% if object %}Update{% else %}Create{% endif %}
-                </button>
-                <a href="{% url 'careplans:list' %}" class="btn btn-secondary ms-2">Cancel</a>
-            </div>
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary">
+                {% if object %}Update{% else %}Create{% endif %}
+            </button>
+            <a href="{% url 'careplans:list' %}" class="btn btn-secondary ms-2">Cancel</a>
         </div>
     </form>
 </div>

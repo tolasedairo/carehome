@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Field
 from .models import CarePlan
 
 
@@ -42,3 +44,23 @@ class CarePlanForm(forms.ModelForm):
                 field.widget.attrs.update({"class": "form-select"})
             else:
                 field.widget.attrs.update({"class": "form-control"})
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column("resident", css_class="col-md-4"),
+                Column("review_date", css_class="col-md-4"),
+                Column("title", css_class="col-md-4"),
+            ),
+            Field("assessment_summary"),
+            Field("personal_care"),
+            Field("mobility"),
+            Field("nutrition"),
+            Field("medication"),
+            Field("communication"),
+            Field("wellbeing"),
+            Field("skin_integrity"),
+            Field("daily_routine"),
+            Field("safeguarding_risks"),
+        )

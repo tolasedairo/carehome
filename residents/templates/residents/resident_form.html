@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block page_title %}Resident Form{% endblock %}
 
@@ -12,140 +13,13 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <!-- Personal Information Section -->
-            <h5 class="mb-3 text-primary">Personal Information</h5>
-            
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">First Name</label>
-                    {{ form.first_name }}
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Last Name</label>
-                    {{ form.last_name }}
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Date of Birth</label>
-                    {{ form.date_of_birth }}
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Gender</label>
-                    {{ form.gender }}
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Room Number</label>
-                    {{ form.room_number }}
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Profile Picture</label>
-                    {{ form.profile_picture }}
-                </div>
-            </div>
-
-            <!-- Emergency Contact Section -->
-            <h5 class="mb-3 text-primary mt-4">Emergency Contact</h5>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Emergency Contact Name</label>
-                    {{ form.emergency_contact_name }}
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Emergency Contact Phone</label>
-                    {{ form.emergency_contact_phone }}
-                </div>
-            </div>
-
-            <!-- Medical Information Section -->
-            <h5 class="mb-3 text-primary mt-4">Medical Information</h5>
-
-            <div class="mb-3">
-                <label class="form-label">Medical Notes</label>
-                {{ form.medical_notes }}
-            </div>
+            {{ form|crispy }}
 
             {% if careplan_form %}
             <!-- Care Plan Section -->
             <h5 class="mb-3 text-primary mt-4">Care Plan (UK Standard)</h5>
 
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Review Date</label>
-                    {{ careplan_form.review_date }}
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Title</label>
-                    {{ careplan_form.title }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Assessment Summary</label>
-                {{ careplan_form.assessment_summary }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Personal Care</label>
-                {{ careplan_form.personal_care }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Mobility and Transfers</label>
-                {{ careplan_form.mobility }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Nutrition and Hydration</label>
-                {{ careplan_form.nutrition }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Medication Support</label>
-                {{ careplan_form.medication }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Communication and Cognition</label>
-                {{ careplan_form.communication }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Wellbeing and Behaviour</label>
-                {{ careplan_form.wellbeing }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Skin Integrity</label>
-                {{ careplan_form.skin_integrity }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Daily Routine and Preferences</label>
-                {{ careplan_form.daily_routine }}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Safeguarding and Risks</label>
-                {{ careplan_form.safeguarding_risks }}
-            </div>
-
-            {% if careplan_form.errors %}
-            <div class="alert alert-danger mb-3" role="alert">
-                <strong>Care Plan Error:</strong>
-                {% for field, errors in careplan_form.errors.items %}
-                    {% for error in errors %}
-                        <div>{{ error }}</div>
-                    {% endfor %}
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% endif %}
-
-            <!-- Display Errors if Any -->
-            {% if form.non_field_errors %}
-            <div class="alert alert-danger mb-3" role="alert">
-                <strong>Error:</strong>
-                {% for error in form.non_field_errors %}
-                    <div>{{ error }}</div>
-                {% endfor %}
-            </div>
+            {{ careplan_form|crispy }}
             {% endif %}
 
             <!-- Buttons -->

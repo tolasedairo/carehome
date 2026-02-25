@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Field
 from .models import Handover
 
 
@@ -31,3 +33,21 @@ class HandoverForm(forms.ModelForm):
                 attrs={'class': 'form-check-input'}
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column("title", css_class="col-md-6"),
+                Column("resident", css_class="col-md-6"),
+            ),
+            Row(
+                Column("shift", css_class="col-md-4"),
+                Column("priority", css_class="col-md-4"),
+                Column("is_completed", css_class="col-md-4"),
+            ),
+            Field("notes"),
+        )

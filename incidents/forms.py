@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Field
 from .models import Incident
 
 
@@ -25,3 +27,17 @@ class IncidentForm(forms.ModelForm):
                 attrs={'class': 'form-check-input'}
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column("resident", css_class="col-md-6"),
+                Column("incident_type", css_class="col-md-6"),
+            ),
+            Field("description"),
+            Field("is_resolved"),
+        )

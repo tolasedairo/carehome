@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'cloudinary',
     'cloudinary_storage',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     # Local
     'accounts',
@@ -202,6 +204,13 @@ ACCOUNT_FORMS = {
 
 ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/pending/'
+
+# ======================
+# CRISPY FORMS
+# ======================
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # ======================
 # EMAIL (LOCAL DEV)
