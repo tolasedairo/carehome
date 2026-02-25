@@ -1,19 +1,17 @@
 from pathlib import Path
-import dj_database_url
 import os
 import sys
+import dj_database_url
 from dotenv import load_dotenv
 
-load_dotenv()
+# ======================
+# BASE SETUP
+# ======================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# ======================
-# SECURITY
-# ======================
+load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-local-key")
-
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
@@ -29,39 +27,39 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     # Django
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.sites",
 
     # Third-party
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'cloudinary',
-    'cloudinary_storage',
-    'crispy_forms',
-    'crispy_bootstrap5',
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "cloudinary",
+    "cloudinary_storage",
+    "crispy_forms",
+    "crispy_bootstrap5",
 
     # Local
-    'accounts',
-    'residents.apps.ResidentsConfig',
-    'careplans.apps.CareplansConfig',
-    'handovers.apps.HandoversConfig',
-    'incidents.apps.IncidentsConfig',
-    'dashboard',
-    'audit.apps.AuditConfig',
+    "accounts",
+    "residents.apps.ResidentsConfig",
+    "careplans.apps.CareplansConfig",
+    "handovers.apps.HandoversConfig",
+    "incidents.apps.IncidentsConfig",
+    "dashboard",
+    "audit.apps.AuditConfig",
 ]
 
 SITE_ID = 1
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 # ======================
@@ -69,20 +67,20 @@ AUTHENTICATION_BACKENDS = [
 # ======================
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'audit.middleware.CurrentUserMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "audit.middleware.CurrentUserMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'config.urls'
-WSGI_APPLICATION = 'config.wsgi.application'
+ROOT_URLCONF = "config.urls"
+WSGI_APPLICATION = "config.wsgi.application"
 
 # ======================
 # TEMPLATES
@@ -90,14 +88,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -123,8 +121,9 @@ else:
         }
     }
 
-if 'test' in sys.argv:
-    DATABASES['default'] = {
+# Manual test database override to ensure tests run in isolation and do not affect development or production data
+if "test" in sys.argv:
+    DATABASES["default"] = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "test_db.sqlite3",
     }
@@ -134,18 +133,18 @@ if 'test' in sys.argv:
 # ======================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 # ======================
 # INTERNATIONALIZATION
 # ======================
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
@@ -153,78 +152,84 @@ USE_TZ = True
 # DEFAULT PRIMARY KEY
 # ======================
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ======================
 # STATIC FILES
 # ======================
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ======================
-# MEDIA (CLOUDINARY)
+# MEDIA STORAGE
 # ======================
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-    'SECURE': True,
-}
+# Default local storage
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Use Cloudinary only if credentials exist AND not running tests
+if os.getenv("CLOUDINARY_CLOUD_NAME") and "test" not in sys.argv:
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+        "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+        "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+        "SECURE": True,
+    }
+
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # ======================
 # DJANGO-ALLAUTH
 # ======================
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 
-# New Django 5 compatible settings
-ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+ACCOUNT_LOGIN_METHODS = {"username", "email"}
 
 ACCOUNT_SIGNUP_FIELDS = [
-    'email*',
-    'username*',
-    'password1*',
-    'password2*',
+    "email*",
+    "username*",
+    "password1*",
+    "password2*",
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_FORMS = {
-    'login': 'accounts.forms.CustomLoginForm',
-    'signup': 'accounts.forms.CustomSignupForm',
+    "login": "accounts.forms.CustomLoginForm",
+    "signup": "accounts.forms.CustomSignupForm",
 }
 
-ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
-ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/pending/'
+ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/accounts/pending/"
 
 # ======================
 # CRISPY FORMS
 # ======================
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # ======================
-# EMAIL (LOCAL DEV)
+# EMAIL
 # ======================
 
 if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # ======================
 # PRODUCTION SECURITY
 # ======================
 
 if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True

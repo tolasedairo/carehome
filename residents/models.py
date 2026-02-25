@@ -21,7 +21,7 @@ class Resident(models.Model):
     emergency_contact_phone = models.CharField(max_length=20)
     medical_notes = models.TextField(blank=True)
 
-    # **New field for profile picture**
+    # **profile picture**
     profile_picture = CloudinaryField('image', blank=True, null=True)
 
     # Professional fields
