@@ -58,6 +58,12 @@ body {
     color: #f0ad4e;
 }
 
+.sidebar-logo {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
 .sidebar-user {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
