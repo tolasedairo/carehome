@@ -4,7 +4,6 @@ import os
 import sys
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,9 +14,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-local-key")
 
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".herokuapp.com", "carehome-c3a4ac54b776.herokuapp.com"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    ".herokuapp.com",
+    "carehome-c3a4ac54b776.herokuapp.com",
+]
 
 # ======================
 # APPLICATIONS
@@ -64,7 +68,7 @@ AUTHENTICATION_BACKENDS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # IMPORTANT FOR HEROKU
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -101,17 +105,15 @@ TEMPLATES = [
 # DATABASE
 # ======================
 
-# Default database (Heroku Postgres)
 if os.getenv("DATABASE_URL"):
     DATABASES = {
         "default": dj_database_url.parse(
             os.environ.get("DATABASE_URL"),
-            conn_max_age=600,   # keep DB connections alive
-            ssl_require=True    # enforce SSL for Heroku Postgres
+            conn_max_age=600,
+            ssl_require=True,
         )
     }
 else:
-    # Local development (SQLite)
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -119,7 +121,6 @@ else:
         }
     }
 
-# Use SQLite for running tests
 if 'test' in sys.argv:
     DATABASES['default'] = {
         "ENGINE": "django.db.backends.sqlite3",
@@ -145,6 +146,12 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+# ======================
+# DEFAULT PRIMARY KEY
+# ======================
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ======================
 # STATIC FILES
@@ -175,9 +182,16 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
+# New Django 5 compatible settings
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+
+ACCOUNT_SIGNUP_FIELDS = [
+    'email*',
+    'username*',
+    'password1*',
+    'password2*',
+]
+
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_UNIQUE_EMAIL = True
 
@@ -197,11 +211,11 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # ======================
-# PRODUCTION SECURITY (HEROKU ONLY)
+# PRODUCTION SECURITY
 # ======================
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = not DEBUG
-    SESSION_COOKIE_SECURE = not DEBUG
-    CSRF_COOKIE_SECURE = not DEBUG
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
