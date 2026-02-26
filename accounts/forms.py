@@ -20,6 +20,8 @@ class CustomLoginForm(LoginForm):
             'placeholder': 'Enter your password',
             'autocomplete': 'current-password',
         })
+        # Remove help text to prevent aria-describedby
+        self.fields['password'].help_text = ''
 
 
 class CustomSignupForm(SignupForm):
@@ -71,6 +73,9 @@ class CustomSignupForm(SignupForm):
             'class': 'form-control',
             'placeholder': 'Confirm your password',
         })
+        # Remove help text to prevent aria-describedby
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
         # Remove username field label customization if needed
         if 'username' in self.fields:
             self.fields['username'].widget.attrs.update({
