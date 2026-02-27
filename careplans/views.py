@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
@@ -11,9 +10,9 @@ from accounts.decorators import approval_required
 from .models import CarePlan
 from .forms import CarePlanForm
 
-
-
 # Create your views here.
+
+
 @method_decorator([login_required, approval_required], name='dispatch')
 class CarePlanListView(ListView):
     model = CarePlan
@@ -99,8 +98,8 @@ class CarePlanUpdateView(UpdateView):
             return super().dispatch(request, *args, **kwargs)
 
         return HttpResponseForbidden("You do not have permission to edit this care plan.")
-    
-    
+
+
 @login_required
 @approval_required
 def archive_careplan(request, pk):

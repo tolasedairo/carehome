@@ -4,6 +4,7 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
+
 class Resident(models.Model):
     GENDER_CHOICES = (
         ('MALE', 'Male'),

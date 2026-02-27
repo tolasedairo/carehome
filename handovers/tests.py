@@ -7,6 +7,7 @@ from handovers.models import Handover
 # Create your tests here.
 User = get_user_model()
 
+
 class HandoverTestCase(TestCase):
     def setUp(self):
         self.carer = User.objects.create_user(

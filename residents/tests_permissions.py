@@ -5,6 +5,7 @@ from residents.models import Resident
 
 User = get_user_model()
 
+
 class ResidentPermissionsAndArchiveTestCase(TestCase):
     def setUp(self):
         # Users

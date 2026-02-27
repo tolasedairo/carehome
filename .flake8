@@ -1,0 +1,17 @@
+[flake8]
+max-line-length = 120
+exclude = 
+    venv,
+    __pycache__,
+    .git,
+    *.migrations.*,
+    .env,
+    staticfiles
+ignore =
+    # E501: Line too long (often unavoidable in migrations, docstrings)
+    E501,
+    # W503/W504: Line break around binary operator (conflicts with Black formatter)
+    W503,
+    W504,
+    # E203: Whitespace before ':' (conflicts with Black formatter)
+    E203

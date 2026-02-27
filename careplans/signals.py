@@ -32,7 +32,7 @@ def log_careplan_activity(sender, instance, created, **kwargs):
     user = get_current_user() or instance.created_by
     if not _is_manager(user):
         return
-    
+
     if created:
         # Log creation
         AuditLog.objects.create(
@@ -64,7 +64,7 @@ def log_careplan_activity(sender, instance, created, **kwargs):
                         description=f"Unarchived care plan '{instance.title}' for {instance.resident}"
                     )
                 return  # Don't log as update
-        
+
         # Log regular update
         AuditLog.objects.create(
             user=user,

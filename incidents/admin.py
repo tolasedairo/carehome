@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import Incident
 
 # Register your models here.
+
+
 @admin.register(Incident)
 class IncidentAdmin(admin.ModelAdmin):
     list_display = ['id', 'resident', 'incident_type', 'created_by', 'created_at', 'is_resolved']

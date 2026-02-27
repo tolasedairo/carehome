@@ -15,5 +15,5 @@ def approval_required(view_func):
                 return redirect('accounts:pending')
         # If authenticated and approved, or if not required, continue
         return view_func(request, *args, **kwargs)
-    
+
     return wrapper

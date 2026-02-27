@@ -33,7 +33,7 @@ def log_handover_activity(sender, instance, created, **kwargs):
     if not _is_manager(user):
         return
     resident_str = f" for {instance.resident}" if instance.resident else ""
-    
+
     if created:
         # Log creation
         AuditLog.objects.create(
@@ -56,7 +56,7 @@ def log_handover_activity(sender, instance, created, **kwargs):
                     description=f"Completed handover '{instance.title}'{resident_str}"
                 )
                 return  # Don't log as update
-        
+
         # Log regular update
         AuditLog.objects.create(
             user=user,

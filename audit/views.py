@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect
 from django.views.generic import ListView
+from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Q
-from datetime import datetime, timedelta
 from accounts.decorators import approval_required
 from .models import AuditLog
 
 # Create your views here.
+
+
 @method_decorator([login_required, approval_required], name='dispatch')
 class AuditLogListView(ListView):
     model = AuditLog

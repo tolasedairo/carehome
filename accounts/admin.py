@@ -3,10 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
 # Register your models here.
-# This code registers the CustomUser model with the Django admin site, 
-# allowing administrators to manage user accounts through the admin interface. 
-# It extends the default UserAdmin to include additional fields such as 'role' and 'is_approved', 
-# and customizes the list display and filtering options for better user management.
+
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):

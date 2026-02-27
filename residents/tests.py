@@ -85,12 +85,12 @@ class ResidentPermissionsAndArchiveTestCase(TestCase):
         self.client.login(username='manager', password='pass1234')
 
         # Archive
-        response = self.client.post(reverse('residents:archive', args=[self.resident.pk]))
+        self.client.post(reverse('residents:archive', args=[self.resident.pk]))
         self.resident.refresh_from_db()
         self.assertFalse(self.resident.is_active)
 
         # Unarchive
-        response = self.client.post(reverse('residents:unarchive', args=[self.resident.pk]))
+        self.client.post(reverse('residents:unarchive', args=[self.resident.pk]))
         self.resident.refresh_from_db()
         self.assertTrue(self.resident.is_active)
 
@@ -98,11 +98,11 @@ class ResidentPermissionsAndArchiveTestCase(TestCase):
         self.client.login(username='carer', password='pass1234')
 
         # Archive attempt
-        response = self.client.post(reverse('residents:archive', args=[self.resident.pk]))
+        self.client.post(reverse('residents:archive', args=[self.resident.pk]))
         self.resident.refresh_from_db()
         self.assertTrue(self.resident.is_active)  # Should remain active
 
         # Unarchive attempt
-        response = self.client.post(reverse('residents:unarchive', args=[self.resident.pk]))
+        self.client.post(reverse('residents:unarchive', args=[self.resident.pk]))
         self.resident.refresh_from_db()
         self.assertTrue(self.resident.is_active)  # Should remain active

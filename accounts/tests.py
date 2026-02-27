@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 # Create your tests here.
 User = get_user_model()
 
+
 class CustomUserTestCase(TestCase):
     def setUp(self):
         self.carer = User.objects.create_user(

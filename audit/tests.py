@@ -5,6 +5,7 @@ from audit.models import AuditLog
 # Create your tests here.
 User = get_user_model()
 
+
 class AuditLogTestCase(TestCase):
     def setUp(self):
         self.manager = User.objects.create_user(

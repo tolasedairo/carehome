@@ -41,7 +41,7 @@ class ResidentListView(ListView):
                 filter=Q(incidents__is_resolved=False),
                 distinct=True
             )
-        ).order_by('last_name', 'first_name').distinct()  # ✅ pagination fix due to error while testing 
+        ).order_by('last_name', 'first_name').distinct()  # ✅ pagination fix due to error while testing
 
         return queryset
 

@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
-    IncidentListView, 
-    IncidentCreateView, 
-    IncidentDetailView, 
+    IncidentListView,
+    IncidentCreateView,
+    IncidentDetailView,
     IncidentUpdateView,
     IncidentResolveView,
     IncidentUnresolveView

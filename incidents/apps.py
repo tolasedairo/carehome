@@ -5,4 +5,4 @@ class IncidentsConfig(AppConfig):
     name = 'incidents'
 
     def ready(self):
-        import incidents.signals
+        import incidents.signals  # noqa: F401

@@ -1,7 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import (
     ListView,
@@ -10,7 +8,7 @@ from django.views.generic import (
     UpdateView
 )
 from django.urls import reverse_lazy
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.contrib import messages
 from accounts.decorators import approval_required
 from .models import Handover
@@ -30,7 +28,7 @@ class HandoverListView(ListView):
         queryset = Handover.objects.select_related(
             'resident', 'created_by'
         )
-        
+
         # Search functionality
         search_query = self.request.GET.get('search', '')
         if search_query:
@@ -40,26 +38,26 @@ class HandoverListView(ListView):
                 Q(resident__first_name__icontains=search_query) |
                 Q(resident__last_name__icontains=search_query)
             )
-        
+
         # Filter by shift
         shift = self.request.GET.get('shift', '')
         if shift:
             queryset = queryset.filter(shift=shift)
-        
+
         # Filter by priority
         priority = self.request.GET.get('priority', '')
         if priority:
             queryset = queryset.filter(priority=priority)
-        
+
         # Filter by completion status
         status = self.request.GET.get('status', '')
         if status == 'completed':
             queryset = queryset.filter(is_completed=True)
         elif status == 'pending':
             queryset = queryset.filter(is_completed=False)
-        
+
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
@@ -68,7 +66,7 @@ class HandoverListView(ListView):
         context['selected_status'] = self.request.GET.get('status', '')
         context['shift_choices'] = Handover.SHIFT_CHOICES
         context['priority_choices'] = Handover.PRIORITY_CHOICES
-        
+
         # Add quick stats
         all_handovers = Handover.objects.all()
         context['total_handovers'] = all_handovers.count()
@@ -78,7 +76,7 @@ class HandoverListView(ListView):
         context['completed_handovers'] = all_handovers.filter(
             is_completed=True
         ).count()
-        
+
         return context
 
 

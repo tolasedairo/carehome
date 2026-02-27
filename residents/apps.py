@@ -5,4 +5,4 @@ class ResidentsConfig(AppConfig):
     name = 'residents'
 
     def ready(self):
-        import residents.signals
+        import residents.signals  # noqa: F401

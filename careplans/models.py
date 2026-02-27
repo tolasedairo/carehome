@@ -3,6 +3,8 @@ from django.conf import settings
 from residents.models import Resident
 
 # Create your models here.
+
+
 class CarePlan(models.Model):
 
     resident = models.ForeignKey(

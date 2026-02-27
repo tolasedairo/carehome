@@ -13,14 +13,14 @@ class ResidentForm(forms.ModelForm):
     class Meta:
         model = Resident
         fields = [
-            'first_name', 
-            'last_name', 
-            'date_of_birth', 
+            'first_name',
+            'last_name',
+            'date_of_birth',
             'gender',
-            'room_number', 
-            'emergency_contact_name', 
+            'room_number',
+            'emergency_contact_name',
             'emergency_contact_phone',
-            'medical_notes', 
+            'medical_notes',
             'profile_picture'
         ]
         widgets = {

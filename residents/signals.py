@@ -33,7 +33,7 @@ def log_resident_activity(sender, instance, created, **kwargs):
     user = get_current_user() or instance.created_by
     if not _is_manager(user):
         return
-    
+
     if created:
         # Log creation
         AuditLog.objects.create(
@@ -65,7 +65,7 @@ def log_resident_activity(sender, instance, created, **kwargs):
                         description=f"Unarchived resident: {instance.first_name} {instance.last_name}"
                     )
                 return  # Don't log as update
-        
+
         # Log regular update
         AuditLog.objects.create(
             user=user,

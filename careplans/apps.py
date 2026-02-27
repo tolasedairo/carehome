@@ -5,4 +5,4 @@ class CareplansConfig(AppConfig):
     name = 'careplans'
 
     def ready(self):
-        import careplans.signals
+        import careplans.signals  # noqa: F401

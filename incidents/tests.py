@@ -5,6 +5,7 @@ from incidents.models import Incident
 
 User = get_user_model()
 
+
 class IncidentTestCase(TestCase):
     def setUp(self):
         # Create a manager and a resident
