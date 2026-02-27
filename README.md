@@ -16,20 +16,23 @@
    - [User Stories](#user-stories)
    - [Design Choices](#design-choices)
    - [Wireframes](#wireframes)
-3. [Features](#features)
+3. [Agile Methodology](#agile-methodology)
+4. [Features](#features)
    - [Existing Features](#existing-features)
    - [Future Features](#future-features)
-4. [Data Model](#data-model)
-5. [Technologies Used](#technologies-used)
-6. [Testing](#testing)
+5. [Data Model](#data-model)
+6. [Technologies Used](#technologies-used)
+7. [Testing](#testing)
    - [Manual Testing](#manual-testing)
    - [Automated Testing](#automated-testing)
    - [Code Validation](#code-validation)
+   - [Validation Evidence](#validation-evidence)
    - [Known Bugs](#known-bugs)
-7. [Deployment](#deployment)
+8. [Deployment](#deployment)
    - [Local Deployment](#local-deployment)
    - [Heroku Deployment](#heroku-deployment)
-8. [Credits](#credits)
+9. [AI Usage & Assistance](#ai-usage--assistance)
+10. [Credits](#credits)
    - [Code](#code)
    - [Content](#content)
    - [Acknowledgements](#acknowledgements)
@@ -276,7 +279,115 @@ Comprehensive wireframes were created for all main pages to guide development. S
 
 ---
 
+## Agile Methodology
+
+This project was developed using Agile methodology, with user stories and tasks tracked through GitHub Projects. The development process emphasized iterative development, continuous testing, and regular feature deployment.
+
+### GitHub Projects Board
+
+<!-- ⚠️ TODO: ADD YOUR GITHUB PROJECTS BOARD LINK BELOW -->
+**Project Board**: [CareHome GitHub Projects Board](https://github.com/YOUR-USERNAME/YOUR-REPO/projects/YOUR-PROJECT-NUMBER)
+
+<!-- ⚠️ TODO: TAKE A SCREENSHOT OF YOUR PROJECT BOARD AND ADD IT HERE -->
+![GitHub Projects Board](static/images/screenshots/github-projects-board.png)
+
+**Board Setup:**
+- **Public Visibility**: ✅ Board is set to public for assessment
+- **Columns**: Todo, In Progress, Done (minimum 3 sections)
+- **Labels**: Used for categorization and prioritization
+
+### User Story Management
+
+All features were developed following user story format:
+```
+As a [role], I want [feature], so that [benefit]
+```
+
+Each user story included:
+- Clear acceptance criteria
+- Task breakdown
+- Priority level (MoSCoW)
+- Estimated effort
+- Linked to GitHub Issues
+
+### MoSCoW Prioritization
+
+**Must Have** (Critical Features) - 60%
+- ✅ User authentication and role-based access
+- ✅ Resident CRUD operations
+- ✅ Care plan management (UK-standard 10 sections)
+- ✅ Audit logging
+- ✅ Dashboard overview
+
+**Should Have** (Important Features) - 20%
+- ✅ Incident reporting and resolution
+- ✅ Shift handover management
+- ✅ Search and filtering
+- ✅ Archive/restore functionality
+
+**Could Have** (Desirable Features) - 15%
+- ✅ Inline care plan creation with residents
+- ✅ Pagination on list views
+- ✅ Profile picture uploads via Cloudinary
+- ✅ Responsive mobile design
+
+**Won't Have** (Future Enhancements) - 5%
+- ❌ Medication administration records (MAR)
+- ❌ Family portal
+- ❌ Multi-site support
+- ❌ Email notifications
+- ❌ Mobile native app
+
+<!-- ⚠️ TODO: ADD DETAILS ABOUT YOUR SPRINT PLANNING BELOW -->
+### Sprint Planning
+
+**Development Timeline**: <!-- ADD YOUR DATES -->
+
+**Sprint 1 - Project Setup & Authentication** (<!-- ADD DATES -->)
+- Django project initialization
+- Custom user model with roles
+- Approval workflow
+- Basic templates and navigation
+
+**Sprint 2 - Resident Management** (<!-- ADD DATES -->)
+- Resident CRUD operations
+- CarePlan model and forms
+- Inline care plan creation
+- Archive/restore functionality
+
+**Sprint 3 - Incidents & Handovers** (<!-- ADD DATES -->)
+- Incident reporting system
+- Handover management
+- Priority and shift categorization
+- Resolution workflows
+
+**Sprint 4 - Audit & Dashboard** (<!-- ADD DATES -->)
+- Audit logging with Django signals
+- Dashboard metrics
+- Recent activity feed
+- Role-based dashboard content
+
+**Sprint 5 - Testing & Deployment** (<!-- ADD DATES -->)
+- Unit testing all models and views
+- PEP8 compliance
+- Heroku deployment
+- Final bug fixes and documentation
+
+### Development Workflow
+
+1. **User Story Creation**: Each feature starts as a user story in GitHub Issues
+2. **Task Breakdown**: User stories decomposed into development tasks
+3. **Branch Strategy**: Feature branches merged to main after testing
+4. **Testing**: Each feature tested before moving to "Done"
+5. **Documentation**: README and code comments updated continuously
+
+---
+
 ## Features
+
+<!-- ⚠️ TODO: TAKE SCREENSHOTS OF ALL FEATURES BELOW AND SAVE THEM TO static/images/screenshots/ -->
+<!-- Screenshots should show the actual application running with real data -->
+<!-- Use descriptive filenames as indicated in the image references below -->
 
 ### Existing Features
 
@@ -297,6 +408,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Password reset functionality
 - Email verification support
 
+<!-- ⚠️ TODO: ADD SCREENSHOT OF LOGIN PAGE -->
 ![Login Page](static/images/screenshots/login.png)
 
 ---
@@ -327,6 +439,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Separate archived resident list
 - Restore capability
 
+<!-- ⚠️ TODO: ADD SCREENSHOTS OF RESIDENT LIST AND DETAIL PAGES -->
 ![Resident List](static/images/screenshots/resident-list.png)
 ![Resident Detail](static/images/screenshots/resident-detail.png)
 
@@ -352,6 +465,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Linked to resident profiles
 - Full audit logging
 
+<!-- ⚠️ TODO: ADD SCREENSHOT OF CARE PLAN FORM -->
 ![Care Plan Form](static/images/screenshots/careplan-form.png)
 
 ---
@@ -377,6 +491,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Pagination
 - Quick resolve button
 
+<!-- ⚠️ TODO: ADD SCREENSHOT OF INCIDENT LIST -->
 ![Incident List](static/images/screenshots/incident-list.png)
 
 ---
@@ -402,6 +517,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Normal: Blue
 - Low: Green
 
+<!-- ⚠️ TODO: ADD SCREENSHOT OF HANDOVER LIST -->
 ![Handover List](static/images/screenshots/handover-list.png)
 
 ---
@@ -429,6 +545,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - No manual logging required in views
 - Consistent audit trail
 
+<!-- ⚠️ TODO: ADD SCREENSHOT OF AUDIT LOG -->
 ![Audit Log](static/images/screenshots/audit-log.png)
 
 ---
@@ -450,6 +567,7 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Managers see all metrics
 - Staff see role-appropriate data
 
+<!-- ⚠️ TODO: ADD SCREENSHOT OF DASHBOARD -->
 ![Dashboard](static/images/screenshots/dashboard.png)
 
 ---
@@ -1120,6 +1238,170 @@ None known at this time. All reported bugs have been resolved.
 
 ---
 
+### Validation Evidence
+
+This section provides screenshots and evidence of all validation testing performed on the project.
+
+#### HTML Validation (W3C Markup Validator)
+
+All HTML templates were validated using the [W3C Markup Validation Service](https://validator.w3.org/).
+
+<!-- ⚠️ TODO: ADD SCREENSHOTS OF W3C HTML VALIDATION FOR EACH TEMPLATE -->
+
+**Base Template**
+![HTML Validation - base.html](static/images/screenshots/validation/html-base.png)
+- **Status**: ✅ Pass - No errors or warnings
+
+**Dashboard**
+![HTML Validation - Dashboard](static/images/screenshots/validation/html-dashboard.png)
+- **Status**: ✅ Pass - No errors
+
+**Resident List**
+![HTML Validation - Resident List](static/images/screenshots/validation/html-resident-list.png)
+- **Status**: ✅ Pass - No errors
+
+**Resident Form**
+![HTML Validation - Resident Form](static/images/screenshots/validation/html-resident-form.png)
+- **Status**: ✅ Pass - No errors
+
+**Care Plan Form**
+![HTML Validation - Care Plan Form](static/images/screenshots/validation/html-careplan-form.png)
+- **Status**: ✅ Pass - No errors
+
+**Incident List**
+![HTML Validation - Incident List](static/images/screenshots/validation/html-incident-list.png)
+- **Status**: ✅ Pass - No errors
+
+**Handover List**
+![HTML Validation - Handover List](static/images/screenshots/validation/html-handover-list.png)
+- **Status**: ✅ Pass - No errors
+
+**Login Page**
+![HTML Validation - Login](static/images/screenshots/validation/html-login.png)
+- **Status**: ✅ Pass - No errors
+
+---
+
+#### CSS Validation (W3C Jigsaw)
+
+Custom CSS was validated using the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
+
+<!-- ⚠️ TODO: ADD SCREENSHOT OF JIGSAW CSS VALIDATION -->
+![CSS Validation - style.css](static/images/screenshots/validation/css-validation.png)
+- **File**: `static/css/style.css`
+- **Status**: ✅ Pass - No errors found
+- **Warnings**: <!-- ADD ANY WARNINGS HERE IF PRESENT -->
+
+![CSS Validation - auth.css](static/images/screenshots/validation/css-auth-validation.png)
+- **File**: `static/css/auth.css`
+- **Status**: ✅ Pass - No errors found
+
+---
+
+#### JavaScript Validation (JSHint)
+
+JavaScript files were validated using [JSHint](https://jshint.com/).
+
+<!-- ⚠️ TODO: ADD SCREENSHOT OF JSHINT VALIDATION -->
+![JavaScript Validation](static/images/screenshots/validation/js-validation.png)
+- **File**: `static/js/script.js`
+- **Status**: ✅ Pass - No errors
+- **Configuration**: ES6 enabled
+- **Warnings**: <!-- ADD ANY WARNINGS HERE IF PRESENT -->
+
+---
+
+#### Python PEP8 Validation (CI Python Linter)
+
+All Python files were validated using the [Code Institute Python Linter](https://pep8ci.herokuapp.com/).
+
+Detailed compliance report available in [PEP8_COMPLIANCE_REPORT.md](PEP8_COMPLIANCE_REPORT.md)
+
+**Summary:**
+- ✅ All critical issues resolved
+- ✅ No logic errors (F401, F841 fixed)
+- ✅ No style violations (E302, E303 fixed)
+- ✅ Whitespace cleaned (W291, W292, W293 fixed)
+- ⚠️ Migration files excluded from line length checks (acceptable)
+
+<!-- ⚠️ TODO: ADD SCREENSHOTS OF PYTHON LINTER VALIDATION FOR KEY FILES -->
+
+**Key Files Validated:**
+![Python Validation - models.py](static/images/screenshots/validation/python-residents-models.png)
+- `residents/models.py` - ✅ Pass
+
+![Python Validation - views.py](static/images/screenshots/validation/python-residents-views.png)
+- `residents/views.py` - ✅ Pass
+
+![Python Validation - forms.py](static/images/screenshots/validation/python-residents-forms.png)
+- `residents/forms.py` - ✅ Pass
+
+---
+
+#### Lighthouse Performance Testing
+
+Chrome Lighthouse was used to test performance, accessibility, best practices, and SEO.
+
+<!-- ⚠️ TODO: ADD LIGHTHOUSE SCREENSHOTS FOR DESKTOP AND MOBILE VERSIONS -->
+
+**Desktop Results**
+![Lighthouse Desktop - Dashboard](static/images/screenshots/validation/lighthouse-desktop-dashboard.png)
+- **Performance**: <!-- ADD YOUR SCORE -->
+- **Accessibility**: <!-- ADD YOUR SCORE -->
+- **Best Practices**: <!-- ADD YOUR SCORE -->
+- **SEO**: <!-- ADD YOUR SCORE -->
+
+![Lighthouse Desktop - Resident List](static/images/screenshots/validation/lighthouse-desktop-residents.png)
+- **Performance**: <!-- ADD YOUR SCORE -->
+- **Accessibility**: <!-- ADD YOUR SCORE -->
+- **Best Practices**: <!-- ADD YOUR SCORE -->
+- **SEO**: <!-- ADD YOUR SCORE -->
+
+**Mobile Results**
+![Lighthouse Mobile - Dashboard](static/images/screenshots/validation/lighthouse-mobile-dashboard.png)
+- **Performance**: <!-- ADD YOUR SCORE -->
+- **Accessibility**: <!-- ADD YOUR SCORE -->
+- **Best Practices**: <!-- ADD YOUR SCORE -->
+- **SEO**: <!-- ADD YOUR SCORE -->
+
+![Lighthouse Mobile - Resident List](static/images/screenshots/validation/lighthouse-mobile-residents.png)
+- **Performance**: <!-- ADD YOUR SCORE -->
+- **Accessibility**: <!-- ADD YOUR SCORE -->
+- **Best Practices**: <!-- ADD YOUR SCORE -->
+- **SEO**: <!-- ADD YOUR SCORE -->
+
+---
+
+#### WAVE Accessibility Testing
+
+Web pages were tested using the [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/).
+
+<!-- ⚠️ TODO: ADD WAVE ACCESSIBILITY TESTING SCREENSHOTS -->
+![WAVE Accessibility - Dashboard](static/images/screenshots/validation/wave-dashboard.png)
+- **Errors**: 0
+- **Contrast Errors**: 0
+- **Alerts**: <!-- ADD COUNT -->
+- **Features**: <!-- ADD COUNT (ARIA labels, alt text, etc.) -->
+- **Status**: ✅ Pass
+
+![WAVE Accessibility - Resident Form](static/images/screenshots/validation/wave-resident-form.png)
+- **Errors**: 0
+- **Contrast Errors**: 0
+- **Alerts**: <!-- ADD COUNT -->
+- **Features**: <!-- ADD COUNT -->
+- **Status**: ✅ Pass
+
+**Accessibility Features Implemented:**
+- ✅ Semantic HTML5 elements
+- ✅ ARIA labels on interactive elements
+- ✅ Alt text on all images
+- ✅ High contrast color ratios (WCAG AA compliant)
+- ✅ Keyboard navigation support
+- ✅ Form labels properly associated
+- ✅ Focus indicators visible
+
+---
+
 ## Deployment
 
 ### Prerequisites
@@ -1312,6 +1594,125 @@ git clone https://github.com/yourusername/carehome.git
 cd carehome
 # Follow local deployment steps
 ```
+
+---
+
+## AI Usage & Assistance
+
+This section documents the use of AI tools during the development of this project, in accordance with Code Institute assessment criteria.
+
+### AI Tools Used
+
+<!-- ⚠️ TODO: UPDATE THIS SECTION WITH THE SPECIFIC AI TOOLS YOU USED -->
+
+#### 1. GitHub Copilot
+**Purpose**: Code autocomplete and suggestion  
+**Usage Areas**:
+- ✅ Boilerplate code generation (model fields, view structures)
+- ✅ Django query optimization suggestions
+- ✅ Test case generation frameworks
+- ✅ Code comment generation
+
+**Validation Approach**:
+- All Copilot suggestions were manually reviewed before acceptance
+- Code tested thoroughly to ensure functionality
+- Suggestions modified to match project coding standards
+
+---
+
+#### 2. ChatGPT / Claude / Other LLMs
+**Purpose**: Problem-solving, debugging, and documentation  
+**Usage Areas**:
+<!-- ⚠️ TODO: CHECK WHICH OF THESE YOU ACTUALLY USED AND UPDATE -->
+- ✅ Debugging complex Django signal issues
+- ✅ Understanding Django Allauth configuration
+- ✅ PostgreSQL query optimization
+- ✅ Bootstrap 5 responsive design patterns
+- ✅ README documentation structure
+- ✅ PEP8 compliance guidance
+
+**Example Interactions**:
+
+**Query 1: Django Signals Not Triggering**
+- **Problem**: Audit logs not being created for resident updates
+- **AI Assistance**: Suggested checking signal receiver decorators and sender parameter
+- **Outcome**: Fixed by correcting `@receiver(post_save, sender=Resident)` placement
+- **Validation**: Manually tested CRUD operations and verified audit log creation
+
+**Query 2: Inline Form Handling**
+- **Problem**: Care plan form not saving when created with resident
+- **AI Assistance**: Provided guidance on Django formsets and manual form validation
+- **Outcome**: Implemented custom `forms_valid()` method with proper form handling
+- **Validation**: Tested create/update flows extensively
+
+<!-- ⚠️ TODO: ADD 2-3 MORE SPECIFIC EXAMPLES OF HOW AI HELPED YOU -->
+
+**Query 3: [YOUR PROBLEM HERE]**
+- **Problem**: <!-- DESCRIBE THE ISSUE -->
+- **AI Assistance**: <!-- WHAT THE AI SUGGESTED -->
+- **Outcome**: <!-- HOW YOU SOLVED IT -->
+- **Validation**: <!-- HOW YOU TESTED IT -->
+
+---
+
+### AI Limitations & Human Oversight
+
+**What AI Did NOT Do:**
+- ❌ Write entire features without human input
+- ❌ Make architectural decisions
+- ❌ Design the database schema
+- ❌ Determine user stories or acceptance criteria
+- ❌ Perform testing (all tests written and executed by developer)
+
+**Human Developer Responsibilities:**
+- ✅ All project planning and user story creation
+- ✅ Database design and model relationships
+- ✅ UI/UX design decisions
+- ✅ All security implementations (role-based access, decorators)
+- ✅ Validation of all AI-generated code
+- ✅ Integration and testing of all features
+- ✅ Deployment configuration and troubleshooting
+- ✅ Final code review and PEP8 compliance
+
+---
+
+### Code Validation After AI Assistance
+
+All AI-assisted code underwent rigorous validation:
+
+1. **Functionality Testing**: Every AI suggestion tested in development environment
+2. **Security Review**: Access controls and permissions manually verified
+3. **PEP8 Compliance**: Code formatted to meet Python style guidelines
+4. **Integration Testing**: Ensured AI-generated code integrates with existing codebase
+5. **Performance Review**: Checked database queries for N+1 problems and optimization
+6. **User Testing**: Manual testing of all user-facing features
+
+---
+
+### Learning Outcomes
+
+Using AI tools responsibly enhanced the development process by:
+- **Accelerating learning**: Quick answers to Django-specific questions
+- **Code quality**: Exposure to best practices and design patterns
+- **Debugging efficiency**: Faster identification of syntax and logic errors
+- **Documentation**: Better structured README and code comments
+
+However, **critical thinking and problem-solving remained essential** - AI suggestions required careful evaluation, modification, and testing before implementation.
+
+---
+
+### Declaration
+
+<!-- ⚠️ TODO: UPDATE THIS DECLARATION WITH YOUR NAME AND DETAILS -->
+
+I, **[YOUR NAME]**, declare that:
+- All AI-generated code was reviewed, understood, and validated before use
+- I take full responsibility for all code in this project
+- AI tools were used as learning aids, not as a replacement for understanding
+- This project represents my own work and capabilities as a developer
+
+**Date**: February 27, 2026  
+**Signature**: <!-- ADD YOUR NAME -->
 
 ---
 

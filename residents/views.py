@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
+from django.contrib import messages
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from .models import Resident
@@ -107,6 +108,15 @@ class ResidentCreateView(CreateView):
             careplan.created_by = self.request.user
             careplan.is_active = True
             careplan.save()
+            messages.success(
+                self.request,
+                f'Resident "{resident.first_name} {resident.last_name}" and care plan created successfully.'
+            )
+        else:
+            messages.success(
+                self.request,
+                f'Resident "{resident.first_name} {resident.last_name}" created successfully.'
+            )
 
         return redirect(self.get_success_url())
 
@@ -182,6 +192,15 @@ class ResidentUpdateView(UpdateView):
                 careplan.created_by = self.request.user
             careplan.is_active = True
             careplan.save()
+            messages.success(
+                self.request,
+                f'Resident "{resident.first_name} {resident.last_name}" and care plan updated successfully.'
+            )
+        else:
+            messages.success(
+                self.request,
+                f'Resident "{resident.first_name} {resident.last_name}" updated successfully.'
+            )
         return redirect(self.get_success_url())
 
     def forms_invalid(self, form, careplan_form):
@@ -199,10 +218,15 @@ class ResidentUpdateView(UpdateView):
 def archive_resident(request, pk):
     """Archive a resident (mark as inactive)"""
     if request.user.role != "MANAGER":
+        messages.error(request, 'Only managers can archive residents.')
         return redirect('residents:list')
     resident = get_object_or_404(Resident, pk=pk)
     resident.is_active = False
     resident.save()
+    messages.success(
+        request,
+        f'Resident "{resident.first_name} {resident.last_name}" has been archived.'
+    )
     return redirect('residents:detail', pk=pk)
 
 
@@ -211,10 +235,15 @@ def archive_resident(request, pk):
 def unarchive_resident(request, pk):
     """Restore an archived resident (mark as active)"""
     if request.user.role != "MANAGER":
+        messages.error(request, 'Only managers can restore archived residents.')
         return redirect('residents:list')
     resident = get_object_or_404(Resident, pk=pk)
     resident.is_active = True
     resident.save()
+    messages.success(
+        request,
+        f'Resident "{resident.first_name} {resident.last_name}" has been restored.'
+    )
     return redirect('residents:detail', pk=pk)
 
 

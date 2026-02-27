@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}CareHome Management System{% endblock %}</title>
-    <link rel="icon" href="{% static 'images/carehome-favicon.svg' %}" type="image/svg+xml">
+    
+    <!-- Favicon - Multiple formats for browser compatibility -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'images/carehome-favicon.svg' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/carehome-favicon.svg' %}">
+    <link rel="shortcut icon" href="{% static 'images/carehome-favicon.svg' %}">
 
     <meta name="description" content="{% block meta_description %}Care home management system for residents, care plans, incidents, and handovers.{% endblock %}">
     <meta name="robots" content="{% if user.is_authenticated %}noindex, nofollow{% else %}index, follow{% endif %}">
@@ -35,6 +39,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     {% block extra_meta %}{% endblock %}
+    
 
     {% if not user.is_authenticated %}
     <script type="application/ld+json">

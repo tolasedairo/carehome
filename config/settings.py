@@ -211,6 +211,24 @@ ACCOUNT_FORMS = {
 ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 ACCOUNT_SIGNUP_REDIRECT_URL = "/accounts/pending/"
 
+# Success messages for login/logout
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+
+# ======================
+# DJANGO MESSAGES
+# ======================
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
+
 # ======================
 # CRISPY FORMS
 # ======================
@@ -224,6 +242,24 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    # Production: Use console backend (logs to Heroku logs)
+    # TODO: Configure real email service (SendGrid, Gmail SMTP, etc.) for production
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    
+    # Example for future Gmail SMTP configuration:
+    # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    # EMAIL_HOST = "smtp.gmail.com"
+    # EMAIL_PORT = 587
+    # EMAIL_USE_TLS = True
+    # EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+    # EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+    # DEFAULT_FROM_EMAIL = os.getenv("EMAIL_HOST_USER")
+
+# Default email settings (required for password reset)
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@carehome.com")
+SERVER_EMAIL = os.getenv("SERVER_EMAIL", "noreply@carehome.com")
+EMAIL_SUBJECT_PREFIX = "[CareHome] "
 
 # ======================
 # PRODUCTION SECURITY

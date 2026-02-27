@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic.base import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
 from .sitemaps import StaticViewSitemap
 from .views import robots_txt
 
@@ -28,6 +31,7 @@ sitemaps = {
 urlpatterns = [
     path("robots.txt", robots_txt, name="robots_txt"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
+    path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'images/carehome-favicon.svg', permanent=True)),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),

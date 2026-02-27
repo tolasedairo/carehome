@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 
 from accounts.decorators import approval_required
 from .models import CarePlan
@@ -66,7 +67,12 @@ class CarePlanCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            f'Care plan for "{form.instance.resident}" created successfully.'
+        )
+        return response
 
 
 @method_decorator([login_required, approval_required], name='dispatch')
@@ -87,6 +93,14 @@ class CarePlanUpdateView(UpdateView):
     template_name = 'careplans/careplan_form.html'
     success_url = reverse_lazy('careplans:list')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            f'Care plan for "{form.instance.resident}" updated successfully.'
+        )
+        return response
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         if self.request.user.role == "SENIOR":
@@ -97,7 +111,8 @@ class CarePlanUpdateView(UpdateView):
         if request.user.role in ["MANAGER", "SENIOR"]:
             return super().dispatch(request, *args, **kwargs)
 
-        return HttpResponseForbidden("You do not have permission to edit this care plan.")
+        messages.error(request, 'You do not have permission to edit care plans.')
+        return redirect('careplans:list')
 
 
 @login_required
@@ -106,10 +121,15 @@ def archive_careplan(request, pk):
     careplan = get_object_or_404(CarePlan, pk=pk)
 
     if request.user.role != "MANAGER":
-        return HttpResponseForbidden("Only managers can archive care plans.")
+        messages.error(request, 'Only managers can archive care plans.')
+        return redirect('careplans:list')
 
     careplan.is_active = False
     careplan.save()
+    messages.success(
+        request,
+        f'Care plan for "{careplan.resident}" has been archived.'
+    )
     return redirect('careplans:list')
 
 
@@ -119,8 +139,13 @@ def unarchive_careplan(request, pk):
     careplan = get_object_or_404(CarePlan, pk=pk)
 
     if request.user.role != "MANAGER":
-        return HttpResponseForbidden("Only managers can unarchive care plans.")
+        messages.error(request, 'Only managers can restore archived care plans.')
+        return redirect('careplans:list')
 
     careplan.is_active = True
     careplan.save()
+    messages.success(
+        request,
+        f'Care plan for "{careplan.resident}" has been restored.'
+    )
     return redirect('careplans:archived')
