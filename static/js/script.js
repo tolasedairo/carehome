@@ -1,4 +1,7 @@
 // ===== Main JavaScript File =====
+/* jshint esversion: 6 */
+/* global bootstrap */
+/* exported formatDate, showToast, confirmDelete */
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('CareHome Management System Loaded');
@@ -71,7 +74,6 @@ function formatDate(dateString) {
 
 // Utility function to show toast notifications
 function showToast(message, type = 'info') {
-    const alertClass = `alert alert-${type}`;
     const alertElement = document.createElement('div');
     alertElement.classList.add('alert', `alert-${type}`, 'alert-dismissible', 'fade', 'show');
     alertElement.setAttribute('role', 'alert');
