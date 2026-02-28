@@ -40,5 +40,15 @@ class Resident(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    @property
+    def profile_picture_url(self):
+        if not self.profile_picture:
+            return ""
+
+        image_url = self.profile_picture.url
+        if image_url.startswith("http://"):
+            return image_url.replace("http://", "https://", 1)
+        return image_url
+
     class Meta:
         ordering = ['last_name']
