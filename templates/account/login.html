@@ -35,10 +35,10 @@
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
 <body class="auth-body">
-    <div class="container-fluid h-100">
+    <main id="main-content" class="container-fluid h-100">
         <div class="row h-100 g-0">
             <!-- Left Side - Brand & Features (Hidden on Mobile) -->
-            <div class="col-lg-6 auth-left-side d-none d-lg-block">
+            <aside class="col-lg-6 auth-left-side d-none d-lg-block" aria-label="About CareHome Management">
                 <div class="auth-brand">
                     <div class="brand-logo mb-4">
                         <i class="fas fa-heartbeat"></i>
@@ -88,10 +88,10 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </aside>
 
             <!-- Right Side - Login Form -->
-            <div class="col-lg-6 auth-right-side d-flex align-items-center justify-content-center p-4">
+            <section class="col-lg-6 auth-right-side d-flex align-items-center justify-content-center p-4" aria-label="Sign in">
                 <div class="auth-form-container">
                     <div class="auth-brand-mobile d-lg-none">
                         <div class="auth-brand-mobile-icon">
@@ -183,9 +183,9 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>

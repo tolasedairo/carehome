@@ -441,7 +441,7 @@ html, body {
     position: relative;
     background: white;
     padding: 0 15px;
-    color: #999;
+    color: #5b6f6f;
     font-size: 13px;
     font-weight: 600;
     z-index: 1;
@@ -454,7 +454,7 @@ html, body {
 .auth-footer {
     text-align: center;
     font-size: 12px;
-    color: #999;
+    color: #5b6f6f;
 }
 
 .auth-footer p {
