@@ -42,7 +42,9 @@ class ResidentListView(ListView):
                 filter=Q(incidents__is_resolved=False),
                 distinct=True
             )
-        ).order_by('last_name', 'first_name').distinct()  # ✅ pagination fix due to error while testing
+        ).order_by(
+            'last_name', 'first_name'
+        ).distinct()  # Pagination fix
 
         return queryset
 
@@ -61,7 +63,9 @@ class ArchivedResidentListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Resident.objects.filter(is_active=False).order_by('last_name', 'first_name')
+        return Resident.objects.filter(
+            is_active=False
+        ).order_by('last_name', 'first_name')
 
 
 @method_decorator([login_required, approval_required], name='dispatch')
@@ -110,12 +114,15 @@ class ResidentCreateView(CreateView):
             careplan.save()
             messages.success(
                 self.request,
-                f'Resident "{resident.first_name} {resident.last_name}" and care plan created successfully.'
+                f'Resident "{resident.first_name} '
+                f'{resident.last_name}" and care plan created '
+                f'successfully.'
             )
         else:
             messages.success(
                 self.request,
-                f'Resident "{resident.first_name} {resident.last_name}" created successfully.'
+                f'Resident "{resident.first_name} '
+                f'{resident.last_name}" created successfully.'
             )
 
         return redirect(self.get_success_url())
@@ -141,10 +148,16 @@ class ResidentDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['incidents'] = self.object.incidents.select_related('created_by').order_by('-created_at')[:10]
+        context['incidents'] = self.object.incidents.select_related(
+            'created_by'
+        ).order_by('-created_at')[:10]
         context['incident_count'] = self.object.incidents.count()
-        context['open_incident_count'] = self.object.incidents.filter(is_resolved=False).count()
-        context['careplans'] = self.object.care_plans.filter(is_active=True).order_by('-updated_at')
+        context['open_incident_count'] = (
+            self.object.incidents.filter(is_resolved=False).count()
+        )
+        context['careplans'] = self.object.care_plans.filter(
+            is_active=True
+        ).order_by('-updated_at')
         return context
 
 
@@ -162,12 +175,16 @@ class ResidentUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_careplan_instance(self):
-        return CarePlan.objects.filter(resident=self.object, is_active=True).order_by('-updated_at').first()
+        return CarePlan.objects.filter(
+            resident=self.object, is_active=True
+        ).order_by('-updated_at').first()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         careplan_instance = self.get_careplan_instance()
-        careplan_form = CarePlanForm(self.request.POST or None, instance=careplan_instance)
+        careplan_form = CarePlanForm(
+            self.request.POST or None, instance=careplan_instance
+        )
         careplan_form.fields['resident'].required = False
         context['careplan_form'] = careplan_form
         return context
@@ -176,7 +193,9 @@ class ResidentUpdateView(UpdateView):
         self.object = self.get_object()
         form = self.get_form()
         careplan_instance = self.get_careplan_instance()
-        careplan_form = CarePlanForm(request.POST, instance=careplan_instance)
+        careplan_form = CarePlanForm(
+            request.POST, instance=careplan_instance
+        )
         careplan_form.fields['resident'].required = False
 
         if form.is_valid() and careplan_form.is_valid():
@@ -194,17 +213,22 @@ class ResidentUpdateView(UpdateView):
             careplan.save()
             messages.success(
                 self.request,
-                f'Resident "{resident.first_name} {resident.last_name}" and care plan updated successfully.'
+                f'Resident "{resident.first_name} '
+                f'{resident.last_name}" and care plan updated '
+                f'successfully.'
             )
         else:
             messages.success(
                 self.request,
-                f'Resident "{resident.first_name} {resident.last_name}" updated successfully.'
+                f'Resident "{resident.first_name} '
+                f'{resident.last_name}" updated successfully.'
             )
         return redirect(self.get_success_url())
 
     def forms_invalid(self, form, careplan_form):
-        return self.render_to_response(self.get_context_data(form=form, careplan_form=careplan_form))
+        return self.render_to_response(
+            self.get_context_data(form=form, careplan_form=careplan_form)
+        )
 
     def _has_careplan_data(self, careplan_form):
         for value in careplan_form.cleaned_data.values():
@@ -218,14 +242,17 @@ class ResidentUpdateView(UpdateView):
 def archive_resident(request, pk):
     """Archive a resident (mark as inactive)"""
     if request.user.role != "MANAGER":
-        messages.error(request, 'Only managers can archive residents.')
+        messages.error(
+            request, 'Only managers can archive residents.'
+        )
         return redirect('residents:list')
     resident = get_object_or_404(Resident, pk=pk)
     resident.is_active = False
     resident.save()
     messages.success(
         request,
-        f'Resident "{resident.first_name} {resident.last_name}" has been archived.'
+        f'Resident "{resident.first_name} {resident.last_name}" '
+        f'has been archived.'
     )
     return redirect('residents:detail', pk=pk)
 
@@ -235,21 +262,28 @@ def archive_resident(request, pk):
 def unarchive_resident(request, pk):
     """Restore an archived resident (mark as active)"""
     if request.user.role != "MANAGER":
-        messages.error(request, 'Only managers can restore archived residents.')
+        messages.error(
+            request,
+            'Only managers can restore archived residents.'
+        )
         return redirect('residents:list')
     resident = get_object_or_404(Resident, pk=pk)
     resident.is_active = True
     resident.save()
     messages.success(
         request,
-        f'Resident "{resident.first_name} {resident.last_name}" has been restored.'
+        f'Resident "{resident.first_name} {resident.last_name}" '
+        f'has been restored.'
     )
     return redirect('residents:detail', pk=pk)
 
 
 def resident_list(request):
     """Function-based view for resident list with pagination"""
-    residents = Resident.objects.filter(is_active=True).order_by('last_name', 'first_name')  # ✅ pagination fix due to distinct() removing ordering
+    # Pagination fix due to distinct() removing ordering
+    residents = Resident.objects.filter(is_active=True).order_by(
+        'last_name', 'first_name'
+    )
     paginator = Paginator(residents, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
