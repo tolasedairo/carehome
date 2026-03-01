@@ -877,6 +877,38 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff !important;
 }
 
+/* Form inputs and labels */
+.form-control,
+.form-select {
+    color: #1a1a1a !important;
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
+    color: #555 !important;
+    opacity: 1;
+}
+
+.form-label {
+    color: #1a1a1a !important;
+}
+
+/* Disabled form states */
+.form-control:disabled,
+.form-select:disabled {
+    color: #333 !important;
+    background-color: #e9ecef !important;
+}
+
+/* Badge text colors */
+.badge.bg-secondary {
+    color: #fff !important;
+}
+
+.badge.bg-dark {
+    color: #fff !important;
+}
+
 /* Outline buttons - make text darker */
 .btn-outline-warning {
     color: #b88600 !important;
@@ -900,6 +932,33 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #3b8f8d !important;
     color: #fff !important;
     border-color: #3b8f8d !important;
+}
+
+.btn-outline-secondary {
+    color: #333 !important;
+}
+
+.btn-outline-info {
+    color: #2d9888 !important;
+}
+
+/* Table text */
+.table td,
+.table th {
+    color: #1a1a1a !important;
+}
+
+/* Ensure all text has proper contrast */
+body {
+    color: #1a1a1a !important;
+}
+
+a {
+    color: #0056b3 !important;
+}
+
+a:hover {
+    color: #003d82 !important;
 }
 
 

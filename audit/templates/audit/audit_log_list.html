@@ -23,10 +23,12 @@
     <!-- Search Form -->
     <form method="get" class="row g-3 mb-4">
         <div class="col-md-4">
-            <input type="text" name="search" class="form-control" placeholder="Search by user or description..." value="{{ request.GET.search }}">
+            <label for="audit-search" class="form-label small">Search</label>
+            <input type="text" id="audit-search" name="search" class="form-control" placeholder="Search by user or description..." value="{{ request.GET.search }}">
         </div>
         <div class="col-md-3">
-            <select name="action" class="form-select">
+            <label for="audit-action" class="form-label small">Action</label>
+            <select id="audit-action" name="action" class="form-select">
                 <option value="">All Actions</option>
                 {% for value, label in action_choices %}
                 <option value="{{ value }}" {% if request.GET.action == value %}selected{% endif %}>{{ label }}</option>
@@ -34,10 +36,12 @@
             </select>
         </div>
         <div class="col-md-2">
-            <input type="date" name="date_from" class="form-control" value="{{ request.GET.date_from }}">
+            <label for="audit-date-from" class="form-label small">From</label>
+            <input type="date" id="audit-date-from" name="date_from" class="form-control" value="{{ request.GET.date_from }}">
         </div>
         <div class="col-md-2">
-            <input type="date" name="date_to" class="form-control" value="{{ request.GET.date_to }}">
+            <label for="audit-date-to" class="form-label small">To</label>
+            <input type="date" id="audit-date-to" name="date_to" class="form-control" value="{{ request.GET.date_to }}">
         </div>
         <div class="col-md-1">
             <button type="submit" class="btn btn-primary w-100">
