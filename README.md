@@ -258,7 +258,7 @@ The application uses a professional, accessible color palette:
 
 ### Wireframes
 
-Comprehensive wireframes were created for all main pages to guide development. See [WIREFRAMES.md](docs\WIREFRAMES.md) for detailed ASCII wireframes including:
+Comprehensive wireframes were created for all main pages to guide development. See [WIREFRAMES.md](docs/WIREFRAMES.md) for detailed ASCII wireframes including:
 
 - Base Layout (Sidebar + Main Content)
 - Dashboard
