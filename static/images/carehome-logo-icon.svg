@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="CareHome">
+  <!-- Main circle background -->
+  <circle cx="100" cy="100" r="95" fill="#2d7a7a"/>
+  
+  <!-- Shadow/depth circle -->
+  <circle cx="100" cy="100" r="85" fill="#20c997" opacity="0.1"/>
+  
+  <!-- Heart shape (care symbol) - larger and centered -->
+  <path d="M100 155C75 140 55 125 55 100c0-18 14-30 28-30 10 0 20 7 28 18 8-11 18-18 28-18 14 0 28 12 28 30 0 25-20 40-45 55l-14 10-14-10z" fill="#ffffff" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+  
+  <!-- Health chart indicator (wavy health line) -->
+  <path d="M45 125h45l14-28 25 50 16-32 8 8h47" fill="none" stroke="#f0ad4e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+</svg>

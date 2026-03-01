@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" role="img" aria-label="CareHome Management System">
+  <!-- Main circle background -->
+  <circle cx="100" cy="80" r="70" fill="#2d7a7a"/>
+  
+  <!-- Shadow/depth circle -->
+  <circle cx="100" cy="80" r="62" fill="#20c997" opacity="0.1"/>
+  
+  <!-- Heart shape (care symbol) -->
+  <path d="M100 125C80 112 65 100 65 85c0-14 11-24 21-24 8 0 16 6 23 15 7-9 15-15 23-15 10 0 21 10 21 24 0 20-17 35-39 45l-12 8-12-8z" fill="#ffffff" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+  
+  <!-- Health chart line -->
+  <path d="M40 105h35l12-24 20 40 14-28 7 7h35" fill="none" stroke="#f0ad4e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  
+  <!-- Text: CareHome (centered below) -->
+  <text x="100" y="190" font-family="Poppins, sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#2d7a7a">
+    CareHome
+  </text>
+  
+  <!-- Subtitle text (centered) -->
+  <text x="100" y="215" font-family="Poppins, sans-serif" font-size="12" text-anchor="middle" fill="#666666" letter-spacing="0.3" font-weight="400">
+    Management
+  </text>
+  
+  <text x="100" y="232" font-family="Poppins, sans-serif" font-size="12" text-anchor="middle" fill="#666666" letter-spacing="0.3" font-weight="400">
+    System
+  </text>
+</svg>

@@ -1799,10 +1799,11 @@ I, **TOLASE DAIRO**, declare that:
 
 Additional documentation available:
 
-- **[CARE_HOME_DOCUMENTATION.md](CARE_HOME_DOCUMENTATION.md)**: Detailed technical documentation
-- **[PROJECT_ARCHITECTURE.md](docs/PROJECT_ARCHITECTURE.md)**: System architecture and design decisions (1566 lines)
+- **[PROJECT_ARCHITECTURE.md](docs/PROJECT_ARCHITECTURE.md)**: System architecture and design decisions
 - **[WIREFRAMES.md](docs/WIREFRAMES.md)**: ASCII wireframes for all pages
+- **[DEVELOPMENT.md](docs/DEVELOPMENT.md)**: Development setup and guidelines
 - **[PEP8_COMPLIANCE_REPORT.md](PEP8_COMPLIANCE_REPORT.md)**: Code quality report
+- **[USER_STORIES.md](USER_STORIES.md)**: User stories and acceptance criteria
 
 ---
 
