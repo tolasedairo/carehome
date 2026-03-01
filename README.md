@@ -572,17 +572,41 @@ Each user story included:
 
 ![Responsive Design](static/images/screenshots/validation/am_i_responsive.png)
 
+**Desktop View**
+The application is optimized for desktop screens with a full sidebar navigation, expanded content areas, and comprehensive data tables.
+
+**Mobile View**
+![Mobile Responsiveness](static/images/screenshots/mobile_view.png)
+
+On mobile devices (< 768px):
+- Collapsible sidebar toggles on/off
+- Full-screen navigation drawer
+- Touch-friendly button sizes (44px minimum)
+- Stacked form layouts
+- Vertical table scrolling
+
+**Tablet View**
+![Tablet Responsiveness](static/images/screenshots/tablet_view.png)
+
+On tablet devices (769px - 1023px):
+- Adjusted sidebar width
+- Balanced content spacing
+- Optimized navigation
+- Responsive data tables with horizontal scroll
+
 **Mobile-First Approach**
-- Bootstrap 5 responsive grid
-- Collapsible sidebar on mobile
+- Bootstrap 5 responsive grid system
+- Flexible sidebar on mobile (fixed toggle)
 - Touch-friendly buttons and forms
-- Optimized for tablets and phones
+- Optimized typography and spacing
+- Responsive images and media
 
 **Accessibility Features**
-- Semantic HTML5
-- ARIA labels
+- Semantic HTML5 structure
+- ARIA labels and landmark regions
 - Keyboard navigation support
-- High contrast text
+- High contrast text (WCAG AAA compliance)
+- Skip navigation links
 
 ---
 
