@@ -1,11 +1,11 @@
 # CareHome Management System
 
-![CareHome Management System](static/images/carehome-logo.png)
+![CareHome Management System](static/images/carehome-favicon.svg)
 
 **Developer**: Tolase Dairo  
 **Project Type**: Full-Stack Django Application  
 **Deployment**: [Live Site on Heroku](https://carehome-c3a4ac54b776.herokuapp.com)  
-**Repository**: [GitHub Repository](https://github.com/yourusername/carehome)
+**Repository**: [GitHub Repository](https://github.com/tolasedairo/carehome)
 
 ---
 
@@ -258,7 +258,7 @@ The application uses a professional, accessible color palette:
 
 ### Wireframes
 
-Comprehensive wireframes were created for all main pages to guide development. See [WIREFRAMES.md](docs/WIREFRAMES.md) for detailed ASCII wireframes including:
+Comprehensive wireframes were created for all main pages to guide development. See [WIREFRAMES.md](docs\WIREFRAMES.md) for detailed ASCII wireframes including:
 
 - Base Layout (Sidebar + Main Content)
 - Dashboard
@@ -285,10 +285,8 @@ This project was developed using Agile methodology, with user stories and tasks 
 
 ### GitHub Projects Board
 
-<!-- ⚠️ TODO: ADD YOUR GITHUB PROJECTS BOARD LINK BELOW -->
-**Project Board**: [CareHome GitHub Projects Board](https://github.com/YOUR-USERNAME/YOUR-REPO/projects/YOUR-PROJECT-NUMBER)
+**Project Board**: [CareHome GitHub Projects Board](https://github.com/users/tolasedairo/projects/13)
 
-<!-- ⚠️ TODO: TAKE A SCREENSHOT OF YOUR PROJECT BOARD AND ADD IT HERE -->
 ![GitHub Projects Board](static/images/screenshots/github-projects-board.png)
 
 **Board Setup:**
@@ -338,36 +336,35 @@ Each user story included:
 - ❌ Email notifications
 - ❌ Mobile native app
 
-<!-- ⚠️ TODO: ADD DETAILS ABOUT YOUR SPRINT PLANNING BELOW -->
 ### Sprint Planning
 
-**Development Timeline**: <!-- ADD YOUR DATES -->
+**Development Timeline**: 09/02/2026 - 28/02/2026
 
-**Sprint 1 - Project Setup & Authentication** (<!-- ADD DATES -->)
+**Sprint 1 - Project Setup & Authentication** (09/02/2026 - 11/02/2026)
 - Django project initialization
 - Custom user model with roles
 - Approval workflow
 - Basic templates and navigation
 
-**Sprint 2 - Resident Management** (<!-- ADD DATES -->)
+**Sprint 2 - Resident Management** (12/02/2026 - 14/02/2026)
 - Resident CRUD operations
 - CarePlan model and forms
 - Inline care plan creation
 - Archive/restore functionality
 
-**Sprint 3 - Incidents & Handovers** (<!-- ADD DATES -->)
+**Sprint 3 - Incidents & Handovers** (16/02/2026 - 18/02/2026)
 - Incident reporting system
 - Handover management
 - Priority and shift categorization
 - Resolution workflows
 
-**Sprint 4 - Audit & Dashboard** (<!-- ADD DATES -->)
+**Sprint 4 - Audit & Dashboard** (19/02/2026 - 21/02/2026)
 - Audit logging with Django signals
 - Dashboard metrics
 - Recent activity feed
 - Role-based dashboard content
 
-**Sprint 5 - Testing & Deployment** (<!-- ADD DATES -->)
+**Sprint 5 - Testing & Deployment** (23/02/2026 - 28/02/2026)
 - Unit testing all models and views
 - PEP8 compliance
 - Heroku deployment
@@ -385,10 +382,6 @@ Each user story included:
 
 ## Features
 
-<!-- ⚠️ TODO: TAKE SCREENSHOTS OF ALL FEATURES BELOW AND SAVE THEM TO static/images/screenshots/ -->
-<!-- Screenshots should show the actual application running with real data -->
-<!-- Use descriptive filenames as indicated in the image references below -->
-
 ### Existing Features
 
 #### 1. Authentication & Authorization System
@@ -397,6 +390,10 @@ Each user story included:
 - Custom registration form with role selection
 - Managers receive notifications of pending approvals
 - Unapproved users cannot access the system
+
+![Signup Page](static/images/screenshots/signup.png)
+
+![Pending Approval](static/images/screenshots/pendingApproval_page.png)
 
 **Role-Based Permissions**
 - **Manager**: Full CRUD access, archiving, user approval
@@ -408,8 +405,9 @@ Each user story included:
 - Password reset functionality
 - Email verification support
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF LOGIN PAGE -->
-![Login Page](static/images/screenshots/login.png)
+![Login Page](static/images/screenshots/sign_in.png)
+
+![Password Reset](static/images/screenshots/passwordReset_page.png)
 
 ---
 
@@ -439,9 +437,8 @@ Each user story included:
 - Separate archived resident list
 - Restore capability
 
-<!-- ⚠️ TODO: ADD SCREENSHOTS OF RESIDENT LIST AND DETAIL PAGES -->
-![Resident List](static/images/screenshots/resident-list.png)
-![Resident Detail](static/images/screenshots/resident-detail.png)
+![Resident List](static/images/screenshots/residentsList_view.png)
+![Resident Detail](static/images/screenshots/residentDetail_page.png)
 
 ---
 
@@ -465,8 +462,7 @@ Each user story included:
 - Linked to resident profiles
 - Full audit logging
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF CARE PLAN FORM -->
-![Care Plan Form](static/images/screenshots/careplan-form.png)
+![Care Plan Form](static/images/screenshots/careplan%20Form.png)
 
 ---
 
@@ -491,8 +487,9 @@ Each user story included:
 - Pagination
 - Quick resolve button
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF INCIDENT LIST -->
-![Incident List](static/images/screenshots/incident-list.png)
+![Incident List](static/images/screenshots/incidentList_page.png)
+
+![Incident Report Form](static/images/screenshots/incidentReport_page.png)
 
 ---
 
@@ -517,8 +514,9 @@ Each user story included:
 - Normal: Blue
 - Low: Green
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF HANDOVER LIST -->
-![Handover List](static/images/screenshots/handover-list.png)
+![Handover List](static/images/screenshots/handoverList_page.png)
+
+![Handover Detail](static/images/screenshots/handover_page.png)
 
 ---
 
@@ -545,8 +543,7 @@ Each user story included:
 - No manual logging required in views
 - Consistent audit trail
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF AUDIT LOG -->
-![Audit Log](static/images/screenshots/audit-log.png)
+![Audit Log](static/images/screenshots/auditLog_page.png)
 
 ---
 
@@ -567,12 +564,13 @@ Each user story included:
 - Managers see all metrics
 - Staff see role-appropriate data
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF DASHBOARD -->
-![Dashboard](static/images/screenshots/dashboard.png)
+![Dashboard](static/images/screenshots/dashboard_overview.png)
 
 ---
 
 #### 8. Responsive Design
+
+![Responsive Design](static/images/screenshots/validation/am_i_responsive.png)
 
 **Mobile-First Approach**
 - Bootstrap 5 responsive grid
@@ -1246,8 +1244,6 @@ This section provides screenshots and evidence of all validation testing perform
 
 All HTML templates were validated using the [W3C Markup Validation Service](https://validator.w3.org/).
 
-<!-- ⚠️ TODO: ADD SCREENSHOTS OF W3C HTML VALIDATION FOR EACH TEMPLATE -->
-
 **Base Template**
 ![HTML Validation - base.html](static/images/screenshots/validation/html-base.png)
 - **Status**: ✅ Pass - No errors or warnings
@@ -1273,7 +1269,7 @@ All HTML templates were validated using the [W3C Markup Validation Service](http
 - **Status**: ✅ Pass - No errors
 
 **Handover List**
-![HTML Validation - Handover List](static/images/screenshots/validation/html-handover-list.png)
+![HTML Validation - Handover List](static/images/screenshots/validation/handover-list.png)
 - **Status**: ✅ Pass - No errors
 
 **Login Page**
@@ -1286,11 +1282,9 @@ All HTML templates were validated using the [W3C Markup Validation Service](http
 
 Custom CSS was validated using the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF JIGSAW CSS VALIDATION -->
 ![CSS Validation - style.css](static/images/screenshots/validation/css-validation.png)
 - **File**: `static/css/style.css`
 - **Status**: ✅ Pass - No errors found
-- **Warnings**: <!-- ADD ANY WARNINGS HERE IF PRESENT -->
 
 ![CSS Validation - auth.css](static/images/screenshots/validation/css-auth-validation.png)
 - **File**: `static/css/auth.css`
@@ -1302,12 +1296,10 @@ Custom CSS was validated using the [W3C CSS Validation Service](https://jigsaw.w
 
 JavaScript files were validated using [JSHint](https://jshint.com/).
 
-<!-- ⚠️ TODO: ADD SCREENSHOT OF JSHINT VALIDATION -->
 ![JavaScript Validation](static/images/screenshots/validation/js-validation.png)
 - **File**: `static/js/script.js`
 - **Status**: ✅ Pass - No errors
 - **Configuration**: ES6 enabled
-- **Warnings**: <!-- ADD ANY WARNINGS HERE IF PRESENT -->
 
 ---
 
@@ -1324,16 +1316,14 @@ Detailed compliance report available in [PEP8_COMPLIANCE_REPORT.md](PEP8_COMPLIA
 - ✅ Whitespace cleaned (W291, W292, W293 fixed)
 - ⚠️ Migration files excluded from line length checks (acceptable)
 
-<!-- ⚠️ TODO: ADD SCREENSHOTS OF PYTHON LINTER VALIDATION FOR KEY FILES -->
-
 **Key Files Validated:**
-![Python Validation - models.py](static/images/screenshots/validation/python-residents-models.png)
+![Python Validation - models.py](static/images/screenshots/validation/python-residents-models-validation.png)
 - `residents/models.py` - ✅ Pass
 
-![Python Validation - views.py](static/images/screenshots/validation/python-residents-views.png)
+![Python Validation - views.py](static/images/screenshots/validation/python-residents-views-validation.png)
 - `residents/views.py` - ✅ Pass
 
-![Python Validation - forms.py](static/images/screenshots/validation/python-residents-forms.png)
+![Python Validation - forms.py](static/images/screenshots/validation/python-residents-forms-validation.png)
 - `residents/forms.py` - ✅ Pass
 
 ---
@@ -1342,33 +1332,31 @@ Detailed compliance report available in [PEP8_COMPLIANCE_REPORT.md](PEP8_COMPLIA
 
 Chrome Lighthouse was used to test performance, accessibility, best practices, and SEO.
 
-<!-- ⚠️ TODO: ADD LIGHTHOUSE SCREENSHOTS FOR DESKTOP AND MOBILE VERSIONS -->
-
 **Desktop Results**
 ![Lighthouse Desktop - Dashboard](static/images/screenshots/validation/lighthouse-desktop-dashboard.png)
-- **Performance**: <!-- ADD YOUR SCORE -->
-- **Accessibility**: <!-- ADD YOUR SCORE -->
-- **Best Practices**: <!-- ADD YOUR SCORE -->
-- **SEO**: <!-- ADD YOUR SCORE -->
+- **Performance**: 98
+- **Accessibility**: 90
+- **Best Practices**: 100
+- **SEO**: 69
 
 ![Lighthouse Desktop - Resident List](static/images/screenshots/validation/lighthouse-desktop-residents.png)
-- **Performance**: <!-- ADD YOUR SCORE -->
-- **Accessibility**: <!-- ADD YOUR SCORE -->
-- **Best Practices**: <!-- ADD YOUR SCORE -->
-- **SEO**: <!-- ADD YOUR SCORE -->
+- **Performance**: 99
+- **Accessibility**: 91
+- **Best Practices**: 77
+- **SEO**: 69
 
 **Mobile Results**
 ![Lighthouse Mobile - Dashboard](static/images/screenshots/validation/lighthouse-mobile-dashboard.png)
-- **Performance**: <!-- ADD YOUR SCORE -->
-- **Accessibility**: <!-- ADD YOUR SCORE -->
-- **Best Practices**: <!-- ADD YOUR SCORE -->
-- **SEO**: <!-- ADD YOUR SCORE -->
+- **Performance**: 90
+- **Accessibility**: 91
+- **Best Practices**: 100
+- **SEO**: 69
 
 ![Lighthouse Mobile - Resident List](static/images/screenshots/validation/lighthouse-mobile-residents.png)
-- **Performance**: <!-- ADD YOUR SCORE -->
-- **Accessibility**: <!-- ADD YOUR SCORE -->
-- **Best Practices**: <!-- ADD YOUR SCORE -->
-- **SEO**: <!-- ADD YOUR SCORE -->
+- **Performance**: 91
+- **Accessibility**: 91
+- **Best Practices**: 100
+- **SEO**: 69
 
 ---
 
@@ -1376,19 +1364,18 @@ Chrome Lighthouse was used to test performance, accessibility, best practices, a
 
 Web pages were tested using the [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/).
 
-<!-- ⚠️ TODO: ADD WAVE ACCESSIBILITY TESTING SCREENSHOTS -->
 ![WAVE Accessibility - Dashboard](static/images/screenshots/validation/wave-dashboard.png)
 - **Errors**: 0
 - **Contrast Errors**: 0
-- **Alerts**: <!-- ADD COUNT -->
-- **Features**: <!-- ADD COUNT (ARIA labels, alt text, etc.) -->
+- **Alerts**: 0
+- **Features**: 2
 - **Status**: ✅ Pass
 
 ![WAVE Accessibility - Resident Form](static/images/screenshots/validation/wave-resident-form.png)
 - **Errors**: 0
 - **Contrast Errors**: 0
-- **Alerts**: <!-- ADD COUNT -->
-- **Features**: <!-- ADD COUNT -->
+- **Alerts**: 0
+- **Features**: 3
 - **Status**: ✅ Pass
 
 **Accessibility Features Implemented:**
@@ -1603,8 +1590,6 @@ This section documents the use of AI tools during the development of this projec
 
 ### AI Tools Used
 
-<!-- ⚠️ TODO: UPDATE THIS SECTION WITH THE SPECIFIC AI TOOLS YOU USED -->
-
 #### 1. GitHub Copilot
 **Purpose**: Code autocomplete and suggestion  
 **Usage Areas**:
@@ -1623,7 +1608,6 @@ This section documents the use of AI tools during the development of this projec
 #### 2. ChatGPT / Claude / Other LLMs
 **Purpose**: Problem-solving, debugging, and documentation  
 **Usage Areas**:
-<!-- ⚠️ TODO: CHECK WHICH OF THESE YOU ACTUALLY USED AND UPDATE -->
 - ✅ Debugging complex Django signal issues
 - ✅ Understanding Django Allauth configuration
 - ✅ PostgreSQL query optimization
@@ -1645,13 +1629,17 @@ This section documents the use of AI tools during the development of this projec
 - **Outcome**: Implemented custom `forms_valid()` method with proper form handling
 - **Validation**: Tested create/update flows extensively
 
-<!-- ⚠️ TODO: ADD 2-3 MORE SPECIFIC EXAMPLES OF HOW AI HELPED YOU -->
+**Query 3: PEP8 Compliance and Line Length**
+- **Problem**: Multiple E501 line length violations in views.py files exceeding 79 characters
+- **AI Assistance**: Suggested breaking long lines at logical points (after commas, operators) while maintaining readability
+- **Outcome**: Reformatted all violations across multiple lines with proper indentation, achieving full PEP8 compliance
+- **Validation**: Re-ran CI Python Linter - all errors resolved, code passes validation
 
-**Query 3: [YOUR PROBLEM HERE]**
-- **Problem**: <!-- DESCRIBE THE ISSUE -->
-- **AI Assistance**: <!-- WHAT THE AI SUGGESTED -->
-- **Outcome**: <!-- HOW YOU SOLVED IT -->
-- **Validation**: <!-- HOW YOU TESTED IT -->
+**Query 4: Bootstrap Responsive Layout**
+- **Problem**: Dashboard metric cards needed responsive layout for different screen sizes
+- **AI Assistance**: Recommended Bootstrap grid classes (col-md-6 col-lg-3) for flexible 4-column layout
+- **Outcome**: Implemented responsive card grid that adapts to 4 columns (desktop), 2 columns (tablet), 1 column (mobile)
+- **Validation**: Tested across multiple devices and screen sizes - layout responds correctly
 
 ---
 
@@ -1703,16 +1691,14 @@ However, **critical thinking and problem-solving remained essential** - AI sugge
 
 ### Declaration
 
-<!-- ⚠️ TODO: UPDATE THIS DECLARATION WITH YOUR NAME AND DETAILS -->
-
-I, **[YOUR NAME]**, declare that:
+I, **TOLASE DAIRO**, declare that:
 - All AI-generated code was reviewed, understood, and validated before use
 - I take full responsibility for all code in this project
 - AI tools were used as learning aids, not as a replacement for understanding
 - This project represents my own work and capabilities as a developer
 
 **Date**: February 27, 2026  
-**Signature**: <!-- ADD YOUR NAME -->
+**Signature**: Tolase Dairo
 
 ---
 
@@ -1804,19 +1790,13 @@ This project is created for educational purposes as part of the Code Institute F
 
 ## Contact
 
-**Developer**: Sefiy  
-**Email**: your.email@example.com  
-**GitHub**: [@yourusername](https://github.com/yourusername)  
-**LinkedIn**: [Your Name](https://linkedin.com/in/yourprofile)
+**Developer**: Tolase Dairo  
+**Email**: tolasedairo@gmail.com 
+**GitHub**: [@tolasedairo](https://github.com/tolasedairo)  
+**LinkedIn**: [Tolase Dairo](https://linkedin.com/in/tolasedairo)
 
 ---
 
-**Note**: This README was created following the Code Institute README template guidelines and includes all required sections for Portfolio Project assessment.
-
-**Template Reference**: [Code Institute README Template](https://docs.google.com/presentation/d/1yTjuCGmU8ppxil0ogOYoX57DSPjjVzoRduQ8sJeDD44/edit?slide=id.p#slide=id.p) (requires authentication)
-
----
-
-**Last Updated**: February 27, 2026  
+**Last Updated**: March 1, 2026  
 **Version**: 1.0.0  
 **Project Status**: Active Development
