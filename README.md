@@ -576,7 +576,7 @@ Each user story included:
 The application is optimized for desktop screens with a full sidebar navigation, expanded content areas, and comprehensive data tables.
 
 **Mobile View**
-![Mobile Responsiveness](static/images/screenshots/mobile_view.png)
+![Mobile Responsiveness](static/images/screenshots/mobile_view-dashboard.png)
 
 On mobile devices (< 768px):
 - Collapsible sidebar toggles on/off
