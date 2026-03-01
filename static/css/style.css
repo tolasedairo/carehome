@@ -849,3 +849,57 @@ footer small {
     }
 }
 
+/* ===== Fix Remaining Contrast Issues ===== */
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #1a1a1a !important;
+}
+
+.text-dark {
+    color: #1a1a1a !important;
+}
+
+/* Sidebar heading */
+.sidebar-header h5 {
+    color: #fff !important;
+}
+
+/* Badge text on colored backgrounds */
+.badge {
+    color: #fff !important;
+}
+
+.badge.bg-success,
+.badge.bg-warning,
+.badge.bg-danger,
+.badge.bg-info,
+.badge.bg-primary {
+    color: #fff !important;
+}
+
+/* Outline buttons - make text darker */
+.btn-outline-warning {
+    color: #b88600 !important;
+    border-color: #ed8936 !important;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus {
+    background-color: #ed8936 !important;
+    color: #fff !important;
+    border-color: #ed8936 !important;
+}
+
+.btn-outline-primary {
+    color: #2d7a7a !important;
+    border-color: #3b8f8d !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: #3b8f8d !important;
+    color: #fff !important;
+    border-color: #3b8f8d !important;
+}
+
+
