@@ -231,7 +231,7 @@ html, body {
 .auth-brand-mobile p {
     margin: 0;
     font-size: 12px;
-    color: #4f6464;
+    color: #2d7a7a;
 }
 
 .auth-form-header h2 {
@@ -243,7 +243,7 @@ html, body {
 
 .auth-form-header p {
     font-size: 14px;
-    color: #666;
+    color: #333;
     margin: 0;
 }
 
@@ -284,7 +284,7 @@ html, body {
 }
 
 .form-control::placeholder {
-    color: #aaa;
+    color: #555;
 }
 
 /* Error States */
@@ -441,7 +441,7 @@ html, body {
     position: relative;
     background: white;
     padding: 0 15px;
-    color: #5b6f6f;
+    color: #333;
     font-size: 13px;
     font-weight: 600;
     z-index: 1;
@@ -454,7 +454,7 @@ html, body {
 .auth-footer {
     text-align: center;
     font-size: 12px;
-    color: #5b6f6f;
+    color: #333;
 }
 
 .auth-footer p {
