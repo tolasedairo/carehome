@@ -126,16 +126,24 @@ body {
 
 /* Override utility classes in sidebar for visibility */
 .sidebar .nav-link.text-white,
-.sidebar .nav-link.text-info,
-.sidebar .nav-link.text-success,
-.sidebar .nav-link.text-warning,
-.sidebar .nav-link.text-danger,
 .sidebar .nav-link.text-primary {
     color: #fff !important;
 }
 
+.sidebar .nav-link.text-info {
+    color: #4dd0e1 !important;
+}
+
+.sidebar .nav-link.text-success {
+    color: #81c784 !important;
+}
+
 .sidebar .nav-link.text-warning {
     color: #ffd93d !important;
+}
+
+.sidebar .nav-link.text-danger {
+    color: #ff6b6b !important;
 }
 
 /* ===== Top Bar ===== */
@@ -808,3 +816,36 @@ footer small {
 .text-secondary {
     color: #555 !important;
 }
+
+/* === FINAL: Force Sidebar Link Visibility === */
+.sidebar-nav .nav-link {
+    color: #fff !important;
+}
+
+.sidebar-nav .nav-link.text-info {
+    color: #4dd0e1 !important;
+}
+
+.sidebar-nav .nav-link.text-success {
+    color: #81c784 !important;
+}
+
+.sidebar-nav .nav-link.text-warning {
+    color: #ffd93d !important;
+}
+
+.sidebar-nav .nav-link.text-danger {
+    color: #ff6b6b !important;
+}
+
+/* Hide main nav (Dashboard, Residents, etc) on desktop - only show on mobile */
+@media (min-width: 769px) {
+    .sidebar-nav .nav-item:nth-child(1),
+    .sidebar-nav .nav-item:nth-child(2),
+    .sidebar-nav .nav-item:nth-child(3),
+    .sidebar-nav .nav-item:nth-child(4),
+    .sidebar-nav .nav-item:nth-child(5) {
+        display: none;
+    }
+}
+
