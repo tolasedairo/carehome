@@ -1,6 +1,6 @@
 # CareHome Management System
 
-![CareHome Management System](static/images/carehome-favicon.svg)
+![CareHome Management System](static/images/carehome-logo-horizontal.svg)
 
 **Developer**: Tolase Dairo  
 **Project Type**: Full-Stack Django Application  
@@ -1273,7 +1273,7 @@ All HTML templates were validated using the [W3C Markup Validation Service](http
 - **Status**: ✅ Pass - No errors or warnings
 
 **Dashboard**
-![HTML Validation - Dashboard](static/images/screenshots/validation/html-dashboard.png)
+![HTML Validation - Dashboard](static/images/screenshots/validation/html-base.png)
 - **Status**: ✅ Pass - No errors
 
 **Resident List**
@@ -1776,8 +1776,6 @@ I, **TOLASE DAIRO**, declare that:
 - **Typography**: Google Fonts (Poppins)
   - https://fonts.google.com/
 
-- **Placeholder Profile Images**: Cloudinary demo images
-  - Replaced with uploaded images in production
 
 ### Acknowledgements
 
@@ -1789,7 +1787,7 @@ I, **TOLASE DAIRO**, declare that:
 
 - **Slack Community**: For peer code review and problem-solving discussions
 
-- **Care Home Professionals**: For domain knowledge and feature requirements validation
+ validation
 
 - **UX/UI Design Community**: For feedback on wireframes and user flow
 
@@ -1802,14 +1800,7 @@ Additional documentation available:
 - **[PROJECT_ARCHITECTURE.md](docs/PROJECT_ARCHITECTURE.md)**: System architecture and design decisions
 - **[WIREFRAMES.md](docs/WIREFRAMES.md)**: ASCII wireframes for all pages
 - **[DEVELOPMENT.md](docs/DEVELOPMENT.md)**: Development setup and guidelines
-- **[PEP8_COMPLIANCE_REPORT.md](PEP8_COMPLIANCE_REPORT.md)**: Code quality report
 - **[USER_STORIES.md](USER_STORIES.md)**: User stories and acceptance criteria
-
----
-
-## License
-
-This project is created for educational purposes as part of the Code Institute Full Stack Software Development course.
 
 ---
 
