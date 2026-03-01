@@ -281,7 +281,7 @@ body {
 
 .feature-list li {
     padding: 8px 0;
-    color: #555;
+    color: #333;
     font-size: 14px;
     line-height: 1.8;
 }
@@ -360,7 +360,7 @@ body {
 }
 
 .pagination-link {
-    color: var(--primary-color);
+    color: #2d7a7a;
     border-color: #dee2e6;
     background-color: #fff;
     padding: 8px 14px;
@@ -369,7 +369,7 @@ body {
 }
 
 .pagination-disabled {
-    color: #9ca3af;
+    color: #555;
     background-color: #f3f4f6;
     border-color: #e5e7eb;
 }
@@ -486,7 +486,7 @@ footer {
 }
 
 footer small {
-    color: #95a5a6;
+    color: #333;
 }
 
 /* ===== Alert Styles ===== */
@@ -753,15 +753,15 @@ footer small {
 }
 
 .text-primary {
-    color: #3b8f8d !important;
+    color: #2d7a7a !important;
 }
 
 .text-info {
-    color: #38b6a0 !important;
+    color: #2d9888 !important;
 }
 
 .text-success {
-    color: #48bb78 !important;
+    color: #38a460 !important;
 }
 
 .text-warning {
@@ -773,5 +773,5 @@ footer small {
 }
 
 .text-secondary {
-    color: #6c757d !important;
+    color: #555 !important;
 }
