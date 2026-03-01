@@ -44,7 +44,8 @@ htmlcov/
 
 
 # files
-docs
+docs/*
+!docs/*.md
 staticfiles/
 
 # Migrations (optional - uncomment if you don't want to track migrations)
