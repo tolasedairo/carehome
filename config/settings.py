@@ -3,6 +3,7 @@ import os
 import sys
 import dj_database_url
 from dotenv import load_dotenv
+from django.contrib.messages import constants as messages
 
 # ======================
 # BASE SETUP
@@ -227,8 +228,6 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 # ======================
 # DJANGO MESSAGES
 # ======================
-
-from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'debug',

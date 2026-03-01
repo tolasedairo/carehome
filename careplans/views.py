@@ -1,6 +1,5 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
