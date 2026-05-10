@@ -9,7 +9,11 @@
 
 <div class="feature-card">
     <h5 class="mb-3">Select archived resident to permanently delete</h5>
-    <p class="text-muted small">Only archived residents are listed here. Deletion is permanent and will remove associated incidents and care plans.</p>
+    <div class="alert alert-danger mb-3" role="alert">
+        <strong>Warning:</strong> deletion is permanent and cannot be undone.
+        This will remove the resident record and permanently delete related incidents and care plans.
+    </div>
+    <p class="text-muted small mb-3">Only archived residents are listed here. Review carefully before deleting.</p>
 
     {% if residents %}
     <div class="table-responsive">
@@ -31,7 +35,7 @@
                     <td class="text-end">
                         <form method="post" action="{% url 'residents:delete' resident.pk %}" class="d-inline">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Permanently delete {{ resident.first_name }} {{ resident.last_name }}? This cannot be undone.');">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Permanently delete {{ resident.first_name }} {{ resident.last_name }}? This cannot be undone and will remove related records.');">
                                 <i class="fas fa-trash me-1"></i>Delete
                             </button>
                         </form>
