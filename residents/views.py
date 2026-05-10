@@ -35,22 +35,25 @@ def delete_resident_select(request):
 @login_required
 @approval_required
 def delete_resident(request, pk):
-    """Placeholder delete endpoint that enforces manager-only access.
-
-    This intentionally does not perform deletion in Stage 2. If accessed,
-    it will refuse and redirect to the list to keep data safe.
-    """
+    """Permanently delete an archived resident for managers only."""
     if request.user.role != "MANAGER":
         messages.error(request, 'Only managers can delete residents.')
         return redirect('residents:list')
 
-    # Only allow POST for destructive actions; block for now.
     if request.method != 'POST':
-        messages.error(request, 'Resident deletion requires a POST request. Feature not enabled yet.')
-        return redirect('residents:list')
+        messages.error(request, 'Resident deletion requires a POST request.')
+        return redirect('residents:delete_select')
 
-    messages.error(request, 'Resident deletion is not enabled yet. Complete the next implementation stage to enable.')
-    return redirect('residents:list')
+    resident = get_object_or_404(Resident, pk=pk)
+
+    if resident.is_active:
+        messages.error(request, 'Only archived residents can be permanently deleted.')
+        return redirect('residents:delete_select')
+
+    resident_name = f'{resident.first_name} {resident.last_name}'
+    resident.delete()
+    messages.success(request, f'Resident "{resident_name}" has been permanently deleted.')
+    return redirect('residents:delete_select')
 
 
 @method_decorator([login_required, approval_required], name='dispatch')

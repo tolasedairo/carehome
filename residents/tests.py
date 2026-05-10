@@ -147,13 +147,17 @@ class ResidentDeletePermissionTests(TestCase):
     def test_delete_endpoint_get_blocked_and_no_delete(self):
         self.client.login(username='manager', password='pass1234')
         response = self.client.get(reverse('residents:delete', args=[self.archived.pk]))
-        # Placeholder redirects back to list
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Resident.objects.filter(pk=self.archived.pk).exists())
 
-    def test_delete_endpoint_post_blocked_and_no_delete(self):
+    def test_manager_can_delete_archived_resident(self):
         self.client.login(username='manager', password='pass1234')
         response = self.client.post(reverse('residents:delete', args=[self.archived.pk]))
         self.assertEqual(response.status_code, 302)
-        # Resident should still exist because deletion not enabled yet
-        self.assertTrue(Resident.objects.filter(pk=self.archived.pk).exists())
+        self.assertFalse(Resident.objects.filter(pk=self.archived.pk).exists())
+
+    def test_manager_cannot_delete_active_resident(self):
+        self.client.login(username='manager', password='pass1234')
+        response = self.client.post(reverse('residents:delete', args=[self.active.pk]))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Resident.objects.filter(pk=self.active.pk).exists())
