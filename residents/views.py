@@ -13,6 +13,44 @@ from .forms import ResidentForm
 from accounts.decorators import approval_required
 
 
+@login_required
+@approval_required
+def delete_resident_select(request):
+    """Placeholder view for manager-only delete selection page.
+
+    Currently not implemented (safe placeholder). Managers see a message
+    and are redirected back to the residents list. This enforces role
+    protection server-side in Stage 2 without enabling destructive actions.
+    """
+    if request.user.role != "MANAGER":
+        messages.error(request, 'Only managers can access resident deletion.')
+        return redirect('residents:list')
+
+    messages.info(request, 'Resident delete flow not enabled yet. Continue to the next stage to enable it.')
+    return redirect('residents:list')
+
+
+@login_required
+@approval_required
+def delete_resident(request, pk):
+    """Placeholder delete endpoint that enforces manager-only access.
+
+    This intentionally does not perform deletion in Stage 2. If accessed,
+    it will refuse and redirect to the list to keep data safe.
+    """
+    if request.user.role != "MANAGER":
+        messages.error(request, 'Only managers can delete residents.')
+        return redirect('residents:list')
+
+    # Only allow POST for destructive actions; block for now.
+    if request.method != 'POST':
+        messages.error(request, 'Resident deletion requires a POST request. Feature not enabled yet.')
+        return redirect('residents:list')
+
+    messages.error(request, 'Resident deletion is not enabled yet. Complete the next implementation stage to enable.')
+    return redirect('residents:list')
+
+
 @method_decorator([login_required, approval_required], name='dispatch')
 class ResidentListView(ListView):
     """Display all active residents"""

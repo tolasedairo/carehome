@@ -11,4 +11,6 @@ urlpatterns = [
     path('<int:pk>/edit/', views.ResidentUpdateView.as_view(), name='edit'),
     path('<int:pk>/archive/', views.archive_resident, name='archive'),
     path('<int:pk>/unarchive/', views.unarchive_resident, name='unarchive'),
+    path('delete-select/', views.delete_resident_select, name='delete_select'),
+    path('<int:pk>/delete/', views.delete_resident, name='delete'),
 ]
