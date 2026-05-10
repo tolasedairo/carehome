@@ -26,8 +26,10 @@ def delete_resident_select(request):
         messages.error(request, 'Only managers can access resident deletion.')
         return redirect('residents:list')
 
-    messages.info(request, 'Resident delete flow not enabled yet. Continue to the next stage to enable it.')
-    return redirect('residents:list')
+    # Show archived residents to choose for permanent deletion.
+    archived = Resident.objects.filter(is_active=False).order_by('last_name', 'first_name')
+    context = {'residents': archived}
+    return render(request, 'residents/resident_delete_select.html', context)
 
 
 @login_required
