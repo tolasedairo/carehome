@@ -19,6 +19,9 @@
         <a href="{% url 'residents:create' %}" class="btn btn-primary btn-sm">
             <i class="fas fa-user-plus me-2"></i>Add Resident
         </a>
+        <button type="button" class="btn btn-outline-danger btn-sm" disabled title="Delete flow will be enabled in the next stage">
+            <i class="fas fa-user-minus me-2"></i>Delete Resident
+        </button>
         {% else %}
         <a href="{% url 'residents:archived' %}" class="btn btn-outline-secondary btn-sm">
             <i class="fas fa-archive me-2"></i>Archived

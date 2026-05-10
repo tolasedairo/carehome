@@ -1547,17 +1547,8 @@ location /static/ {
 
 ## Contact & Support
 
-**Developer**: Care Home Development Team  
-**Email**: support@carehome.local  
-**Repository**: [GitHub Repository]  
-**Documentation**: [Full Docs]
-
----
-
-## License
-
-[Add your license here]
-
+**Developer**: Tolase Dairo
+**Email**: tolasedairo@gmail.com 
 ---
 
 **End of Architecture Document**
