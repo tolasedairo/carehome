@@ -277,6 +277,30 @@ Comprehensive wireframes were created for all main pages to guide development. S
 - Action button placement
 - Data table structures
 
+### Wireframe Screenshots
+
+The following screenshots show the main wireframes used during planning:
+
+<table>
+   <tr>
+      <td align="center" valign="top" width="33%">
+         <img src="static/images/screenshots/homepage_wireframe.jpg" alt="Homepage wireframe" width="100%">
+         <br>
+         <sub>Homepage wireframe</sub>
+      </td>
+      <td align="center" valign="top" width="33%">
+         <img src="static/images/screenshots/resident_list_wireframe.jpg" alt="Resident list wireframe" width="100%">
+         <br>
+         <sub>Resident list wireframe</sub>
+      </td>
+      <td align="center" valign="top" width="33%">
+         <img src="static/images/screenshots/create_edit_delete_resident_wireframe.jpg" alt="Create/Edit/Delete resident wireframe" width="100%">
+         <br>
+         <sub>Create/Edit/Delete resident wireframe</sub>
+      </td>
+   </tr>
+</table>
+
 ---
 
 ## Agile Methodology
